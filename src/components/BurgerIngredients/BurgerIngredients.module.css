@@ -1,0 +1,24 @@
+.ingredients {
+	width: 600px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.wrapper {
+	margin: 0;
+	height: 756px;
+	overflow-y: scroll;
+}
+
+.tabs {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.list {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	list-style-type: none;
+}
