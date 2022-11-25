@@ -4,40 +4,43 @@ import {
   ListIcon,
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
-import MenuItem from '../MenuItem/MenuItem.jsx';
+import LinkItem from '../LinkItem/LinkItem.jsx';
 
 import styles from './AppHeader.module.css';
 
 
-function AppHeader() { 
-  const linkStyle = 'text text_type_main-default text_color_inactive mt-4 mb-4 pt-4 pb-4 pr-5 mr-2'
+function AppHeader() {
+  const linkStyle = 'text text_type_main-default text_color_inactive mt-4 mb-4 pt-4 pb-4 pr-5 mr-2 '
 
   return (
     <header className={styles.header}>
-      <div className={styles.content}>
-        <nav className={styles.container}>
-          <MenuItem
+      <div className={styles.layout}>
+        <nav className={styles.layout}>
+          <LinkItem
             linkClass={linkStyle + styles.link}
             textClass={'ml-2'}
-            icon={<BurgerIcon type='secondary'/>}
+            icon={<BurgerIcon type='secondary' style=""/>}
             text={'Конструктор'}
+            href={'#'}
           />
-          <MenuItem
+          <LinkItem
             linkClass={linkStyle + styles.link}
             textClass={'ml-2'}
-            icon={<ListIcon type='secondary'/>}
+            icon={<ListIcon type='secondary' />}
             text={'Лента заказов'}
+            href={'#'}
           />
         </nav>
         <div className={styles.logo}>
           <Logo />
         </div>
         <nav className={styles.container}>
-          <MenuItem
+          <LinkItem
             linkClass={linkStyle + styles.link}
             textClass={'ml-2'}
-            icon={<ProfileIcon type='secondary'/>}
+            icon={<ProfileIcon type='secondary' />}
             text={'Личный кабинет'}
+            href={'#'}
           />
         </nav>
       </div>

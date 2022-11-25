@@ -1,0 +1,26 @@
+.section {
+  width: 600px;
+}
+
+.list {
+  overflow-y: scroll;
+  list-style-type: none;
+  max-height: 480px;
+}
+
+.element {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.sum {
+  composes: total;
+}

@@ -1,6 +1,10 @@
-.main {
+.app {
   margin: 0 auto;
-  width: 1240px;
+  width: 1280px;
+}
+
+.main {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }

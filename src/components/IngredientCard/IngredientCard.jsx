@@ -1,9 +1,9 @@
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/counter";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 
-import styles from './Card.module.css';
+import styles from './IngredientCard.module.css';
 
-function Card({ image, alt, price, count }) {
+function IngredientCard({ image, alt, price, count }) {
   return (
     <li className={'mt-6 mb-6 ml-4 ' + styles.listItem}>
       <Counter count={count} size={'default'} />
@@ -18,4 +18,4 @@ function Card({ image, alt, price, count }) {
     </li>
   );
 }
-export default Card;
+export default IngredientCard;
