@@ -10,7 +10,7 @@ import styles from './AppHeader.module.css';
 
 
 function AppHeader() {
-  const linkStyle = 'text text_type_main-default text_color_inactive mt-4 mb-4 pt-4 pb-4 pr-5 mr-2 '
+  const linkStyle = 'text text_type_main-default text_color_inactive mt-4 mb-4 pt-4 pb-4 pr-5 '
 
   return (
     <header className={styles.header}>

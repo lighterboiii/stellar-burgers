@@ -1,4 +1,4 @@
-function MenuItem({ linkClass, icon, textClass, text, href }) {
+function LinkItem({ linkClass, icon, textClass, text, href }) {
     return (
       <a className={linkClass} href={href}>
         {icon} <span className={textClass}>{text}</span>
@@ -6,4 +6,4 @@ function MenuItem({ linkClass, icon, textClass, text, href }) {
     );
   }
 
-  export default MenuItem;
+  export default LinkItem;

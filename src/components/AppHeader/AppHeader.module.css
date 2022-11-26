@@ -1,7 +1,7 @@
 .header {
 	position: relative;
 	background-color: #1C1C21;
-
+	margin: 0 auto;
 }
 
 .header::before,
@@ -10,16 +10,16 @@
   position: absolute;
   top: 0;
   bottom: 0;
-	width: 100%;
+	width: 100vw;
 	background-color: #1C1C21;
 }
 
 .header::before {
-	right: 100%;
+	left: 100%;
 }
 
 .header::after {
-	left: 100%;
+	right: 100%;
 }
 
 .layout {
@@ -29,7 +29,7 @@
 }
 
 .logo {
-	margin: 0 290px 0 auto;
+	margin: 0 288px 0 auto;
 }
 
 .link {
@@ -39,6 +39,7 @@
 
 .link:hover {
 	cursor: pointer;
+	color: var(--text-primary-color);
 }
 
 .link:focus {

@@ -1,25 +1,27 @@
 import styles from './BurgerIngredients.module.css';
 import IngredientsHeader from '../IngredientsHeader/IngredientsHeader';
-import Card from '../IngredientCard/IngredientCard';
+import IngredientCard from '../IngredientCard/IngredientCard';
 
 import data from '../utils/data';
 
 
 function BurgerIngredients() {
+	const textStyle = 'text text_type_main-medium text_color_primary pb-6';
+
 	return (
-		<section className={styles.ingredients + ' pr-10'}>
+		<section className={styles.ingredients}>
 			<IngredientsHeader
-				title={'text text_type_main-large text text_color_primary pt-10 pb-5'}
-				cards={styles.tabs}
+				title={'text text_type_main-large text text_color_primary mt-10 mb-5'}
+				cards={styles.tabs + ' pb-10'}
 			/>
-			<div className={styles.wrapper + ' custom-scroll'}>
-				<article className='pt-10'>
-					<h3 className='text text_type_main-medium text_color_primary'>Булки</h3>
-					<ul className={'pt-6 pl-4 pr-4 pb-10 ' + styles.list}>
+			<div className={styles.wrapper}>
+				<div className={styles.scroll + ' custom-scroll'}>
+					<h3 className={textStyle}>Булки</h3>
+					<ul className={'pl-4 pr-4 ' + styles.list}>
 						{data.map((element) => {
 							if (element.type === "bun") {
 								return (
-									<Card
+									<IngredientCard
 										image={element.image}
 										alt={element.name}
 										price={element.price}
@@ -29,14 +31,12 @@ function BurgerIngredients() {
 							}
 						})}
 					</ul>
-				</article>
-				<article className='pt-10'>
-					<h3 className='text text_type_main-medium text_color_primary'>Соусы</h3>
-					<ul className={'pt-6 pl-4 pr-4 pb-8 ' + styles.list}>
+					<h3 className={textStyle + ' pt-10'}>Соусы</h3>
+					<ul className={'pl-4 pr-4 ' + styles.list}>
 						{data.map((element) => {
 							if (element.type === "sauce") {
 								return (
-									<Card
+									<IngredientCard
 										image={element.image}
 										alt={element.name}
 										price={element.price}
@@ -46,14 +46,12 @@ function BurgerIngredients() {
 							}
 						})}
 					</ul>
-				</article>
-				<article className='pt-10'>
-					<h3 className='text text_type_main-medium text_color_primary'>Начинка</h3>
-					<ul className={'pt-6 pl-4 pr-4 pb-8 ' + styles.list}>
+					<h3 className={textStyle + ' pt-10'}>Начинка</h3>
+					<ul className={'pl-4 pr-4 pb-8 ' + styles.list}>
 						{data.map((element) => {
 							if (element.type === "main") {
 								return (
-									<Card
+									<IngredientCard
 										image={element.image}
 										alt={element.name}
 										price={element.price}
@@ -63,7 +61,7 @@ function BurgerIngredients() {
 							}
 						})}
 					</ul>
-				</article>
+				</div>
 			</div>
 		</section>
 	)
