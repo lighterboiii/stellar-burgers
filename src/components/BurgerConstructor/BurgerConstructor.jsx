@@ -2,11 +2,12 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
-import data from '../utils/data';
+
+import PropTypes from 'prop-types';
 import styles from './BurgerConstructor.module.css';
 
 
-function BurgerConstructor() {
+function BurgerConstructor( {data} ) {
   return (
     <section className={styles.section}>
       <div className={'mt-25 mb-10'}>
@@ -47,10 +48,12 @@ function BurgerConstructor() {
       </div>
       <div className={'mr-4 ' + styles.total}>
         <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>610{<CurrencyIcon />}</span>
-        <Button size="large">Оформить заказ</Button>
+        <Button size="large" type="primary">Оформить заказ</Button>
       </div>
     </section>
   )
 }
+
+BurgerConstructor.propTypes = { data: PropTypes.array.isRequired };
 
 export default BurgerConstructor;

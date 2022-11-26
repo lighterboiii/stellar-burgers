@@ -9,12 +9,11 @@
 .wrapper {
 	margin: 0 auto;
 	height: 756px;
-	/* overflow-y: scroll; */
 }
 
 .scroll {
 	overflow-y: scroll;
-	height: 664px;
+	height: 660px;
 }
 
 .tabs {

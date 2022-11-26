@@ -2,10 +2,9 @@ import styles from './BurgerIngredients.module.css';
 import IngredientsHeader from '../IngredientsHeader/IngredientsHeader';
 import IngredientCard from '../IngredientCard/IngredientCard';
 
-import data from '../utils/data';
+import PropTypes from 'prop-types';
 
-
-function BurgerIngredients() {
+function BurgerIngredients( {data} ) {
 	const textStyle = 'text text_type_main-medium text_color_primary pb-6';
 
 	return (
@@ -66,6 +65,8 @@ function BurgerIngredients() {
 		</section>
 	)
 }
+
+BurgerIngredients.propTypes = { data: PropTypes.array.isRequired };
 
 export default BurgerIngredients;
 

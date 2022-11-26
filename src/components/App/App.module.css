@@ -1,9 +1,10 @@
 .app {
   margin: 0 auto;
-  width: 1260px;
+  width: 1280px;
 }
 
 .main {
+  margin: 0 auto;
   width: 1240px;
   display: flex;
   align-items: flex-start;
