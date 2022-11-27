@@ -14,7 +14,7 @@ function AppHeader() {
 
   return (
     <header className={styles.header}>
-      <div className={styles.layout}>
+      <div className={styles.container}>
         <nav className={styles.layout}>
           <LinkItem
             linkClass={linkStyle + styles.link}

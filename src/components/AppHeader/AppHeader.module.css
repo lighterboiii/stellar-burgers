@@ -1,31 +1,19 @@
 .header {
 	margin: 0 auto;
-	position: relative;
-	background-color: var(--background);
-}
-
-.header::before,
-.header::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
 	width: 100vw;
 	background-color: var(--background);
-}
-
-.header::before {
-	right: 100%;
-}
-
-.header::after {
-	left: 100%;
 }
 
 .layout {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+
+.container {
+	margin: 0 auto;
+	composes: layout;
+	width: 1280px;
 }
 
 .logo {
