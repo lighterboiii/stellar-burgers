@@ -1,7 +1,9 @@
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
+import { 
+  DragIcon,
+  CurrencyIcon
+} from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import  bunImage from "@ya.praktikum/react-developer-burger-ui-components/dist/images/img.png";
 
 import PropTypes from 'prop-types';
@@ -18,12 +20,12 @@ function BurgerConstructor({data}) {
             isLocked={true}
             text={'Краторная булка N-200i (верх)'}
             thumbnail={bunImage}
-            price={117}
+            price={100}
           />
         </div>
         <ul className={'text custom-scroll ' + styles.list}>
           {data.map((element) => {
-            if (element.type === 'sauce' || element.type === 'main') {
+            if (element.type !== 'bun') {
               return (
                 <li className={'mb-4 ml-4 mr-1 ' + styles.element} key={element._id}>
                   <DragIcon type="primary" />
@@ -43,7 +45,7 @@ function BurgerConstructor({data}) {
             isLocked={true}
             text={'Краторная булка N-200i (низ)'}
             thumbnail={bunImage}
-            price={117}
+            price={100}
           />
         </div>
       </div>

@@ -5,6 +5,7 @@
 .paragraph {
   display: flex;
   justify-content: center;
+  text-align: center;
 }
 
 .bunName {

@@ -2,9 +2,9 @@ import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 
 import PropTypes from 'prop-types';
-import styles from './IngredientCard.module.css';
+import styles from './Ingredient.module.css';
 
-function IngredientCard({ image, alt, price, count }) {
+function Ingredient({ image, alt, price, count }) {
   return (
     <li className={styles.listItem}>
       <Counter count={count} size={'default'} />
@@ -20,10 +20,10 @@ function IngredientCard({ image, alt, price, count }) {
   );
 }
 
-IngredientCard.propTypes = { 
+Ingredient.propTypes = { 
   price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
 }
 
-export default IngredientCard;
+export default Ingredient;

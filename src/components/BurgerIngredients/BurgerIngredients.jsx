@@ -1,15 +1,17 @@
 import styles from './BurgerIngredients.module.css';
-import IngredientsHeader from '../IngredientsHeader/IngredientsHeader';
-import IngredientCard from '../IngredientCard/IngredientCard';
+import IngredientsHeader from './IngredientsHeader/IngredientsHeader';
+import IngredientCategory from './IngredientCategory/IngredientCategory';
 
 import PropTypes from 'prop-types';
 
+
 function BurgerIngredients({ data }) {
-	const textStyle = 'text text_type_main-medium text_color_primary pb-6';
+	const textStyle = 'text text_type_main-medium text_color_primary pb-6'; 
 
 	const buns = data.filter((item) => item.type === 'bun');
 	const mains = data.filter((item) => item.type === 'main');
 	const sauces = data.filter((item) => item.type === 'sauce');
+
 	return (
 		<section className={styles.ingredients}>
 			<IngredientsHeader
@@ -18,48 +20,9 @@ function BurgerIngredients({ data }) {
 			/>
 			<div className={styles.wrapper}>
 				<div className={styles.scroll + ' custom-scroll'}>
-					<h3 className={textStyle}>Булки</h3>
-					<ul className={'pl-4 pr-4 ' + styles.list}>
-						{buns.map((element) => {
-							return (
-								<IngredientCard
-									image={element.image}
-									alt={element.name}
-									price={element.price}
-									key={element._id}
-								/>
-							)
-						}
-						)}
-					</ul>
-					<h3 className={textStyle + ' pt-10'}>Соусы</h3>
-					<ul className={'pl-4 pr-4 ' + styles.list}>
-						{sauces.map((element) => {
-							return (
-								<IngredientCard
-									image={element.image}
-									alt={element.name}
-									price={element.price}
-									key={element._id}
-								/>
-							)
-						}
-						)}
-					</ul>
-					<h3 className={textStyle + ' pt-10' }>Начинка</h3>
-					<ul className={'pl-4 pr-4 pb-8 ' + styles.list}>
-						{mains.map((element) => {
-							return (
-								<IngredientCard
-									image={element.image}
-									alt={element.name}
-									price={element.price}
-									key={element._id}
-								/>
-							)
-						}
-						)}
-					</ul>
+					<IngredientCategory category={buns} heading={'Булки'} listStyle={'pl-4 pr-4 ' + styles.list} textStyle={textStyle} />
+					<IngredientCategory category={sauces} heading={'Соусы'} listStyle={'pl-4 pr-4 ' + styles.list} textStyle={textStyle + ' pt-10'} />
+					<IngredientCategory category={mains} heading={'Начинки'} listStyle={'pl-4 pr-4 pb-8 ' + styles.list} textStyle={textStyle + ' pt-10'} />
 				</div>
 			</div>
 		</section>

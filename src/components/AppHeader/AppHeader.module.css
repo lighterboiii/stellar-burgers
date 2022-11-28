@@ -5,6 +5,7 @@
 }
 
 .layout {
+	margin: 0;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -23,6 +24,12 @@
 .link {
 	text-decoration: none;
 	composes: layout;
+}
+
+.item {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
 
 .link:hover {
