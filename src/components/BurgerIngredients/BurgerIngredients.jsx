@@ -4,9 +4,12 @@ import IngredientCard from '../IngredientCard/IngredientCard';
 
 import PropTypes from 'prop-types';
 
-function BurgerIngredients( {data} ) {
+function BurgerIngredients({ data }) {
 	const textStyle = 'text text_type_main-medium text_color_primary pb-6';
 
+	const buns = data.filter((item) => item.type === 'bun');
+	const mains = data.filter((item) => item.type === 'main');
+	const sauces = data.filter((item) => item.type === 'sauce');
 	return (
 		<section className={styles.ingredients}>
 			<IngredientsHeader
@@ -17,48 +20,45 @@ function BurgerIngredients( {data} ) {
 				<div className={styles.scroll + ' custom-scroll'}>
 					<h3 className={textStyle}>Булки</h3>
 					<ul className={'pl-4 pr-4 ' + styles.list}>
-						{data.map((element) => {
-							if (element.type === "bun") {
-								return (
-									<IngredientCard
-										image={element.image}
-										alt={element.name}
-										price={element.price}
-										key={element._id}
-									/>
-								)
-							}
-						})}
+						{buns.map((element) => {
+							return (
+								<IngredientCard
+									image={element.image}
+									alt={element.name}
+									price={element.price}
+									key={element._id}
+								/>
+							)
+						}
+						)}
 					</ul>
 					<h3 className={textStyle + ' pt-10'}>Соусы</h3>
 					<ul className={'pl-4 pr-4 ' + styles.list}>
-						{data.map((element) => {
-							if (element.type === "sauce") {
-								return (
-									<IngredientCard
-										image={element.image}
-										alt={element.name}
-										price={element.price}
-										key={element._id}
-									/>
-								)
-							}
-						})}
+						{sauces.map((element) => {
+							return (
+								<IngredientCard
+									image={element.image}
+									alt={element.name}
+									price={element.price}
+									key={element._id}
+								/>
+							)
+						}
+						)}
 					</ul>
-					<h3 className={textStyle + ' pt-10'}>Начинка</h3>
+					<h3 className={textStyle + ' pt-10' }>Начинка</h3>
 					<ul className={'pl-4 pr-4 pb-8 ' + styles.list}>
-						{data.map((element) => {
-							if (element.type === "main") {
-								return (
-									<IngredientCard
-										image={element.image}
-										alt={element.name}
-										price={element.price}
-										key={element._id}
-									/>
-								)
-							}
-						})}
+						{mains.map((element) => {
+							return (
+								<IngredientCard
+									image={element.image}
+									alt={element.name}
+									price={element.price}
+									key={element._id}
+								/>
+							)
+						}
+						)}
 					</ul>
 				</div>
 			</div>
@@ -66,7 +66,7 @@ function BurgerIngredients( {data} ) {
 	)
 }
 
-BurgerIngredients.propTypes = { data: PropTypes.array.isRequired };
+BurgerIngredients.propTypes = { data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired };
 
 export default BurgerIngredients;
 

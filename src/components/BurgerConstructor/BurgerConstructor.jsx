@@ -2,12 +2,13 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
+import  bunImage from "@ya.praktikum/react-developer-burger-ui-components/dist/images/img.png";
 
 import PropTypes from 'prop-types';
 import styles from './BurgerConstructor.module.css';
 
 
-function BurgerConstructor( {data} ) {
+function BurgerConstructor({data}) {
   return (
     <section className={styles.section}>
       <div className={'mt-25 mb-10'}>
@@ -16,7 +17,7 @@ function BurgerConstructor( {data} ) {
             type={'top'}
             isLocked={true}
             text={'Краторная булка N-200i (верх)'}
-            thumbnail={require('@ya.praktikum/react-developer-burger-ui-components/dist/images/img.png')}
+            thumbnail={bunImage}
             price={117}
           />
         </div>
@@ -41,7 +42,7 @@ function BurgerConstructor( {data} ) {
             type={'bottom'}
             isLocked={true}
             text={'Краторная булка N-200i (низ)'}
-            thumbnail={require('@ya.praktikum/react-developer-burger-ui-components/dist/images/img.png')}
+            thumbnail={bunImage}
             price={117}
           />
         </div>
@@ -54,6 +55,6 @@ function BurgerConstructor( {data} ) {
   )
 }
 
-BurgerConstructor.propTypes = { data: PropTypes.array.isRequired };
+BurgerConstructor.propTypes = { data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired };
 
 export default BurgerConstructor;

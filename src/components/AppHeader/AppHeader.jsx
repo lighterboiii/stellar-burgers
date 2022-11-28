@@ -1,3 +1,4 @@
+import React from 'react';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/logo';
 import {
   BurgerIcon,
@@ -10,6 +11,8 @@ import styles from './AppHeader.module.css';
 
 
 function AppHeader() {
+  const [current, setCurrent] = React.useState("one");
+
   const linkStyle = 'text text_type_main-default text_color_inactive mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 '
 
   return (
@@ -19,7 +22,7 @@ function AppHeader() {
           <LinkItem
             linkClass={linkStyle + styles.link}
             textClass={'ml-2'}
-            icon={<BurgerIcon type='secondary' style=""/>}
+            icon={<BurgerIcon type='primary'/>}
             text={'Конструктор'}
             href={'#'}
           />

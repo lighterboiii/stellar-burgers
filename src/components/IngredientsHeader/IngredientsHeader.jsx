@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/tab";
+
 
 function IngredientsHeader({ title, cards }) {
   const [current, setCurrent] = React.useState("one");
@@ -20,6 +22,11 @@ function IngredientsHeader({ title, cards }) {
       </div>
     </>
   )
+}
+
+IngredientsHeader.propTypes = {
+  title: PropTypes.string.isRequired,
+  cards: PropTypes.string.isRequired
 }
 
 export default IngredientsHeader;
