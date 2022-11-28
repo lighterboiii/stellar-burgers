@@ -5,7 +5,6 @@
 }
 
 .layout {
-	margin: 0;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -26,17 +25,7 @@
 	composes: layout;
 }
 
-.item {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-
 .link:hover {
 	cursor: pointer;
-	color: var(--text-primary-color);
-}
-
-.link:focus {
 	color: var(--text-primary-color);
 }

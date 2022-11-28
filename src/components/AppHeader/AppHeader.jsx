@@ -19,8 +19,8 @@ function AppHeader() {
         <div className={styles.layout}>
           <LinkItem
             linkClass={linkStyle + styles.link}
-            textClass={'ml-2'}
-            icon={<BurgerIcon type='primary'/>}
+            textClass={'ml-2 text_color_primary'}
+            icon={<BurgerIcon type='primary' />}
             text={'Конструктор'}
             href={'#'}
           />
@@ -39,7 +39,7 @@ function AppHeader() {
           <LinkItem
             linkClass={linkStyle + styles.link}
             textClass={'ml-2'}
-            icon={<ProfileIcon type='secondary' />}
+            icon={<ProfileIcon type='secondary'/>}
             text={'Личный кабинет'}
             href={'#'}
           />
