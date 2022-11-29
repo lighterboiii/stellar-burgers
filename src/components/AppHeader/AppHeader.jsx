@@ -5,7 +5,7 @@ import {
   ListIcon,
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
-import LinkItem from '../LinkItem/LinkItem.jsx';
+import LinkItem from './LinkItem/LinkItem.jsx';
 
 import styles from './AppHeader.module.css';
 

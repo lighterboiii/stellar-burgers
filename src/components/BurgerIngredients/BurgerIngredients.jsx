@@ -5,7 +5,7 @@ import IngredientCategory from './IngredientCategory/IngredientCategory';
 import PropTypes from 'prop-types';
 
 
-function BurgerIngredients({ data }) {
+function BurgerIngredients({data}) {
 	const textStyle = 'text text_type_main-medium text_color_primary pb-6'; 
 
 	const buns = data.filter((item) => item.type === 'bun');
