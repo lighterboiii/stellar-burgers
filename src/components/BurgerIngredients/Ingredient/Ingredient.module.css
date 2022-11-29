@@ -1,0 +1,13 @@
+.listItem {
+  position: relative;
+}
+
+.paragraph {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.bunName {
+  composes: paragraph;
+}
