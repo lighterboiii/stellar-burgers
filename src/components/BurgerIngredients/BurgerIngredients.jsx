@@ -5,7 +5,7 @@ import IngredientCategory from './IngredientCategory/IngredientCategory';
 import PropTypes from 'prop-types';
 
 
-function BurgerIngredients({data}) {
+function BurgerIngredients({data, setCurrentIngredient, setShowIngredientPopup}) {
 	const textStyle = 'text text_type_main-medium text_color_primary pb-6'; 
 
 	const buns = data.filter((item) => item.type === 'bun');
@@ -20,9 +20,21 @@ function BurgerIngredients({data}) {
 			/>
 			<div className={styles.wrapper}>
 				<div className={styles.scroll + ' custom-scroll'}>
-					<IngredientCategory category={buns} heading={'Булки'} listStyle={'pl-4 pr-4 ' + styles.list} textStyle={textStyle} />
-					<IngredientCategory category={sauces} heading={'Соусы'} listStyle={'pl-4 pr-4 ' + styles.list} textStyle={textStyle + ' pt-10'} />
-					<IngredientCategory category={mains} heading={'Начинки'} listStyle={'pl-4 pr-4 pb-8 ' + styles.list} textStyle={textStyle + ' pt-10'} />
+					<IngredientCategory 
+						setShowIngredientPopup={setShowIngredientPopup}
+						setCurrentIngredient={setCurrentIngredient}
+					  category={buns} heading={'Булки'} listStyle={'pl-4 pr-4 ' + styles.list} textStyle={textStyle} 
+						data={data}/>
+					<IngredientCategory 
+						setShowIngredientPopup={setShowIngredientPopup}
+						setCurrentIngredient={setCurrentIngredient}
+					  category={sauces} heading={'Соусы'} listStyle={'pl-4 pr-4 ' + styles.list} textStyle={textStyle + ' pt-10'} 
+					  data={data}/>
+					<IngredientCategory 
+						setShowIngredientPopup={setShowIngredientPopup} 
+						setCurrentIngredient={setCurrentIngredient}
+						category={mains} heading={'Начинки'} listStyle={'pl-4 pr-4 pb-8 ' + styles.list} textStyle={textStyle + ' pt-10'} 
+						data={data}/>
 				</div>
 			</div>
 		</section>

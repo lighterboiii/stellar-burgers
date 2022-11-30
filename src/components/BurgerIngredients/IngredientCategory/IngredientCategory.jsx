@@ -1,8 +1,14 @@
 import Ingredient from "../Ingredient/Ingredient";
 
-function IngredientCategory({ category, heading, listStyle, textStyle }) {
+function IngredientCategory({ data, category, heading, listStyle, textStyle, setShowIngredientPopup, setCurrentIngredient }) {
+
+
+  const handleIngClick = (evt) => {
+    setShowIngredientPopup(true)
+  }
+
   return (
-    <>
+    <div>
       <h3 className={textStyle}>{heading}</h3>
       <ul className={listStyle}>
         {category.map((element) => {
@@ -13,12 +19,17 @@ function IngredientCategory({ category, heading, listStyle, textStyle }) {
               alt={element.name}
               price={element.price}
               key={element._id}
+              id={element._id}
+              setShowIngredientPopup={setShowIngredientPopup}
+						  setCurrentIngredient={setCurrentIngredient}
+              data={data}
+              handleIngClick={handleIngClick}
             />
           )
         }
         )}
       </ul>
-    </>
+    </div>
   )
 }
 

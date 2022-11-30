@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import styles from './BurgerConstructor.module.css';
 
 
-function BurgerConstructor({data}) {
+function BurgerConstructor({data, setShowOrderPopup}) {
   return (
     <section className={styles.section}>
       <div className={'mt-25 mb-10'}>
@@ -51,7 +51,7 @@ function BurgerConstructor({data}) {
       </div>
       <div className={'mr-4 ' + styles.total}>
         <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>610{<CurrencyIcon />}</span>
-        <Button size="large" type="primary">Оформить заказ</Button>
+        <Button size="large" type="primary" onClick={() => setShowOrderPopup(true)}>Оформить заказ</Button>
       </div>
     </section>
   )
