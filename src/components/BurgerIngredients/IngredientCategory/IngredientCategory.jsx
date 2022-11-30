@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
 import Ingredient from "../Ingredient/Ingredient";
 
 function IngredientCategory({ data, category, heading, listStyle, textStyle, setShowIngredientPopup, setCurrentIngredient }) {
 
-
   const handleIngClick = (evt) => {
+    const id = evt.currentTarget.id
+    const current = data.find(element => element._id === id);
+    setCurrentIngredient(current)
     setShowIngredientPopup(true)
   }
 
@@ -22,7 +25,6 @@ function IngredientCategory({ data, category, heading, listStyle, textStyle, set
               id={element._id}
               setShowIngredientPopup={setShowIngredientPopup}
 						  setCurrentIngredient={setCurrentIngredient}
-              data={data}
               handleIngClick={handleIngClick}
             />
           )

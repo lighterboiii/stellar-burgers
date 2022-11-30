@@ -1,9 +1,9 @@
 import styles from './IngredientDetails.module.css'
 
-function IngredientDetails({ data, title, currentIngredient }) {
-  console.log(currentIngredient)
+function IngredientDetails({ currentIngredient }) {
+
   return (
-    <div className={styles.wrapper + ' pb-15 pl-10 pr-10'}>
+    <div className={styles.wrapper + ' pb-15 pl-10 pr-10'} currentIngredient={currentIngredient.id}>
       <img src={currentIngredient.image} alt={currentIngredient.name} />
       <h4 className={'mt-4 mb-8 text text_type_main-medium ' + styles.title}>{currentIngredient.name}</h4>
       <ul className={styles.options}>
