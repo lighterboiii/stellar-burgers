@@ -36,7 +36,7 @@ function App() {
         <BurgerConstructor data={data} setShowOrderPopup={setShowOrderPopup}/>
       </main>
      {showIngredientPopup && ( 
-      <Modal title={'Детали ингредиента'} closePopup={setShowIngredientPopup}>
+      <Modal title={'Детали ингредиента'} closePopup={setShowIngredientPopup} >
         <IngredientDetails data={data} closePopup={setShowIngredientPopup} currentIngredient={currentIngredient}/>
       </Modal>
      )}

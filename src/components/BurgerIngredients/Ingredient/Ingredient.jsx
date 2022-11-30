@@ -25,7 +25,9 @@ Ingredient.propTypes = {
   price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
-  count: PropTypes.number.isRequired
+  count: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
+  handleIngClick: PropTypes.func.isRequired
 }
 
 export default Ingredient;

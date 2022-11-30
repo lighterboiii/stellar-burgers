@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "./ModalOverlay/ModalOverlay";
 import styles from './Modal.module.css'
+import PropTypes from 'prop-types';
 
 const Modal = ({ title, children, closePopup }) => {
 
@@ -14,7 +15,7 @@ const Modal = ({ title, children, closePopup }) => {
     }
     document.addEventListener('keydown', hanldeEscClose);
     return () => {
-      document.removeEventListener('keydown', hanldeEscClose);  {/* отписка от обработчика событий */}
+      document.removeEventListener('keydown', hanldeEscClose); 
     }
   }, [closePopup])
 
@@ -31,6 +32,12 @@ const Modal = ({ title, children, closePopup }) => {
     </> ,
     document.getElementById('modal-root')
   )
+}
+
+Modal.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.object.isRequired,
+  closePopup: PropTypes.func.isRequired
 }
 
 export default Modal;

@@ -1,16 +1,19 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import { 
+import {
   DragIcon,
   CurrencyIcon
 } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
-import  bunImage from "@ya.praktikum/react-developer-burger-ui-components/dist/images/img.png";
+import bunImage from "@ya.praktikum/react-developer-burger-ui-components/dist/images/img.png";
 
 import PropTypes from 'prop-types';
 import styles from './BurgerConstructor.module.css';
 
 
-function BurgerConstructor({data, setShowOrderPopup}) {
+function BurgerConstructor({ data, setShowOrderPopup }) {
+
+  const notBun = data.filter((item) => item.type !== 'bun');
+  
   return (
     <section className={styles.section}>
       <div className={'mt-25 mb-10'}>
@@ -24,8 +27,7 @@ function BurgerConstructor({data, setShowOrderPopup}) {
           />
         </div>
         <ul className={'text custom-scroll ' + styles.list}>
-          {data.map((element) => {
-            if (element.type !== 'bun') {
+          {notBun.map((element) => {
               return (
                 <li className={'mb-4 ml-4 mr-1 ' + styles.element} key={element._id}>
                   <DragIcon type="primary" />
@@ -36,8 +38,8 @@ function BurgerConstructor({data, setShowOrderPopup}) {
                   />
                 </li>
               )
-            }
-          })}
+            })
+          }
         </ul>
         <div className={' ml-4 mr-4 pl-8'}>
           <ConstructorElement
@@ -57,6 +59,9 @@ function BurgerConstructor({data, setShowOrderPopup}) {
   )
 }
 
-BurgerConstructor.propTypes = { data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired };
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  setShowOrderPopup: PropTypes.func.isRequired
+};
 
 export default BurgerConstructor;
