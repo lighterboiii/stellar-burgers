@@ -5,18 +5,17 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails.jsx';
 import Modal from '../Modal/Modal.jsx';
 import OrderDetails from '../Modal/OrderDetails/OrderDetails.jsx';
-
+import { BURGER_API_URL } from '../constants/constants.js';
 import styles from './App.module.css';
 
 function App() {
-  const dataApi = 'https://norma.nomoreparties.space/api/ingredients';
   const [data, setData] = React.useState([]);
   const [showIngredientPopup, setShowIngredientPopup] = React.useState(false);
   const [showOrderPopup, setShowOrderPopup] = React.useState(false);
   const [currentIngredient, setCurrentIngredient] = React.useState({})
 
   React.useEffect(() => {
-    fetch(dataApi)
+    fetch(`${BURGER_API_URL}/ingredients`)
       .then(res => res.json())
       .then((res) => {
         setData(res.data)
