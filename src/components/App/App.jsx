@@ -5,26 +5,23 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails.jsx';
 import Modal from '../Modal/Modal.jsx';
 import OrderDetails from '../Modal/OrderDetails/OrderDetails.jsx';
-import { BURGER_API_URL } from '../constants/constants.js';
+import { getIngredients } from '../utils.js/burger-api.js';
 import styles from './App.module.css';
 
 function App() {
   const [data, setData] = React.useState([]);
   const [showIngredientPopup, setShowIngredientPopup] = React.useState(false);
   const [showOrderPopup, setShowOrderPopup] = React.useState(false);
-  const [currentIngredient, setCurrentIngredient] = React.useState({})
+  const [currentIngredient, setCurrentIngredient] = React.useState(null)
 
   React.useEffect(() => {
-    fetch(`${BURGER_API_URL}/ingredients`)
-      .then(res => res.json())
+    getIngredients()
       .then((res) => {
         setData(res.data)
       })
       .catch(e => {
         console.log(e)
       })
-      .finally(() => {
-    })
   }, [])
 
   return (
@@ -36,12 +33,12 @@ function App() {
       </main>
      {showIngredientPopup && ( 
       <Modal title={'Детали ингредиента'} closePopup={setShowIngredientPopup} >
-        <IngredientDetails data={data} closePopup={setShowIngredientPopup} currentIngredient={currentIngredient}/>
+        <IngredientDetails data={data} currentIngredient={currentIngredient}/>
       </Modal>
      )}
     {showOrderPopup && (
        <Modal title={''} closePopup={setShowOrderPopup}>
-        <OrderDetails closePopup={setShowOrderPopup}/>
+        <OrderDetails />
       </Modal> )}
     </div>
   );
