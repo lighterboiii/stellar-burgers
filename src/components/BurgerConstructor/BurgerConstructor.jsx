@@ -4,7 +4,6 @@ import {
   DragIcon,
   CurrencyIcon
 } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
-import bunImage from "@ya.praktikum/react-developer-burger-ui-components/dist/images/img.png";
 import { useMemo } from "react";
 import PropTypes from 'prop-types';
 import styles from './BurgerConstructor.module.css';
