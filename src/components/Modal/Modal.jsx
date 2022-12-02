@@ -8,14 +8,14 @@ import PropTypes from 'prop-types';
 const Modal = ({ title, children, closePopup }) => {
 
   useEffect(() => {
-    const hanldeEscClose = (evt) => {
+    const handleEscClose = (evt) => {
       if (evt.key === 'Escape') {
         closePopup(false)
       }
     }
-    document.addEventListener('keydown', hanldeEscClose);
+    document.addEventListener('keydown', handleEscClose);
     return () => {
-      document.removeEventListener('keydown', hanldeEscClose); 
+      document.removeEventListener('keydown', handleEscClose); 
     }
   }, [closePopup])
 
