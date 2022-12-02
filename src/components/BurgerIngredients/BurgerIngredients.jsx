@@ -1,16 +1,16 @@
 import styles from './BurgerIngredients.module.css';
 import IngredientsHeader from './IngredientsHeader/IngredientsHeader';
 import IngredientCategory from './IngredientCategory/IngredientCategory';
-
+import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 
 function BurgerIngredients({data, setCurrentIngredient, setShowIngredientPopup}) {
 	const textStyle = 'text text_type_main-medium text_color_primary pb-6'; 
 
-	const buns = data.filter((item) => item.type === 'bun');
-	const mains = data.filter((item) => item.type === 'main');
-	const sauces = data.filter((item) => item.type === 'sauce');
+	const buns = useMemo(() => data.filter((item) => item.type === 'bun'), [data]);
+	const mains = useMemo(() => data.filter((item) => item.type === 'main'), [data]);
+	const sauces = useMemo(() => data.filter((item) => item.type === 'sauce'), [data]);
 
 	return (
 		<section className={styles.ingredients}>
