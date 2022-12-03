@@ -57,7 +57,7 @@ function BurgerConstructor({ data, setShowOrderPopup }) {
       </div>
       <div className={'mr-4 ' + styles.total}>
         <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>610{<CurrencyIcon />}</span>
-        <Button size="large" type="primary" onClick={() => setShowOrderPopup(true)}>Оформить заказ</Button>
+        <Button size="large" type="primary" htmlType='button' onClick={() => setShowOrderPopup(true)}>Оформить заказ</Button>
       </div>
     </section>
   )
