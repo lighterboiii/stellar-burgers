@@ -12,19 +12,21 @@ import styles from './BurgerConstructor.module.css';
 function BurgerConstructor({ data, setShowOrderPopup }) {
 
   const notBun = useMemo(() => data.filter((item) => item.type !== 'bun'), [data]);
-  const bun = useMemo(() => data.find((item) => item.type === 'bun'), [data]);
-  console.log(bun)
+  const bun = data.find((item) => item.type === 'bun');
 
   return (
     <section className={styles.section}>
       <div className={'mt-25 mb-10'}>
         <div className={'mb-4 ml-4 mr-4 pl-8'}>
-          <ConstructorElement
+        {bun && (
+        <ConstructorElement
+            type="top"
             isLocked={true}
             text={bun.name + ' (верх)'}
             thumbnail={bun.image}
             price={bun.price}
           />
+        )}
         </div>
         <ul className={'text custom-scroll ' + styles.list}>
           {notBun.map((element) => {
@@ -42,12 +44,15 @@ function BurgerConstructor({ data, setShowOrderPopup }) {
           }
         </ul>
         <div className={' ml-4 mr-4 pl-8'}>
-          <ConstructorElement
-            isLocked={true}
-            text={bun.name + ' (низ)'}
-            thumbnail={bun.image}
-            price={bun.price}
-          />
+          {bun && (
+              <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={bun.name + ' (низ)'}
+              thumbnail={bun.image}
+              price={bun.price}
+            />
+            )}
         </div>
       </div>
       <div className={'mr-4 ' + styles.total}>
