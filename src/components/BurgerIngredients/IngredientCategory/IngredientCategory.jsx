@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import Ingredient from "../Ingredient/Ingredient";
+import { forwardRef } from 'react';
 
-function IngredientCategory({ data, category, heading, listStyle, textStyle, setShowIngredientPopup, setCurrentIngredient }) {
+const IngredientCategory = forwardRef((
+  { data, category, heading, listStyle, textStyle, setShowIngredientPopup, setCurrentIngredient }, ref) => {
 
   const handleIngClick = (evt) => {
     const id = evt.currentTarget.id
@@ -11,7 +13,7 @@ function IngredientCategory({ data, category, heading, listStyle, textStyle, set
   }
 
   return (
-    <div>
+    <div ref={ref}>
       <h3 className={textStyle}>{heading}</h3>
       <ul className={listStyle}>
         {category.map((element) => {
@@ -33,7 +35,7 @@ function IngredientCategory({ data, category, heading, listStyle, textStyle, set
       </ul>
     </div>
   )
-}
+})
 
 
 IngredientCategory.propTypes = { 
