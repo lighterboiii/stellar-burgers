@@ -5,10 +5,10 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails.jsx';
 import Modal from '../Modal/Modal.jsx';
 import OrderDetails from '../Modal/OrderDetails/OrderDetails.jsx';
-import { getIngredients } from '../utils/burger-api.js';
+import { getIngredients } from '../../utils/burger-api.js';
 import styles from './App.module.css';
-import { IngredientsContext } from '../utils/IngredientsContext';
-import { OrderContext } from '../utils/OrderContext';
+import { IngredientsContext } from '../../utils/IngredientsContext';
+import { OrderContext } from '../../utils/OrderContext';
 
 function App() {
   const [data, setData] = React.useState([]);

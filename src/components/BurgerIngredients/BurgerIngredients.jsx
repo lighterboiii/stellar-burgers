@@ -3,7 +3,7 @@ import IngredientCategory from './IngredientCategory/IngredientCategory';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/tab";
 import { useMemo, useRef, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { IngredientsContext } from '../utils/IngredientsContext';
+import { IngredientsContext } from '../../utils/IngredientsContext';
 
 
 function BurgerIngredients({ setCurrentIngredient, setShowIngredientPopup}) {

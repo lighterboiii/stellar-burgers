@@ -1,9 +1,10 @@
 import styles from './IngredientDetails.module.css'
+import PropTypes from 'prop-types';
 
 function IngredientDetails({ currentIngredient }) {
 
   return (
-    <div className={styles.wrapper + ' pb-15 pl-10 pr-10'} currentIngredient={currentIngredient._id}>
+    <div className={styles.wrapper + ' pb-15 pl-10 pr-10'} currentingredient={currentIngredient._id}>
       <img src={currentIngredient.image_large} alt={currentIngredient.name} />
       <h4 className={'mt-4 mb-8 text text_type_main-medium ' + styles.title}>{currentIngredient.name}</h4>
       <ul className={styles.options}>
@@ -27,5 +28,9 @@ function IngredientDetails({ currentIngredient }) {
     </div>
   )
 }
+
+IngredientDetails.propTypes = { 
+	currentIngredient: PropTypes.object.isRequired
+ };
 
 export default IngredientDetails

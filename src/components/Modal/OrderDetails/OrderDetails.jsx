@@ -1,7 +1,7 @@
 import styles from './OrderDetails.module.css';
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { useContext } from 'react';
-import { OrderContext } from '../../utils/OrderContext';
+import { OrderContext } from '../../../utils/OrderContext';
 
 function OrderDetails() {
   const { orderDetails } = useContext(OrderContext);
