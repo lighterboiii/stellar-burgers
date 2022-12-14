@@ -4,15 +4,16 @@ import {
   DragIcon,
   CurrencyIcon
 } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
-import { useMemo } from "react";
+import { useMemo, useContext } from "react";
 import PropTypes from 'prop-types';
 import styles from './BurgerConstructor.module.css';
+import { IngredientsContext } from '../utils/BurgerContext';
 
 
-function BurgerConstructor({ data, setShowOrderPopup }) {
-
-  const notBun = useMemo(() => data.filter((item) => item.type !== 'bun'), [data]);
-  const bun = data.find((item) => item.type === 'bun');
+function BurgerConstructor({ setShowOrderPopup }) {
+  const burgerData = useContext(IngredientsContext);
+  const notBun = useMemo(() => burgerData.filter((item) => item.type !== 'bun'), [burgerData]);
+  const bun = burgerData.find((item) => item.type === 'bun');
 
   return (
     <section className={styles.section}>
@@ -64,7 +65,6 @@ function BurgerConstructor({ data, setShowOrderPopup }) {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   setShowOrderPopup: PropTypes.func.isRequired
 };
 

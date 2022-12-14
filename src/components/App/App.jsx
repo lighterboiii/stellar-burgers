@@ -5,8 +5,9 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails.jsx';
 import Modal from '../Modal/Modal.jsx';
 import OrderDetails from '../Modal/OrderDetails/OrderDetails.jsx';
-import { getIngredients } from '../utils.js/burger-api.js';
+import { getIngredients } from '../utils/burger-api.js';
 import styles from './App.module.css';
+import { IngredientsContext } from '../utils/BurgerContext';
 
 function App() {
   const [data, setData] = React.useState([]);
@@ -27,19 +28,21 @@ function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <main className={styles.main}>
-        <BurgerIngredients data={data} setShowIngredientPopup={setShowIngredientPopup} setCurrentIngredient={setCurrentIngredient} />
-        <BurgerConstructor data={data} setShowOrderPopup={setShowOrderPopup}/>
-      </main>
-     {showIngredientPopup && ( 
-      <Modal title={'Детали ингредиента'} closePopup={setShowIngredientPopup} >
-        <IngredientDetails data={data} currentIngredient={currentIngredient}/>
-      </Modal>
-     )}
-    {showOrderPopup && (
-       <Modal title={''} closePopup={setShowOrderPopup}>
-        <OrderDetails />
-      </Modal> )}
+      <IngredientsContext.Provider value={data}>
+        <main className={styles.main}>
+          <BurgerIngredients setShowIngredientPopup={setShowIngredientPopup} setCurrentIngredient={setCurrentIngredient} />
+          <BurgerConstructor setShowOrderPopup={setShowOrderPopup} />
+        </main>
+        {showIngredientPopup && (
+          <Modal title={'Детали ингредиента'} closePopup={setShowIngredientPopup} >
+            <IngredientDetails data={data} currentIngredient={currentIngredient} />
+          </Modal>
+        )}
+        {showOrderPopup && (
+          <Modal title={''} closePopup={setShowOrderPopup}>
+            <OrderDetails />
+          </Modal>)}
+      </IngredientsContext.Provider>
     </div>
   );
 }
