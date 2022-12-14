@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Ingredient from "../Ingredient/Ingredient";
 import { forwardRef, useContext } from 'react';
-import { IngredientsContext } from '../../utils/BurgerContext';
+import { IngredientsContext } from '../../utils/IngredientsContext';
 
 const IngredientCategory = forwardRef((
   { category, heading, listStyle, textStyle, setShowIngredientPopup, setCurrentIngredient }, ref) => {
