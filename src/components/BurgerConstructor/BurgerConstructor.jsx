@@ -4,15 +4,34 @@ import {
   DragIcon,
   CurrencyIcon
 } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
-import { useMemo } from "react";
+import { useMemo, useContext } from "react";
 import PropTypes from 'prop-types';
 import styles from './BurgerConstructor.module.css';
+import { IngredientsContext } from '../../utils/IngredientsContext';
+import { OrderContext } from "../../utils/OrderContext";
+import { sendOrder } from '../../utils/burger-api';
 
 
-function BurgerConstructor({ data, setShowOrderPopup }) {
+function BurgerConstructor({ setShowOrderPopup }) {
+  const burgerData = useContext(IngredientsContext);
+  const { setOrderDetails } = useContext(OrderContext);
 
-  const notBun = useMemo(() => data.filter((item) => item.type !== 'bun'), [data]);
-  const bun = data.find((item) => item.type === 'bun');
+  const notBun = useMemo(() => burgerData.filter((item) => item.type !== 'bun'), [burgerData]);
+  const bun = burgerData.find((item) => item.type === 'bun');
+
+  const sum = useMemo(() => {
+    return burgerData.reduce(
+      (acc, ingredient) => 
+      ingredient.type === bun ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
+  }, [burgerData]);
+
+  const onOrderClick = () => {
+    const dataId = burgerData.map((element) => element._id);
+    sendOrder(dataId)
+      .then(res => setOrderDetails(res))
+      .catch(err => console.log(`Ошибка ${err.status}`))
+    setShowOrderPopup(true);
+  }
 
   return (
     <section className={styles.section}>
@@ -56,15 +75,14 @@ function BurgerConstructor({ data, setShowOrderPopup }) {
         </div>
       </div>
       <div className={'mr-4 ' + styles.total}>
-        <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>610{<CurrencyIcon />}</span>
-        <Button size="large" type="primary" htmlType='button' onClick={() => setShowOrderPopup(true)}>Оформить заказ</Button>
+        <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon />}</span>
+        <Button size="large" type="primary" htmlType='button' onClick={onOrderClick}>Оформить заказ</Button>
       </div>
     </section>
   )
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   setShowOrderPopup: PropTypes.func.isRequired
 };
 
