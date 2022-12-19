@@ -2,12 +2,13 @@ import styles from './BurgerIngredients.module.css';
 import IngredientCategory from './IngredientCategory/IngredientCategory';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/tab";
 import { useMemo, useRef, useState, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { IngredientsContext } from '../../utils/IngredientsContext';
 
 
 function BurgerIngredients({ setCurrentIngredient, setShowIngredientPopup }) {
-	const burgerData = useContext(IngredientsContext);
+	const dispatch = useDispatch();
+	const burgerData = useSelector(state => state.ingredients.ingredients)
 
 	const textStyle = 'text text_type_main-medium text_color_primary pb-6';
 	const buns = useMemo(() => burgerData.filter((item) => item.type === 'bun'), [burgerData]);

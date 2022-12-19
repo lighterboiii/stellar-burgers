@@ -10,10 +10,11 @@ import styles from './BurgerConstructor.module.css';
 import { IngredientsContext } from '../../utils/IngredientsContext';
 import { OrderContext } from "../../utils/OrderContext";
 import { sendOrder } from '../../utils/burger-api';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 function BurgerConstructor({ setShowOrderPopup }) {
-  const burgerData = useContext(IngredientsContext);
+  const burgerData = useSelector(state => state.ingredients.ingredients);
   const { setOrderDetails } = useContext(OrderContext);
 
   const notBun = useMemo(() => burgerData.filter((item) => item.type !== 'bun'), [burgerData]);

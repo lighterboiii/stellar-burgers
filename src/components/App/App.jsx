@@ -7,11 +7,15 @@ import Modal from '../Modal/Modal.jsx';
 import OrderDetails from '../Modal/OrderDetails/OrderDetails.jsx';
 import { getIngredients } from '../../utils/burger-api.js';
 import styles from './App.module.css';
-import { IngredientsContext } from '../../utils/IngredientsContext';
 import { OrderContext } from '../../utils/OrderContext';
+import { useDispatch } from 'react-redux';
+import {
+  GET_INGREDIENTS
+} from '../../services/actions/actions';
 
 function App() {
-  const [data, setData] = React.useState([]);
+  const dispatch = useDispatch();
+
   const [showIngredientPopup, setShowIngredientPopup] = React.useState(false);
   const [showOrderPopup, setShowOrderPopup] = React.useState(false);
   const [currentIngredient, setCurrentIngredient] = React.useState(null);
@@ -20,17 +24,19 @@ function App() {
   React.useEffect(() => {
     getIngredients()
       .then((res) => {
-        setData(res.data)
+        dispatch({
+          type: GET_INGREDIENTS,
+          payload: res.data
+      })
       })
       .catch(e => {
         console.log(e)
       })
-  }, [])
+  }, [dispatch])
 
   return (
     <div className={styles.app}>
       <AppHeader />
-      <IngredientsContext.Provider value={data}>
         <OrderContext.Provider value={{ orderDetails, setOrderDetails }}>
           <main className={styles.main}>
             <BurgerIngredients setShowIngredientPopup={setShowIngredientPopup} setCurrentIngredient={setCurrentIngredient} />
@@ -47,7 +53,6 @@ function App() {
             <IngredientDetails currentIngredient={currentIngredient} />
           </Modal>
         )}
-      </IngredientsContext.Provider>
     </div>
   );
 }
