@@ -7,7 +7,6 @@ import {
 import { useMemo, useContext } from "react";
 import PropTypes from 'prop-types';
 import styles from './BurgerConstructor.module.css';
-import { IngredientsContext } from '../../utils/IngredientsContext';
 import { OrderContext } from "../../utils/OrderContext";
 import { sendOrder } from '../../utils/burger-api';
 import { useDispatch, useSelector } from 'react-redux';
