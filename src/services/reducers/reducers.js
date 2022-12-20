@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux';
 import {
-  GET_INGREDIENTS
+  GET_INGREDIENTS, 
+  SELECT_INGREDIENT,
+  SET_ORDER_DETAILS
 } from '../actions/actions';
 
 const initialState = {
   ingredients: [],
   currentConstructor: [],
   currentIngredient: null,
-  order: null
+  orderDetails: null
 }
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -16,6 +18,18 @@ export const ingredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         ingredients: action.payload,
+      }
+    }
+    case SELECT_INGREDIENT: {
+      return {
+        ...state,
+        currentIngredient: action.payload
+      }
+    }
+    case SET_ORDER_DETAILS: {
+      return {
+        ...state,
+        orderDetails: action.payload
       }
     }
     default: {

@@ -1,7 +1,8 @@
 import styles from './IngredientDetails.module.css'
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-function IngredientDetails({ currentIngredient }) {
+function IngredientDetails() {
+  const currentIngredient = useSelector(state => state.ingredients.currentIngredient);
 
   return (
     <div className={styles.wrapper + ' pb-15 pl-10 pr-10'} currentingredient={currentIngredient._id}>
@@ -29,8 +30,4 @@ function IngredientDetails({ currentIngredient }) {
   )
 }
 
-IngredientDetails.propTypes = { 
-	currentIngredient: PropTypes.object.isRequired
- };
-
-export default IngredientDetails
+export default IngredientDetails;

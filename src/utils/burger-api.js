@@ -8,7 +8,6 @@ function request(url, options) {
   return fetch(url, options).then(checkRes)
 }
 
-
 function getIngredients() {
   return request(`${BURGER_API_URL}/ingredients`)
 }

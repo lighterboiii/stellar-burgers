@@ -1,16 +1,14 @@
 import styles from './BurgerIngredients.module.css';
 import IngredientCategory from './IngredientCategory/IngredientCategory';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/tab";
-import { useMemo, useRef, useState, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMemo, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 
-function BurgerIngredients({ setCurrentIngredient, setShowIngredientPopup }) {
-	const dispatch = useDispatch();
+function BurgerIngredients({ setShowIngredientPopup }) {
 	const burgerData = useSelector(state => state.ingredients.ingredients)
 
-	const textStyle = 'text text_type_main-medium text_color_primary pb-6';
 	const buns = useMemo(() => burgerData.filter((item) => item.type === 'bun'), [burgerData]);
 	const mains = useMemo(() => burgerData.filter((item) => item.type === 'main'), [burgerData]);
 	const sauces = useMemo(() => burgerData.filter((item) => item.type === 'sauce'), [burgerData]);
@@ -38,6 +36,8 @@ function BurgerIngredients({ setCurrentIngredient, setShowIngredientPopup }) {
 		}
 	};
 
+	const textStyle = 'text text_type_main-medium text_color_primary pb-6';
+
 	return (
 		<section className={styles.ingredients}>
 			<h2 className={'text text_type_main-large text text_color_primary mt-10 mb-5'}>Соберите бургер</h2>
@@ -56,17 +56,14 @@ function BurgerIngredients({ setCurrentIngredient, setShowIngredientPopup }) {
 				<div className={styles.scroll + ' custom-scroll'}>
 					<IngredientCategory ref={bunRef}
 						setShowIngredientPopup={setShowIngredientPopup}
-						setCurrentIngredient={setCurrentIngredient}
 						category={buns} heading={'Булки'} listStyle={'pl-4 pr-4 ' + styles.list} textStyle={textStyle}
 					/>
 					<IngredientCategory ref={sauceRef}
 						setShowIngredientPopup={setShowIngredientPopup}
-						setCurrentIngredient={setCurrentIngredient}
 						category={sauces} heading={'Соусы'} listStyle={'pl-4 pr-4 ' + styles.list} textStyle={textStyle + ' pt-10'}
 					/>
 					<IngredientCategory ref={mainRef}
 						setShowIngredientPopup={setShowIngredientPopup}
-						setCurrentIngredient={setCurrentIngredient}
 						category={mains} heading={'Начинки'} listStyle={'pl-4 pr-4 pb-8 ' + styles.list} textStyle={textStyle + ' pt-10'}
 					/>
 				</div>
@@ -76,7 +73,6 @@ function BurgerIngredients({ setCurrentIngredient, setShowIngredientPopup }) {
 }
 
 BurgerIngredients.propTypes = {
-	setCurrentIngredient: PropTypes.func.isRequired,
 	setShowIngredientPopup: PropTypes.func.isRequired
 };
 

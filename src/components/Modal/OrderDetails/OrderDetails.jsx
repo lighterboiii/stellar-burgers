@@ -1,11 +1,10 @@
 import styles from './OrderDetails.module.css';
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
-import { useContext } from 'react';
-import { OrderContext } from '../../../utils/OrderContext';
+import { useSelector } from 'react-redux';
 
 function OrderDetails() {
-  const { orderDetails } = useContext(OrderContext);
-
+  const orderDetails = useSelector(state => state.ingredients.orderDetails);
+  
   return (
     <div className={styles.card + ' pt-15 pb-30 pr-25 pl-25'}>
       <h3 className={styles.order + ' text text_type_digits-large mb-8'}>
