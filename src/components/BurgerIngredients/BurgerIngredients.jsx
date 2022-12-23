@@ -19,6 +19,8 @@ function BurgerIngredients({ setShowIngredientPopup }) {
 
 	const [current, setCurrent] = useState('one');
 
+	const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
+
 	const handleClick = (value) => {
 		setCurrent(value);
 		switch (value) {
@@ -61,11 +63,15 @@ function BurgerIngredients({ setShowIngredientPopup }) {
 					/>
 					<IngredientCategory ref={sauceRef}
 						setShowIngredientPopup={setShowIngredientPopup}
-						category={sauces} heading={'Соусы'} listStyle={'pl-4 pr-4 ' + styles.list} textStyle={textStyle + ' pt-10'}
+						category={sauces} heading={'Соусы'} 
+						listStyle={`pl-4 pr-4  ${styles.list} ${selectedIngredients.length === 0 && styles.disabled}`} 
+						textStyle={textStyle + ' pt-10'}
 					/>
 					<IngredientCategory ref={mainRef}
 						setShowIngredientPopup={setShowIngredientPopup}
-						category={mains} heading={'Начинки'} listStyle={'pl-4 pr-4 pb-8 ' + styles.list} textStyle={textStyle + ' pt-10'}
+						category={mains} heading={'Начинки'} 
+						listStyle={`pl-4 pr-4 pb-8 ${styles.list} ${selectedIngredients.length === 0 && styles.disabled}`} 
+						textStyle={textStyle + ' pt-10'}
 					/>
 				</div>
 			</div>
