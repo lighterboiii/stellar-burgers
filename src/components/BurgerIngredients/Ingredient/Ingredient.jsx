@@ -10,10 +10,10 @@ import {
 
 
 function Ingredient({ ingredient, setShowIngredientPopup }) {
-  const { image, alt, price, count, id } = ingredient;
+  const { image, name, price, count, id } = ingredient;
   const burgerData = useSelector(state => state.ingredients.ingredients);
   const dispatch = useDispatch();
-
+  console.log(ingredient)
   const [{ isDrag }, dragRef] = useDrag({
 		type: 'ingredient',
 		item: ingredient,
@@ -35,13 +35,13 @@ function Ingredient({ ingredient, setShowIngredientPopup }) {
   return (
     <li id={id} key={id} className={`${styles.listItem} ${isDrag && styles.dragging}`} onClick={handleIngClick} ref={dragRef} >
       <Counter count={count} size={'default'} />
-      <img src={image} alt={alt} className={'mr-4 ml-4'} />
+      <img src={image} alt={name} className={'mr-4 ml-4'} />
       <p className={'mt-1 mb-1 text text_type_digits-default text_color_primary ' + styles.paragraph}>
         <span className={'pr-2'}>{price}</span>
         <CurrencyIcon type='primary' />
       </p>
       <p className={'text text_type_main-default text_color_primary ' + styles.bunName}>
-        {alt}
+        {name}
       </p>
     </li>
   );
