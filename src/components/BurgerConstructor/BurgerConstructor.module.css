@@ -9,6 +9,11 @@
   max-height: 480px;
 }
 
+.dropping {
+  border: 1px #4C4CFF dashed;
+  border-radius: 20px;
+}
+
 .element {
   display: flex;
   justify-content: space-between;

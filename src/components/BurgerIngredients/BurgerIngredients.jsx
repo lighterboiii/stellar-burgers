@@ -7,16 +7,17 @@ import PropTypes from 'prop-types';
 
 
 function BurgerIngredients({ setShowIngredientPopup }) {
-	const burgerData = useSelector(state => state.ingredients.ingredients)
+	const burgerData = useSelector(state => state.ingredients.ingredients);
 
 	const buns = useMemo(() => burgerData.filter((item) => item.type === 'bun'), [burgerData]);
 	const mains = useMemo(() => burgerData.filter((item) => item.type === 'main'), [burgerData]);
 	const sauces = useMemo(() => burgerData.filter((item) => item.type === 'sauce'), [burgerData]);
-	const [current, setCurrent] = useState('one');
 
 	const bunRef = useRef(null);
 	const sauceRef = useRef(null);
 	const mainRef = useRef(null);
+
+	const [current, setCurrent] = useState('one');
 
 	const handleClick = (value) => {
 		setCurrent(value);

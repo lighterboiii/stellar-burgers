@@ -1,13 +1,39 @@
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/counter";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
-
+import { useDrag } from "react-dnd";
 import PropTypes from 'prop-types';
 import styles from './Ingredient.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  OPEN_INGREDIENT_INFO
+} from '../../../services/actions/actions';
 
-function Ingredient({ image, alt, price, count, id, handleIngClick }) {
+
+function Ingredient({ ingredient, setShowIngredientPopup }) {
+  const { image, alt, price, count, id } = ingredient;
+  const burgerData = useSelector(state => state.ingredients.ingredients);
+  const dispatch = useDispatch();
+
+  const [{ isDrag }, dragRef] = useDrag({
+		type: 'ingredient',
+		item: ingredient,
+		collect: monitor => ({
+				isDrag: monitor.isDragging()
+		})
+	});
+
+  const handleIngClick = (evt) => {
+    const id = evt.currentTarget.id
+    const current = burgerData.find(element => element._id === id)
+    dispatch({
+      type: OPEN_INGREDIENT_INFO,
+      payload: current
+    })
+    setShowIngredientPopup(true)
+  };
 
   return (
-    <li id={id} key={id} className={styles.listItem} onClick={handleIngClick}>
+    <li id={id} key={id} className={`${styles.listItem} ${isDrag && styles.dragging}`} onClick={handleIngClick} ref={dragRef} >
       <Counter count={count} size={'default'} />
       <img src={image} alt={alt} className={'mr-4 ml-4'} />
       <p className={'mt-1 mb-1 text text_type_digits-default text_color_primary ' + styles.paragraph}>
