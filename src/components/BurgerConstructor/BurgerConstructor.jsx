@@ -46,7 +46,7 @@ function BurgerConstructor({ setShowOrderPopup }) {
     const selectedIngredient = burgerData.find(ingredient => ingredient._id === item._id);
     dispatch({
       type: SELECT_INGREDIENT,
-      payload:  [...selectedIngredients, selectedIngredient]
+      payload: [...selectedIngredients, selectedIngredient]
     })
   };
 
@@ -54,9 +54,10 @@ function BurgerConstructor({ setShowOrderPopup }) {
     const selectedIndex = selectedIngredients.indexOf(item)
     const newIngredientsArray = selectedIngredients.slice();
     newIngredientsArray.splice(selectedIndex, 1);
-    dispatch({ 
-      type: 'DELETE_INGREDIENT', 
-      payload: newIngredientsArray });
+    dispatch({
+      type: 'DELETE_INGREDIENT',
+      payload: newIngredientsArray
+    });
   };
 
   const [{ isHover }, dropRef] = useDrop({
@@ -71,16 +72,23 @@ function BurgerConstructor({ setShowOrderPopup }) {
 
   return (
     <section className={`${styles.section} ${isHover && styles.dropping}`} ref={dropRef}>
-      <div className={`mt-25 mb-10`}>
+      <div className={`mb-10 mt-25`}>
         <div className={'mb-4 ml-4 mr-4 pl-8'}>
-          {bun && 
+          {bun &&
             selectedIngredients.length > 0 ? <ConstructorElement
-              type="top"
-              isLocked={true}
-              text={bun.name + ' (верх)'}
-              thumbnail={bun.image}
-              price={bun.price}
-            /> : <p className="text text_type_main-medium pt-3">Перетащите булочку сюда</p>
+            type="top"
+            isLocked={true}
+            text={bun.name + ' (верх)'}
+            thumbnail={bun.image}
+            price={bun.price}
+          /> : <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={'Выберите булочку (верх)'}
+            price={0}
+            thumbnail={`https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg`}
+          />
+            // : <p className="text text_type_main-medium pt-3">Перетащите булочку сюда</p>
           }
         </div>
         <ul className={'text custom-scroll ' + styles.list}>
@@ -100,27 +108,33 @@ function BurgerConstructor({ setShowOrderPopup }) {
           }
         </ul>
         <div className={' ml-4 mr-4 pl-8'}>
-          {bun && 
-            selectedIngredients.length > 0 && <ConstructorElement
-              type="bottom"
-              isLocked={true}
-              text={bun.name + ' (низ)'}
-              thumbnail={bun.image}
-              price={bun.price}
-            />
+          {bun &&
+            selectedIngredients.length > 0 ? <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={bun.name + ' (низ)'}
+            thumbnail={bun.image}
+            price={bun.price}
+          /> : <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={'Выберите булочку (низ)'}
+            price={0}
+            thumbnail={`https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg`}
+          />
           }
         </div>
       </div>
       {selectedIngredients.length > 0 ?
-      <div className={'mr-4 ' + styles.total}>
-        <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon />}</span>
-        <Button size="large" type="primary" htmlType='button' onClick={onOrderClick}>Оформить заказ</Button>
-      </div> : 
-       <div className={'mr-4 ' + styles.total}>
-       <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon />}</span>
-       <Button size="large" type="disabled" htmlType='button' disabled onClick={onOrderClick}>Оформить заказ</Button>
-     </div>
-}
+        <div className={'mr-4 ' + styles.total}>
+          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon />}</span>
+          <Button size="large" type="primary" htmlType='button' onClick={onOrderClick}>Оформить заказ</Button>
+        </div> :
+        <div className={'mr-4 ' + styles.total}>
+          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon />}</span>
+          <Button size="large" type="disabled" htmlType='button' disabled onClick={onOrderClick}>Оформить заказ</Button>
+        </div>
+      }
     </section>
   )
 }
