@@ -55,7 +55,7 @@ function BurgerConstructor({ setShowOrderPopup }) {
     const newIngredientsArray = selectedIngredients.slice();
     newIngredientsArray.splice(selectedIndex, 1);
     dispatch({
-      type: 'DELETE_INGREDIENT',
+      type: DELETE_INGREDIENT,
       payload: newIngredientsArray
     });
   };
@@ -88,7 +88,6 @@ function BurgerConstructor({ setShowOrderPopup }) {
             price={0}
             thumbnail={`https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg`}
           />
-            // : <p className="text text_type_main-medium pt-3">Перетащите булочку сюда</p>
           }
         </div>
         <ul className={'text custom-scroll ' + styles.list}>
@@ -132,7 +131,7 @@ function BurgerConstructor({ setShowOrderPopup }) {
         </div> :
         <div className={'mr-4 ' + styles.total}>
           <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon />}</span>
-          <Button size="large" type="disabled" htmlType='button' disabled onClick={onOrderClick}>Оформить заказ</Button>
+          <Button size="large" type="secondary" htmlType='button' disabled onClick={onOrderClick}>Оформить заказ</Button>
         </div>
       }
     </section>

@@ -10,10 +10,11 @@ import {
 
 
 function Ingredient({ ingredient, setShowIngredientPopup }) {
-  const { image, name, price, count, id } = ingredient;
+  const { image, name, price, id } = ingredient;
   const burgerData = useSelector(state => state.ingredients.ingredients);
+  const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
   const dispatch = useDispatch();
-  console.log(ingredient)
+
   const [{ isDrag }, dragRef] = useDrag({
 		type: 'ingredient',
 		item: ingredient,
@@ -32,9 +33,15 @@ function Ingredient({ ingredient, setShowIngredientPopup }) {
     setShowIngredientPopup(true)
   };
 
+  let counter = 0;
+  selectedIngredients.forEach(ingredient => {
+    ingredient.name === name && (ingredient.type === 'bun' ? counter += 2 : counter += 1);
+  });
+
+
   return (
     <li id={id} key={id} className={`${styles.listItem} ${isDrag && styles.dragging}`} onClick={handleIngClick} ref={dragRef} >
-      <Counter count={count} size={'default'} />
+      {counter > 0 && <Counter count={counter} size={'default'} />}
       <img src={image} alt={name} className={'mr-4 ml-4'} />
       <p className={'mt-1 mb-1 text text_type_digits-default text_color_primary ' + styles.paragraph}>
         <span className={'pr-2'}>{price}</span>
@@ -48,12 +55,19 @@ function Ingredient({ ingredient, setShowIngredientPopup }) {
 }
 
 Ingredient.propTypes = { 
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired,
-  count: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
-  handleIngClick: PropTypes.func.isRequired
+  ingredient: PropTypes.shape({
+    calories: PropTypes.number.isRequired,
+    carbohydrates: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    image_large: PropTypes.string.isRequired,
+    image_mobile: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    proteins: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+  })
 }
 
 export default Ingredient;

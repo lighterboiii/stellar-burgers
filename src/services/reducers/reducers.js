@@ -16,8 +16,9 @@ const initialState = {
   orderDetails: null,
   ingredientsRequest: false,
   ingredientsFailed: false,
-  isElementDrag: false,
+  isElementDrag: false
 }
+
 
 export const ingredientsReducer = (state = initialState, action) => {
   switch(action.type) {
