@@ -17,8 +17,6 @@ import {
 function App() {
   const dispatch = useDispatch();
   const orderDetails = useSelector(state => state.ingredients.orderDetails);
-  const isOrderModalOpen = useSelector(state => state.ingredients.isOrderModalOpen);
-  const isIngredientModalOpen = useSelector(state => state.ingredients.isIngredientModalOpen)
   const [showIngredientPopup, setShowIngredientPopup] = React.useState(false);
   const [showOrderPopup, setShowOrderPopup] = React.useState(false);
 

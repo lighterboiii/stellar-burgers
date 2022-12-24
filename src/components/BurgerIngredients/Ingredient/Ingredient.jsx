@@ -10,7 +10,7 @@ import {
 
 
 function Ingredient({ ingredient, setShowIngredientPopup }) {
-  const { image, name, price, id } = ingredient;
+  const { image, name, price, _id } = ingredient;
   const burgerData = useSelector(state => state.ingredients.ingredients);
   const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ function Ingredient({ ingredient, setShowIngredientPopup }) {
 
 
   return (
-    <li id={id} key={id} className={`${styles.listItem} ${isDrag && styles.dragging}`} onClick={handleIngClick} ref={dragRef} >
+    <li id={_id} key={_id} className={`${styles.listItem} ${isDrag && styles.dragging}`} onClick={handleIngClick} ref={dragRef} >
       {counter > 0 && <Counter count={counter} size={'default'} />}
       <img src={image} alt={name} className={'mr-4 ml-4'} />
       <p className={'mt-1 mb-1 text text_type_digits-default text_color_primary ' + styles.paragraph}>
