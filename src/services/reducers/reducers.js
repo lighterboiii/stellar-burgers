@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import {
   GET_INGREDIENTS,
   GET_INGREDIENTS_FAILED,
-  GET_INGREDIENTS_SUCCESS, 
+  GET_INGREDIENTS_SUCCESS,
   OPEN_INGREDIENT_INFO,
   SELECT_INGREDIENT,
   SET_ORDER_DETAILS,
@@ -17,11 +17,10 @@ const initialState = {
   ingredientsRequest: false,
   ingredientsFailed: false,
   isElementDrag: false
-}
-
+};
 
 export const ingredientsReducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case GET_INGREDIENTS: {
       return {
         ...state,
@@ -75,6 +74,6 @@ export const ingredientsReducer = (state = initialState, action) => {
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer
-})
+});
 
 
