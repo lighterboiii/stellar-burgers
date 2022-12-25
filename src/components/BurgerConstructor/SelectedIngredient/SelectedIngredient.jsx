@@ -68,6 +68,8 @@ function SelectedIngredient({ ingredient, index, moveIngredient }) {
   const dragDropRef = dragRef(dropRef(ref));
   const opacity = isDragging ? 0 : 1;
 
+  const notBun = useMemo(() => selectedIngredients.filter((ingredient) => ingredient.type !== 'bun'), [selectedIngredients]);
+
   return (
     <li className={'mb-4 ml-4 mr-1 ' + styles.element} key={_id} ref={dragDropRef} style={{ opacity }} data-handler-id={handlerId}>
       <DragIcon type="primary" />
