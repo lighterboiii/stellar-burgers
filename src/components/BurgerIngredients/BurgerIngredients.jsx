@@ -22,7 +22,6 @@ function BurgerIngredients({ setShowIngredientPopup }) {
 	const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
 
 	const handleClick = (value) => {
-		setCurrent(value);
 		switch (value) {
 			case 'one': {
 				bunRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
@@ -38,6 +37,17 @@ function BurgerIngredients({ setShowIngredientPopup }) {
 			}
 		}
 	};
+	const scrollRef = useRef();
+	const handleScroll = () => {
+		const lineY = scrollRef.current.getBoundingClientRect().y;
+		const bunsOffset = Math.abs(bunRef.current.getBoundingClientRect().y - lineY);
+		const sauceOffset = Math.abs(sauceRef.current.getBoundingClientRect().y - lineY);
+		const mainsOffset = Math.abs(mainRef.current.getBoundingClientRect().y -  lineY);
+
+		if (bunsOffset < sauceOffset && bunsOffset < mainsOffset) setCurrent("one");
+		if (sauceOffset < bunsOffset && sauceOffset < mainsOffset) setCurrent("two");
+		if (mainsOffset < bunsOffset && mainsOffset < sauceOffset) setCurrent("three");
+	}
 
 	const textStyle = 'text text_type_main-medium text_color_primary pb-6';
 
@@ -56,7 +66,7 @@ function BurgerIngredients({ setShowIngredientPopup }) {
 				</Tab>
 			</div>
 			<div className={styles.wrapper}>
-				<div className={styles.scroll + ' custom-scroll'}>
+				<div className={styles.scroll + ' custom-scroll'} ref={scrollRef} onScroll={handleScroll}>
 					<IngredientCategory ref={bunRef}
 						setShowIngredientPopup={setShowIngredientPopup}
 						category={buns} heading={'Булки'} listStyle={'pl-4 pr-4 ' + styles.list} textStyle={textStyle}

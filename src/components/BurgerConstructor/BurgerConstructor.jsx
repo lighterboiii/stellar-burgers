@@ -86,7 +86,7 @@ function BurgerConstructor({ setShowOrderPopup }) {
         </div>
         <ul className={'text custom-scroll ' + styles.list}>
           {notBun.map((element, index) => (
-              <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} key={element._id} index={index}/>
+             selectedIngredients && <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} key={element._id} index={index}/>
             )
           )
           }
