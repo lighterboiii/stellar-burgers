@@ -15,6 +15,7 @@ const IngredientCategory = forwardRef((
               count={0}
               ingredient={element}
               setShowIngredientPopup={setShowIngredientPopup}
+              key={element._id}
             />
           )
         }

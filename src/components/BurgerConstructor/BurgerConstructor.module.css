@@ -31,3 +31,7 @@
   composes: total;
   gap: 10px;
 }
+
+.drag {
+  cursor: pointer;
+}

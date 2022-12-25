@@ -6,7 +6,8 @@ import {
   OPEN_INGREDIENT_INFO,
   SELECT_INGREDIENT,
   SET_ORDER_DETAILS,
-  DELETE_INGREDIENT
+  DELETE_INGREDIENT,
+  SET_INGREDIENTS
 } from '../actions/actions';
 
 const initialState = {
@@ -21,6 +22,12 @@ const initialState = {
 
 export const ingredientsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_INGREDIENTS: {
+      return {
+        ...state,
+        selectedIngredients: action.payload
+      }
+    }
     case GET_INGREDIENTS: {
       return {
         ...state,

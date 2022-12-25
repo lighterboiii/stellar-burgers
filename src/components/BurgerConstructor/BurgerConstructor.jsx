@@ -1,27 +1,27 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import {
-  DragIcon,
   CurrencyIcon
 } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import {
   SET_ORDER_DETAILS,
   SELECT_INGREDIENT,
-  DELETE_INGREDIENT
+  sortIngredients
 } from '../../services/actions/actions';
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import PropTypes from 'prop-types';
 import styles from './BurgerConstructor.module.css';
 import { sendOrder } from '../../utils/burger-api';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
+import { SelectedIngredient } from "./SelectedIngredient/SelectedIngredient";
 
 function BurgerConstructor({ setShowOrderPopup }) {
   const dispatch = useDispatch();
 
   const burgerData = useSelector(state => state.ingredients.ingredients);
   const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
-  const notBun = useMemo(() => selectedIngredients.filter((item) => item.type !== 'bun'), [selectedIngredients]);
+  const notBun = useMemo(() => selectedIngredients.filter((ingredient) => ingredient.type !== 'bun'), [selectedIngredients]);
   const bun = selectedIngredients.find((item) => item.type === 'bun');
 
   const sum = useMemo(() => {
@@ -50,16 +50,6 @@ function BurgerConstructor({ setShowOrderPopup }) {
     })
   };
 
-  const handleDeleteIngredient = (item) => {
-    const selectedIndex = selectedIngredients.indexOf(item)
-    const newIngredientsArray = selectedIngredients.slice();
-    newIngredientsArray.splice(selectedIndex, 1);
-    dispatch({
-      type: DELETE_INGREDIENT,
-      payload: newIngredientsArray
-    });
-  };
-
   const [{ isHover }, dropRef] = useDrop({
     accept: 'ingredient',
     collect: monitor => ({
@@ -69,6 +59,10 @@ function BurgerConstructor({ setShowOrderPopup }) {
       handleDrop(item)
     },
   });
+
+  const moveIngredients = (dragIndex, hoverIndex, selectedIngredients) => {
+    dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
+  };
 
   return (
     <section className={`${styles.section} ${isHover && styles.dropping}`} ref={dropRef}>
@@ -91,19 +85,10 @@ function BurgerConstructor({ setShowOrderPopup }) {
           }
         </div>
         <ul className={'text custom-scroll ' + styles.list}>
-          {notBun.map((element) => {
-            return (
-              <li className={'mb-4 ml-4 mr-1 ' + styles.element} key={element._id}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  text={element.name}
-                  thumbnail={element.image}
-                  price={element.price}
-                  handleClose={handleDeleteIngredient}
-                />
-              </li>
+          {notBun.map((element, index) => (
+              <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} key={element._id} index={index}/>
             )
-          })
+          )
           }
         </ul>
         <div className={' ml-4 mr-4 pl-8'}>
