@@ -67,7 +67,8 @@ Ingredient.propTypes = {
     proteins: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     _id: PropTypes.string.isRequired,
-  })
+  }),
+  setShowIngredientPopup: PropTypes.func.isRequired
 }
 
 export default Ingredient;

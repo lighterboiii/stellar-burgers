@@ -8,7 +8,7 @@ import {
   SELECT_INGREDIENT,
   sortIngredients
 } from '../../services/actions/actions';
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import PropTypes from 'prop-types';
 import styles from './BurgerConstructor.module.css';
 import { sendOrder } from '../../utils/burger-api';
@@ -23,13 +23,13 @@ function BurgerConstructor({ setShowOrderPopup }) {
   const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
   const notBun = useMemo(() => selectedIngredients.filter((ingredient) => ingredient.type !== 'bun'), [selectedIngredients]);
   const bun = selectedIngredients.find((item) => item.type === 'bun');
-
+  //calculating items prices
   const sum = useMemo(() => {
     return selectedIngredients.reduce(
       (acc, ingredient) =>
         ingredient.type === 'bun' ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
   }, [selectedIngredients]);
-
+// order button listener
   const onOrderClick = () => {
     const dataId = burgerData.map((element) => element._id);
     sendOrder(dataId)
@@ -41,7 +41,7 @@ function BurgerConstructor({ setShowOrderPopup }) {
       .catch(err => console.log(`Ошибка ${err.status}`));
     setShowOrderPopup(true);
   };
-
+// drop listener
   const handleDrop = (item) => {
     const selectedIngredient = burgerData.find(ingredient => ingredient._id === item._id);
     dispatch({
@@ -49,7 +49,7 @@ function BurgerConstructor({ setShowOrderPopup }) {
       payload: [...selectedIngredients, selectedIngredient]
     })
   };
-
+// drop hook
   const [{ isHover }, dropRef] = useDrop({
     accept: 'ingredient',
     collect: monitor => ({
@@ -59,10 +59,10 @@ function BurgerConstructor({ setShowOrderPopup }) {
       handleDrop(item)
     },
   });
-
-  const moveIngredients = (dragIndex, hoverIndex, selectedIngredients) => {
+// not-working 
+  const moveIngredients = useCallback((dragIndex, hoverIndex, selectedIngredients) => {
     dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
-  };
+  },[selectedIngredients, dispatch]);
 
   return (
     <section className={`${styles.section} ${isHover && styles.dropping}`} ref={dropRef}>
@@ -86,9 +86,8 @@ function BurgerConstructor({ setShowOrderPopup }) {
         </div>
         <ul className={'text custom-scroll ' + styles.list}>
           {notBun.map((element, index) => (
-             <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} index={index} />
-          )
-          )
+             <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} index={index} key={`${element.id}${index}`}/>
+          ))
           }
         </ul>
         <div className={' ml-4 mr-4 pl-8'}>

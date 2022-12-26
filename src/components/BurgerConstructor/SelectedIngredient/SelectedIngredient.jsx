@@ -1,4 +1,5 @@
 import styles from './SelectedIngredient.module.css';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from "react-dnd";
@@ -24,9 +25,7 @@ function SelectedIngredient({ ingredient, index, moveIngredient }) {
 
   const [{ isDragging }, dragRef] = useDrag({
     type: 'selected',
-    item: () => {
-      return ingredient
-  },
+    item: ingredient,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -69,7 +68,7 @@ function SelectedIngredient({ ingredient, index, moveIngredient }) {
   const opacity = isDragging ? 0 : 1;
 
   return (
-    <li className={'mb-4 ml-4 mr-1 ' + styles.element} key={_id} ref={dragDropRef} style={{ opacity }} data-handler-id={handlerId}>
+    <li className={'mb-4 ml-4 mr-1 ' + styles.element} ref={dragDropRef} style={{ opacity }} data-handler-id={handlerId}>
       <DragIcon type="primary" />
       <ConstructorElement 
         text={name}
@@ -81,5 +80,11 @@ function SelectedIngredient({ ingredient, index, moveIngredient }) {
     </li>
   )
 };
+
+SelectedIngredient.propTypes = {
+  ingredient: PropTypes.object.isRequired,
+  index: PropTypes.string.isRequired,
+  moveIngredient: PropTypes.func.isRequired
+}
 
 export { SelectedIngredient };
