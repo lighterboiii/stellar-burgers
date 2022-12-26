@@ -7,8 +7,7 @@ export const SET_ORDER_DETAILS = 'SET_ORDER_DETAILS';
 export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
 export const SET_INGREDIENTS = 'SET_INGREDIENTS';
 
-
-export const sortIngredients = ( dragIndex, hoverIndex, selectedIngredients ) => {
+export const sortIngredients = (dragIndex, hoverIndex, selectedIngredients) => {
   return function (dispatch) {
 
     const dragItem = selectedIngredients[dragIndex];

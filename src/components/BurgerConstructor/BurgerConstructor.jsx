@@ -8,7 +8,7 @@ import {
   SELECT_INGREDIENT,
   sortIngredients
 } from '../../services/actions/actions';
-import { useMemo, useCallback } from "react";
+import { useMemo } from "react";
 import PropTypes from 'prop-types';
 import styles from './BurgerConstructor.module.css';
 import { sendOrder } from '../../utils/burger-api';
@@ -86,8 +86,8 @@ function BurgerConstructor({ setShowOrderPopup }) {
         </div>
         <ul className={'text custom-scroll ' + styles.list}>
           {notBun.map((element, index) => (
-             <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} key={element._id} index={index}/>
-            )
+             <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} index={index} />
+          )
           )
           }
         </ul>
