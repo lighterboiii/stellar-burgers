@@ -54,7 +54,7 @@ function BurgerIngredients({ setShowIngredientPopup }) {
 	return (
 		<section className={styles.ingredients}>
 			<h2 className={'text text_type_main-large text text_color_primary mt-10 mb-5'}>Соберите бургер</h2>
-			<div className={styles.tabs + ' pb-10'}>
+			<div className={styles.tabs}>
 				<Tab value='one' active={current === 'one'} onClick={handleClick}>
 					Булки
 				</Tab>
@@ -66,7 +66,7 @@ function BurgerIngredients({ setShowIngredientPopup }) {
 				</Tab>
 			</div>
 			<div className={styles.wrapper}>
-				<div className={styles.scroll + ' custom-scroll'} ref={scrollRef} onScroll={handleScroll}>
+				<div className={styles.scroll + ' custom-scroll pt-10'} ref={scrollRef} onScroll={handleScroll}>
 					<IngredientCategory ref={bunRef}
 						setShowIngredientPopup={setShowIngredientPopup}
 						category={buns} heading={'Булки'} listStyle={'pl-4 pr-4 ' + styles.list} textStyle={textStyle}
