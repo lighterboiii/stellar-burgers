@@ -15,13 +15,20 @@ import { changeOrderModalStatus } from "../../services/actions/modal";
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
 import { SelectedIngredient } from "./SelectedIngredient/SelectedIngredient";
+import Modal from '../Modal/Modal';
+import OrderDetails from '../Modal/OrderDetails/OrderDetails';
 
-function BurgerConstructor() {
+function BurgerConstructor({ closePopup }) {
   const dispatch = useDispatch();
+
   const burgerData = useSelector(state => state.ingredients.ingredients);
   const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
+
   const notBun = useMemo(() => selectedIngredients.filter((ingredient) => ingredient.type !== 'bun'), [selectedIngredients]);
   const bun = useMemo(() => selectedIngredients.find((ingredient) => ingredient.type === 'bun'), [selectedIngredients]);
+
+  const orderDetails = useSelector(state => state.orderData.orderDetails);
+  const isOrderModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
 
   //calculating items prices
   const sum = useMemo(() => {
@@ -29,7 +36,7 @@ function BurgerConstructor() {
       (acc, ingredient) =>
         ingredient === bun ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
   }, [selectedIngredients]);
-  
+
   // order button listener
   const onOrderClick = () => {
     const dataId = selectedIngredients.map((element) => element._id);
@@ -81,6 +88,11 @@ function BurgerConstructor() {
           <Button size="large" type="secondary" htmlType='button' disabled onClick={onOrderClick}>Оформить заказ</Button>
         </div>
       }
+      {isOrderModalOpen && orderDetails && (
+        <Modal title={''} closePopup={closePopup}>
+          <OrderDetails />
+        </Modal>
+      )}
     </section>
 
   )

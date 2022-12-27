@@ -3,9 +3,12 @@ import IngredientCategory from './IngredientCategory/IngredientCategory';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/tab";
 import { useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails.jsx';
+import Modal from '../Modal/Modal';
 
 
-function BurgerIngredients() {
+function BurgerIngredients({ closePopup }) {
+	const isIngredientModalOpen = useSelector(state => state.modalState.isIngredientModalOpen);
 	const burgerData = useSelector(state => state.ingredients.ingredients);
 
 	const buns = useMemo(() => burgerData.filter((item) => item.type === 'bun'), [burgerData]);
@@ -79,6 +82,11 @@ function BurgerIngredients() {
 					/>
 				</div>
 			</div>
+			{isIngredientModalOpen && (
+				<Modal title={'Детали ингредиента'} closePopup={closePopup}>
+					<IngredientDetails />
+				</Modal>
+			)}
 		</section>
 	)
 };
