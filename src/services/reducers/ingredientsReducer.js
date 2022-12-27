@@ -1,23 +1,20 @@
-import { combineReducers } from 'redux';
 import {
-  GET_INGREDIENTS,
-  GET_INGREDIENTS_FAILED,
-  GET_INGREDIENTS_SUCCESS,
-  OPEN_INGREDIENT_INFO,
-  SELECT_INGREDIENT,
-  SET_ORDER_DETAILS,
-  DELETE_INGREDIENT,
-  SORT_INGREDIENTS
-} from '../actions/actions';
+GET_INGREDIENTS,
+GET_INGREDIENTS_FAILED,
+GET_INGREDIENTS_SUCCESS,
+SELECT_INGREDIENT,
+DELETE_INGREDIENT,
+SORT_INGREDIENTS,
+OPEN_INGREDIENT_INFO
+} from '../actions/ingredients';
 
 const initialState = {
-  ingredients: [],
-  selectedIngredients: [],
-  currentIngredient: null,
-  orderDetails: null,
-  ingredientsRequest: false,
-  ingredientsFailed: false,
-  isElementDrag: false
+ingredients: [],
+selectedIngredients: [],
+currentIngredient: null,
+ingredientsRequest: false,
+ingredientsFailed: false,
+isElementDrag: false
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -49,13 +46,6 @@ export const ingredientsReducer = (state = initialState, action) => {
         currentIngredient: action.payload
       }
     }
-    case SET_ORDER_DETAILS: {
-      return {
-        ...state,
-        selectedIngredients: [],
-        orderDetails: action.payload
-      }
-    }
     case SELECT_INGREDIENT: {
       return {
         ...state,
@@ -79,9 +69,3 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
   }
 };
-
-export const rootReducer = combineReducers({
-  ingredients: ingredientsReducer
-});
-
-

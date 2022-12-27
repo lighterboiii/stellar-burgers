@@ -6,7 +6,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { useRef } from 'react';
 import {
   DELETE_INGREDIENT
-} from '../../../services/actions/actions';
+} from '../../../services/actions/ingredients';
 
 function SelectedIngredient({ ingredient, index, moveIngredient }) {
   const dispatch = useDispatch();
@@ -94,7 +94,7 @@ SelectedIngredient.propTypes = {
     proteins: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     _id: PropTypes.string.isRequired,
-  }),
+  }).isRequired,
   index: PropTypes.string.isRequired,
   moveIngredient: PropTypes.func.isRequired
 }

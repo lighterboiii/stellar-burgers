@@ -12,13 +12,15 @@ import styles from './App.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   GET_INGREDIENTS_SUCCESS
-} from '../../services/actions/actions';
+} from '../../services/actions/ingredients';
+import { changeIngredientModalStatus, changeOrderModalStatus } from '../../services/actions/modal.js';
 
 function App() {
   const dispatch = useDispatch();
-  const orderDetails = useSelector(state => state.ingredients.orderDetails);
-  const [showIngredientPopup, setShowIngredientPopup] = React.useState(false);
-  const [showOrderPopup, setShowOrderPopup] = React.useState(false);
+  const orderDetails = useSelector(state => state.orderData.orderDetails);
+  const currentIngredient = useSelector(state => state.ingredients.currentIngredient);
+  const isIngredientModalOpen = useSelector(state => state.modalState.isIngredientModalOpen);
+  const isOrderDetailsModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
 
   React.useEffect(() => {
     getIngredients()
@@ -33,22 +35,26 @@ function App() {
       })
   }, [dispatch]);
 
+  const closePopup = () => {
+    isOrderDetailsModalOpen ? dispatch(changeOrderModalStatus(false)) : dispatch(changeIngredientModalStatus(false));
+  }
+
   return (
     <div className={styles.app}>
       <AppHeader />
       <DndProvider backend={HTML5Backend}>
         <main className={styles.main}>
-          <BurgerIngredients setShowIngredientPopup={setShowIngredientPopup} />
-          <BurgerConstructor setShowOrderPopup={setShowOrderPopup}/>
+          <BurgerIngredients />
+          <BurgerConstructor />
         </main>
       </DndProvider>
-      {showOrderPopup && orderDetails && (
-        <Modal title={''} closePopup={setShowOrderPopup}>
+      {isOrderDetailsModalOpen && orderDetails && (
+        <Modal title={''} closePopup-={closePopup}>
           <OrderDetails />
         </Modal>
       )}
-      {showIngredientPopup && (
-        <Modal title={'Детали ингредиента'} closePopup={setShowIngredientPopup} >
+      {isIngredientModalOpen && (
+        <Modal title={'Детали ингредиента'} closePopup={closePopup}>
           <IngredientDetails />
         </Modal>
       )}

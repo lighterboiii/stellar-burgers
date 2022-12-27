@@ -3,45 +3,42 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/
 import {
   CurrencyIcon
 } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
+import { setOrderData } from "../../services/actions/order";
 import {
-  SET_ORDER_DETAILS,
   SELECT_INGREDIENT,
   sortIngredients
-} from '../../services/actions/actions';
+} from '../../services/actions/ingredients';
 import { useMemo, useCallback } from "react";
-import PropTypes from 'prop-types';
+import Modal from '../Modal/Modal.jsx';
 import styles from './BurgerConstructor.module.css';
-import { sendOrder } from '../../utils/burger-api';
+import { changeOrderModalStatus } from "../../services/actions/modal";
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
 import { SelectedIngredient } from "./SelectedIngredient/SelectedIngredient";
+import OrderDetails from '../Modal/OrderDetails/OrderDetails.jsx';
 
-function BurgerConstructor({ setShowOrderPopup }) {
+function BurgerConstructor() {
   const dispatch = useDispatch();
-
   const burgerData = useSelector(state => state.ingredients.ingredients);
   const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
   const notBun = useMemo(() => selectedIngredients.filter((ingredient) => ingredient.type !== 'bun'), [selectedIngredients]);
-  const bun = selectedIngredients.find((item) => item.type === 'bun');
+  const bun = useMemo(() => selectedIngredients.find((ingredient) => ingredient.type === 'bun'), [selectedIngredients]);
+  const isOrderDetailsModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
+  const orderDetails = useSelector(state => state.orderData.orderDetails);
+
   //calculating items prices
   const sum = useMemo(() => {
     return selectedIngredients.reduce(
       (acc, ingredient) =>
-        ingredient.type === 'bun' ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
+        ingredient === bun ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
   }, [selectedIngredients]);
-// order button listener
+  // order button listener
   const onOrderClick = () => {
-    const dataId = burgerData.map((element) => element._id);
-    sendOrder(dataId)
-      .then(res =>
-        dispatch({
-          type: SET_ORDER_DETAILS,
-          payload: res
-        }))
-      .catch(err => console.log(`Ошибка ${err.status}`));
-    setShowOrderPopup(true);
+    const dataId = selectedIngredients.map((element) => element._id);
+    dispatch(setOrderData(dataId));
+    dispatch(changeOrderModalStatus(true));
   };
-// drop listener
+  // drop listener
   const handleDrop = (item) => {
     const selectedIngredient = burgerData.find(ingredient => ingredient._id === item._id);
     dispatch({
@@ -49,7 +46,7 @@ function BurgerConstructor({ setShowOrderPopup }) {
       payload: [...selectedIngredients, selectedIngredient]
     })
   };
-// drop hook
+  // drop hook
   const [{ isHover }, dropRef] = useDrop({
     accept: 'ingredient',
     collect: monitor => ({
@@ -59,10 +56,10 @@ function BurgerConstructor({ setShowOrderPopup }) {
       handleDrop(item)
     },
   });
-// not-working 
+  // not-working 
   const moveIngredients = useCallback((dragIndex, hoverIndex, selectedIngredients) => {
     dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
-  },[selectedIngredients, dispatch]);
+  }, [selectedIngredients, dispatch]);
 
   return (
     <section className={`${styles.section} ${isHover && styles.dropping}`} ref={dropRef}>
@@ -86,7 +83,7 @@ function BurgerConstructor({ setShowOrderPopup }) {
         </div>
         <ul className={'text custom-scroll ' + styles.list}>
           {notBun.map((element, index) => (
-             <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} index={index} key={`${element.id}${index}`}/>
+            <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} index={index} key={`${element.id}${index}`} />
           ))
           }
         </ul>
@@ -118,12 +115,15 @@ function BurgerConstructor({ setShowOrderPopup }) {
           <Button size="large" type="secondary" htmlType='button' disabled onClick={onOrderClick}>Оформить заказ</Button>
         </div>
       }
-    </section>
-  )
-}
 
-BurgerConstructor.propTypes = {
-  setShowOrderPopup: PropTypes.func.isRequired
+      {/* {isOrderDetailsModalOpen && orderDetails && (
+        <Modal title={''}>
+          <OrderDetails />
+        </Modal>
+      )} */}
+    </section>
+
+  )
 };
 
 export default BurgerConstructor;

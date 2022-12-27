@@ -6,10 +6,12 @@ import styles from './Ingredient.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   OPEN_INGREDIENT_INFO
-} from '../../../services/actions/actions';
+} from '../../../services/actions/ingredients';
+import { changeIngredientModalStatus } from "../../../services/actions/modal";
+import { currentIngredient } from "../../../services/actions/ingredients";
 
 
-function Ingredient({ ingredient, setShowIngredientPopup }) {
+function Ingredient({ ingredient }) {
   const { image, name, price, _id } = ingredient;
   const burgerData = useSelector(state => state.ingredients.ingredients);
   const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
@@ -26,11 +28,8 @@ function Ingredient({ ingredient, setShowIngredientPopup }) {
   const handleIngClick = (evt) => {
     const id = evt.currentTarget.id
     const current = burgerData.find(element => element._id === id)
-    dispatch({
-      type: OPEN_INGREDIENT_INFO,
-      payload: current
-    })
-    setShowIngredientPopup(true)
+    dispatch(currentIngredient(current));
+    dispatch(changeIngredientModalStatus(true));
   };
 
   let counter = 0;
@@ -67,7 +66,7 @@ Ingredient.propTypes = {
     proteins: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     _id: PropTypes.string.isRequired,
-  }),
+  }).isRequired,
   setShowIngredientPopup: PropTypes.func.isRequired
 }
 

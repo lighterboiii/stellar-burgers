@@ -3,7 +3,7 @@ import Ingredient from "../Ingredient/Ingredient";
 import { forwardRef } from 'react';
 
 const IngredientCategory = forwardRef((
-  { category, heading, listStyle, textStyle, setShowIngredientPopup }, ref) => {
+  { category, heading, listStyle, textStyle }, ref) => {
 
   return (
     <div ref={ref}>
@@ -14,7 +14,6 @@ const IngredientCategory = forwardRef((
             <Ingredient
               count={0}
               ingredient={element}
-              setShowIngredientPopup={setShowIngredientPopup}
               key={element._id}
             />
           )
@@ -30,8 +29,7 @@ IngredientCategory.propTypes = {
   category: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   heading: PropTypes.string.isRequired,
   listStyle: PropTypes.string.isRequired,
-  textStyle: PropTypes.string.isRequired,
-  setShowIngredientPopup: PropTypes.func.isRequired
+  textStyle: PropTypes.string.isRequired
 }
 
 export default IngredientCategory;

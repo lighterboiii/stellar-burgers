@@ -3,7 +3,7 @@ import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-component
 import { useSelector } from 'react-redux';
 
 function OrderDetails() {
-  const orderDetails = useSelector(state => state.ingredients.orderDetails);
+  const orderDetails = useSelector(state => state.orderData.orderDetails);
   
   return (
     <div className={styles.card + ' pt-15 pb-30 pr-25 pl-25'}>

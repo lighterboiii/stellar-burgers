@@ -3,10 +3,9 @@ import IngredientCategory from './IngredientCategory/IngredientCategory';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/tab";
 import { useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 
 
-function BurgerIngredients({ setShowIngredientPopup }) {
+function BurgerIngredients() {
 	const burgerData = useSelector(state => state.ingredients.ingredients);
 
 	const buns = useMemo(() => burgerData.filter((item) => item.type === 'bun'), [burgerData]);
@@ -17,21 +16,21 @@ function BurgerIngredients({ setShowIngredientPopup }) {
 	const sauceRef = useRef(null);
 	const mainRef = useRef(null);
 
-	const [current, setCurrent] = useState('one');
+	const [current, setCurrent] = useState('buns');
 
 	const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
 
 	const handleClick = (value) => {
 		switch (value) {
-			case 'one': {
+			case 'buns': {
 				bunRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
 				break;
 			}
-			case 'two': {
+			case 'sauces': {
 				sauceRef.current.scrollIntoView({ block: 'center', behavior: 'smooth' });
 				break;
 			}
-			case 'three': {
+			case 'mains': {
 				mainRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
 				break;
 			}
@@ -42,11 +41,11 @@ function BurgerIngredients({ setShowIngredientPopup }) {
 		const lineY = scrollRef.current.getBoundingClientRect().y;
 		const bunsOffset = Math.abs(bunRef.current.getBoundingClientRect().y - lineY);
 		const sauceOffset = Math.abs(sauceRef.current.getBoundingClientRect().y - lineY);
-		const mainsOffset = Math.abs(mainRef.current.getBoundingClientRect().y -  lineY);
+		const mainsOffset = Math.abs(mainRef.current.getBoundingClientRect().y - lineY);
 
-		if (bunsOffset < sauceOffset && bunsOffset < mainsOffset) setCurrent("one");
-		if (sauceOffset < bunsOffset && sauceOffset < mainsOffset) setCurrent("two");
-		if (mainsOffset < bunsOffset && mainsOffset < sauceOffset) setCurrent("three");
+		if (bunsOffset < sauceOffset && bunsOffset < mainsOffset) setCurrent("buns");
+		if (sauceOffset < bunsOffset && sauceOffset < mainsOffset) setCurrent("sauces");
+		if (mainsOffset < bunsOffset && mainsOffset < sauceOffset) setCurrent("mains");
 	}
 
 	const textStyle = 'text text_type_main-medium text_color_primary pb-6';
@@ -55,42 +54,33 @@ function BurgerIngredients({ setShowIngredientPopup }) {
 		<section className={styles.ingredients}>
 			<h2 className={'text text_type_main-large text text_color_primary mt-10 mb-5'}>Соберите бургер</h2>
 			<div className={styles.tabs}>
-				<Tab value='one' active={current === 'one'} onClick={handleClick}>
+				<Tab value='buns' active={current === 'buns'} onClick={handleClick}>
 					Булки
 				</Tab>
-				<Tab value='two' active={current === 'two'} onClick={handleClick}>
+				<Tab value='sauces' active={current === 'sauces'} onClick={handleClick}>
 					Соусы
 				</Tab>
-				<Tab value='three' active={current === 'three'} onClick={handleClick}>
+				<Tab value='mains' active={current === 'mains'} onClick={handleClick}>
 					Начинки
 				</Tab>
 			</div>
 			<div className={styles.wrapper}>
 				<div className={styles.scroll + ' custom-scroll pt-10'} ref={scrollRef} onScroll={handleScroll}>
-					<IngredientCategory ref={bunRef}
-						setShowIngredientPopup={setShowIngredientPopup}
-						category={buns} heading={'Булки'} listStyle={'pl-4 pr-4 ' + styles.list} textStyle={textStyle}
+					<IngredientCategory ref={bunRef} category={buns} heading={'Булки'}
+						listStyle={'pl-4 pr-4 ' + styles.list} textStyle={textStyle}
 					/>
-					<IngredientCategory ref={sauceRef}
-						setShowIngredientPopup={setShowIngredientPopup}
-						category={sauces} heading={'Соусы'} 
-						listStyle={`pl-4 pr-4  ${styles.list} ${selectedIngredients.length === 0 && styles.disabled}`} 
+					<IngredientCategory ref={sauceRef} category={sauces} heading={'Соусы'}
+						listStyle={`pl-4 pr-4  ${styles.list} ${selectedIngredients.length === 0 && styles.disabled}`}
 						textStyle={textStyle + ' pt-10'}
 					/>
-					<IngredientCategory ref={mainRef}
-						setShowIngredientPopup={setShowIngredientPopup}
-						category={mains} heading={'Начинки'} 
-						listStyle={`pl-4 pr-4 pb-8 ${styles.list} ${selectedIngredients.length === 0 && styles.disabled}`} 
+					<IngredientCategory ref={mainRef} category={mains} heading={'Начинки'}
+						listStyle={`pl-4 pr-4 pb-8 ${styles.list} ${selectedIngredients.length === 0 && styles.disabled}`}
 						textStyle={textStyle + ' pt-10'}
 					/>
 				</div>
 			</div>
 		</section>
 	)
-}
-
-BurgerIngredients.propTypes = {
-	setShowIngredientPopup: PropTypes.func.isRequired
 };
 
 export default BurgerIngredients;
