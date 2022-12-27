@@ -4,9 +4,6 @@ import { useDrag } from "react-dnd";
 import PropTypes from 'prop-types';
 import styles from './Ingredient.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  OPEN_INGREDIENT_INFO
-} from '../../../services/actions/ingredients';
 import { changeIngredientModalStatus } from "../../../services/actions/modal";
 import { currentIngredient } from "../../../services/actions/ingredients";
 

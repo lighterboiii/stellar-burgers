@@ -1,4 +1,6 @@
-import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from './BurgerConstructor.module.css';
+import { TopBun } from './TopBun/TopBun';
+import { BottomBun } from './BottomBun/BottomBun';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import {
   CurrencyIcon
@@ -9,13 +11,10 @@ import {
   sortIngredients
 } from '../../services/actions/ingredients';
 import { useMemo, useCallback } from "react";
-import Modal from '../Modal/Modal.jsx';
-import styles from './BurgerConstructor.module.css';
 import { changeOrderModalStatus } from "../../services/actions/modal";
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
 import { SelectedIngredient } from "./SelectedIngredient/SelectedIngredient";
-import OrderDetails from '../Modal/OrderDetails/OrderDetails.jsx';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -23,8 +22,6 @@ function BurgerConstructor() {
   const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
   const notBun = useMemo(() => selectedIngredients.filter((ingredient) => ingredient.type !== 'bun'), [selectedIngredients]);
   const bun = useMemo(() => selectedIngredients.find((ingredient) => ingredient.type === 'bun'), [selectedIngredients]);
-  const isOrderDetailsModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
-  const orderDetails = useSelector(state => state.orderData.orderDetails);
 
   //calculating items prices
   const sum = useMemo(() => {
@@ -32,6 +29,7 @@ function BurgerConstructor() {
       (acc, ingredient) =>
         ingredient === bun ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
   }, [selectedIngredients]);
+  
   // order button listener
   const onOrderClick = () => {
     const dataId = selectedIngredients.map((element) => element._id);
@@ -64,46 +62,14 @@ function BurgerConstructor() {
   return (
     <section className={`${styles.section} ${isHover && styles.dropping}`} ref={dropRef}>
       <div className={`mb-10 mt-25`}>
-        <div className={'mb-4 ml-4 mr-4 pl-8'}>
-          {bun &&
-            selectedIngredients.length > 0 ? <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={bun.name + ' (верх)'}
-            thumbnail={bun.image}
-            price={bun.price}
-          /> : <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={'Выберите булочку (верх)'}
-            price={0}
-            thumbnail={`https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg`}
-          />
-          }
-        </div>
+        <TopBun />
         <ul className={'text custom-scroll ' + styles.list}>
           {notBun.map((element, index) => (
             <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} index={index} key={`${element.id}${index}`} />
           ))
           }
         </ul>
-        <div className={' ml-4 mr-4 pl-8'}>
-          {bun &&
-            selectedIngredients.length > 0 ? <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={bun.name + ' (низ)'}
-            thumbnail={bun.image}
-            price={bun.price}
-          /> : <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={'Выберите булочку (низ)'}
-            price={0}
-            thumbnail={`https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg`}
-          />
-          }
-        </div>
+        <BottomBun />
       </div>
       {selectedIngredients.length > 0 ?
         <div className={'mr-4 ' + styles.total}>
@@ -115,12 +81,6 @@ function BurgerConstructor() {
           <Button size="large" type="secondary" htmlType='button' disabled onClick={onOrderClick}>Оформить заказ</Button>
         </div>
       }
-
-      {/* {isOrderDetailsModalOpen && orderDetails && (
-        <Modal title={''}>
-          <OrderDetails />
-        </Modal>
-      )} */}
     </section>
 
   )

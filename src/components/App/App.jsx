@@ -18,7 +18,6 @@ import { changeIngredientModalStatus, changeOrderModalStatus } from '../../servi
 function App() {
   const dispatch = useDispatch();
   const orderDetails = useSelector(state => state.orderData.orderDetails);
-  const currentIngredient = useSelector(state => state.ingredients.currentIngredient);
   const isIngredientModalOpen = useSelector(state => state.modalState.isIngredientModalOpen);
   const isOrderDetailsModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
 

@@ -5,7 +5,7 @@ import {
 
 const initialState = {
   isOrderDetailsModalOpen: false,
-  isIngredientsModalOpen: false,
+  isIngredientModalOpen: false,
 };
 
 export const modalReducer = (state = initialState, action) => {
