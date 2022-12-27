@@ -1,4 +1,5 @@
 import styles from './BurgerIngredients.module.css';
+import PropTypes from 'prop-types';
 import IngredientCategory from './IngredientCategory/IngredientCategory';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/tab";
 import { useMemo, useRef, useState } from 'react';
@@ -90,6 +91,11 @@ function BurgerIngredients({ closePopup }) {
 		</section>
 	)
 };
+
+BurgerIngredients.propTypes = {
+  closePopup: PropTypes.func.isRequired
+}
+
 
 export default BurgerIngredients;
 

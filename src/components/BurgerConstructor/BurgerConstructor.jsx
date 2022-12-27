@@ -1,15 +1,11 @@
 import styles from './BurgerConstructor.module.css';
+import PropTypes from 'prop-types';
 import { TopBun } from './TopBun/TopBun';
 import { BottomBun } from './BottomBun/BottomBun';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import {
-  CurrencyIcon
-} from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { setOrderData } from "../../services/actions/order";
-import {
-  SELECT_INGREDIENT,
-  sortIngredients
-} from '../../services/actions/ingredients';
+import { SELECT_INGREDIENT, sortIngredients } from '../../services/actions/ingredients';
 import { useMemo, useCallback } from "react";
 import { changeOrderModalStatus } from "../../services/actions/modal";
 import { useSelector, useDispatch } from 'react-redux';
@@ -97,5 +93,9 @@ function BurgerConstructor({ closePopup }) {
 
   )
 };
+
+BurgerConstructor.propTypes = {
+  closePopup: PropTypes.func.isRequired
+}
 
 export default BurgerConstructor;

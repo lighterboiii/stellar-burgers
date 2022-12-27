@@ -5,31 +5,19 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { getIngredients } from '../../utils/burger-api.js';
+import { getIngredientsData } from '../../services/actions/ingredients';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  GET_INGREDIENTS_SUCCESS
-} from '../../services/actions/ingredients';
 import { changeIngredientModalStatus, changeOrderModalStatus } from '../../services/actions/modal.js';
 
 function App() {
   const dispatch = useDispatch();
-
+  // order modal status
   const isOrderModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
-
+  // get ingredients data from server
   React.useEffect(() => {
-    getIngredients()
-      .then((res) => {
-        dispatch({
-          type: GET_INGREDIENTS_SUCCESS,
-          payload: res.data
-        })
-      })
-      .catch(e => {
-        console.log(e)
-      })
+    dispatch(getIngredientsData())
   }, [dispatch]);
-
+  // popup closing func
   const closePopup = () => {
     isOrderModalOpen ? dispatch(changeOrderModalStatus(false)) : dispatch(changeIngredientModalStatus(false));
   }

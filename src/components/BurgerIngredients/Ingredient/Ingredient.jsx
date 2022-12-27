@@ -13,7 +13,7 @@ function Ingredient({ ingredient }) {
   const burgerData = useSelector(state => state.ingredients.ingredients);
   const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
   const dispatch = useDispatch();
-
+  // dnd drag hook
   const [{ isDrag }, dragRef] = useDrag({
 		type: 'ingredient',
 		item: ingredient,
@@ -21,14 +21,14 @@ function Ingredient({ ingredient }) {
 				isDrag: monitor.isDragging()
 		})
 	});
-
+  // ingredient click listener
   const handleIngClick = (evt) => {
     const id = evt.currentTarget.id
     const current = burgerData.find(element => element._id === id)
     dispatch(currentIngredient(current));
     dispatch(changeIngredientModalStatus(true));
   };
-
+  // counter func
   let counter = 0;
   selectedIngredients.forEach(ingredient => {
     ingredient.name === name && (ingredient.type === 'bun' ? counter += 2 : counter += 1);

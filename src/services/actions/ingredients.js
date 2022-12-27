@@ -1,3 +1,5 @@
+import { getIngredients } from '../../utils/burger-api.js';
+
 export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
@@ -20,4 +22,21 @@ export const sortIngredients = (dragIndex, hoverIndex, selectedIngredients) => {
   }
 };
 
-export const currentIngredient = (ingredient) => ({type: OPEN_INGREDIENT_INFO, payload: ingredient});
+export const getIngredientsData = () => {
+  return function (dispatch) {
+    getIngredients()
+      .then((res) => {
+        if (res) {
+          dispatch({
+            type: GET_INGREDIENTS_SUCCESS,
+            payload: res.data
+          })
+        }
+      })
+      .catch(e => {
+        console.log(`Ошибка ${e.message}`)
+      })
+  }
+}
+
+export const currentIngredient = (ingredient) => ({ type: OPEN_INGREDIENT_INFO, payload: ingredient });
