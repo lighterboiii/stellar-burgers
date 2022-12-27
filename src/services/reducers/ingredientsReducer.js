@@ -5,7 +5,8 @@ GET_INGREDIENTS_SUCCESS,
 SELECT_INGREDIENT,
 DELETE_INGREDIENT,
 SORT_INGREDIENTS,
-OPEN_INGREDIENT_INFO
+OPEN_INGREDIENT_INFO,
+DELETE_ALL_INGREDIENTS
 } from '../actions/ingredients';
 
 const initialState = {
@@ -59,6 +60,12 @@ export const ingredientsReducer = (state = initialState, action) => {
       }
     }
     case SORT_INGREDIENTS: {
+      return {
+        ...state,
+        selectedIngredients: action.payload
+      }
+    }
+    case DELETE_ALL_INGREDIENTS: {
       return {
         ...state,
         selectedIngredients: action.payload

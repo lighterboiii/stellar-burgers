@@ -7,10 +7,19 @@ export const OPEN_INGREDIENT_INFO = 'OPEN_INGREDIENT_INFO';
 export const SELECT_INGREDIENT = 'SELECT_INGREDIENT';
 export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
 export const SORT_INGREDIENTS = 'SET_INGREDIENTS';
+export const DELETE_ALL_INGREDIENTS = 'DELETE_ALL_INGREDIENTS';
+
+export const deleteAllIngredients = (selectedIngredients) => {
+  return function (dispatch) {
+    dispatch({
+      type: DELETE_ALL_INGREDIENTS,
+      payload: []
+    })
+  }
+}
 
 export const sortIngredients = (dragIndex, hoverIndex, selectedIngredients) => {
   return function (dispatch) {
-
     const dragItem = selectedIngredients[dragIndex];
     const sortedIngredients = [...selectedIngredients];
     const hoverItem = sortedIngredients.splice(hoverIndex, 1, dragItem);

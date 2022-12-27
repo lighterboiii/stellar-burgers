@@ -8,6 +8,7 @@ import { setOrderData } from "../../services/actions/order";
 import { SELECT_INGREDIENT, sortIngredients } from '../../services/actions/ingredients';
 import { useMemo, useCallback } from "react";
 import { changeOrderModalStatus } from "../../services/actions/modal";
+import { deleteAllIngredients } from '../../services/actions/ingredients';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
 import { SelectedIngredient } from "./SelectedIngredient/SelectedIngredient";
@@ -38,6 +39,7 @@ function BurgerConstructor({ closePopup }) {
     const dataId = selectedIngredients.map((element) => element._id);
     dispatch(setOrderData(dataId));
     dispatch(changeOrderModalStatus(true));
+    dispatch(deleteAllIngredients(selectedIngredients));
   };
   // drop listener
   const handleDrop = (item) => {

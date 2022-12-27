@@ -14,8 +14,8 @@ function OrderDetails() {
       <span className={'mb-15'}>
         <CheckMarkIcon type='primary' />
       </span>
-      <p className='text text_type_main-default mb-2'>
-        Ваш заказ начали готовить
+      <p className={'text text_type_main-default mb-2 ' + styles.burgerName}>
+        Ваш {orderDetails.name} начали готовить
       </p>
       <p className='text text_type_main-default text_color_inactive'>
         Дождитесь готовности на орбитальной станции
