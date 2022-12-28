@@ -1,89 +1,103 @@
-import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import {
-  DragIcon,
-  CurrencyIcon
-} from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
-import { useMemo, useContext } from "react";
-import PropTypes from 'prop-types';
 import styles from './BurgerConstructor.module.css';
-import { IngredientsContext } from '../../utils/IngredientsContext';
-import { OrderContext } from "../../utils/OrderContext";
-import { sendOrder } from '../../utils/burger-api';
+import PropTypes from 'prop-types';
+import { TopBun } from './TopBun/TopBun';
+import { BottomBun } from './BottomBun/BottomBun';
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
+import { setOrderData } from "../../services/actions/order";
+import { SELECT_INGREDIENT, sortIngredients } from '../../services/actions/ingredients';
+import { useMemo, useCallback } from "react";
+import { changeOrderModalStatus } from "../../services/actions/modal";
+import { deleteAllIngredients } from '../../services/actions/ingredients';
+import { useSelector, useDispatch } from 'react-redux';
+import { useDrop } from "react-dnd";
+import { SelectedIngredient } from "./SelectedIngredient/SelectedIngredient";
+import Modal from '../Modal/Modal';
+import OrderDetails from '../Modal/OrderDetails/OrderDetails';
 
+function BurgerConstructor({ closePopup }) {
+  const dispatch = useDispatch();
 
-function BurgerConstructor({ setShowOrderPopup }) {
-  const burgerData = useContext(IngredientsContext);
-  const { setOrderDetails } = useContext(OrderContext);
+  const burgerData = useSelector(state => state.ingredients.ingredients);
+  const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
 
-  const notBun = useMemo(() => burgerData.filter((item) => item.type !== 'bun'), [burgerData]);
-  const bun = burgerData.find((item) => item.type === 'bun');
+  const notBun = useMemo(() => selectedIngredients.filter((ingredient) => ingredient.type !== 'bun'), [selectedIngredients]);
+  const bun = useMemo(() => selectedIngredients.find((ingredient) => ingredient.type === 'bun'), [selectedIngredients]);
 
+  const orderDetails = useSelector(state => state.orderData.orderDetails);
+  const isOrderModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
+
+  //calculating items prices
   const sum = useMemo(() => {
-    return burgerData.reduce(
-      (acc, ingredient) => 
-      ingredient.type === bun ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
-  }, [burgerData]);
+    return selectedIngredients.reduce(
+      (acc, ingredient) =>
+        ingredient === bun ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
+  }, [selectedIngredients]);
 
+  // order button listener
   const onOrderClick = () => {
-    const dataId = burgerData.map((element) => element._id);
-    sendOrder(dataId)
-      .then(res => setOrderDetails(res))
-      .catch(err => console.log(`Ошибка ${err.status}`))
-    setShowOrderPopup(true);
-  }
+    const dataId = selectedIngredients.map((element) => element._id);
+    dispatch(setOrderData(dataId));
+    dispatch(changeOrderModalStatus(true));
+    dispatch(deleteAllIngredients(selectedIngredients));
+  };
+  // drop listener
+  const handleDrop = (item) => {
+    const selectedIngredient = burgerData.find(ingredient => ingredient._id === item._id);
+    dispatch({
+      type: SELECT_INGREDIENT,
+      payload: [...selectedIngredients, selectedIngredient]
+    })
+  };
+  // drop hook
+  const [{ isHover }, dropRef] = useDrop({
+    accept: 'ingredient',
+    collect: monitor => ({
+      isHover: monitor.isOver()
+    }),
+    drop(item) {
+      handleDrop(item)
+    },
+  });
+  // not-working 
+  const moveIngredients = useCallback((dragIndex, hoverIndex, selectedIngredients) => {
+    dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
+  }, [selectedIngredients, dispatch]);
 
   return (
-    <section className={styles.section}>
-      <div className={'mt-25 mb-10'}>
-        <div className={'mb-4 ml-4 mr-4 pl-8'}>
-        {bun && (
-        <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={bun.name + ' (верх)'}
-            thumbnail={bun.image}
-            price={bun.price}
-          />
-        )}
-        </div>
+    <section className={`${styles.section} ${isHover && styles.dropping}`} ref={dropRef}>
+      <div className={`mb-10 mt-25`}>
+        <TopBun />
         <ul className={'text custom-scroll ' + styles.list}>
-          {notBun.map((element) => {
-            return (
-              <li className={'mb-4 ml-4 mr-1 ' + styles.element} key={element._id}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  text={element.name}
-                  thumbnail={element.image}
-                  price={element.price}
-                />
-              </li>
-            )
-          })
+          {notBun.map((element, index) => (
+            <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} index={index} key={`${element.id}${index}`} />
+          ))
           }
         </ul>
-        <div className={' ml-4 mr-4 pl-8'}>
-          {bun && (
-              <ConstructorElement
-              type="bottom"
-              isLocked={true}
-              text={bun.name + ' (низ)'}
-              thumbnail={bun.image}
-              price={bun.price}
-            />
-            )}
+        <BottomBun />
+      </div>
+      {selectedIngredients.length > 0 ?
+        <div className={'mr-4 ' + styles.total}>
+          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon />}</span>
+          <Button size="large" type="primary" htmlType='button' onClick={onOrderClick}>Оформить заказ</Button>
+        </div> :
+        <div className={'mr-4 ' + styles.total}>
+          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon />}</span>
+          <Button size="large" type="secondary" htmlType='button' disabled onClick={onOrderClick}>Оформить заказ</Button>
         </div>
-      </div>
-      <div className={'mr-4 ' + styles.total}>
-        <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon />}</span>
-        <Button size="large" type="primary" htmlType='button' onClick={onOrderClick}>Оформить заказ</Button>
-      </div>
+      }
+      {isOrderModalOpen && orderDetails && (
+        <Modal title={''} closePopup={closePopup}>
+          <OrderDetails />
+        </Modal>
+      )}
     </section>
+
   )
-}
+};
 
 BurgerConstructor.propTypes = {
-  setShowOrderPopup: PropTypes.func.isRequired
-};
+  closePopup: PropTypes.func.isRequired
+}
 
 export default BurgerConstructor;

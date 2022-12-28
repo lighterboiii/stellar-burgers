@@ -1,10 +1,11 @@
 import styles from './IngredientDetails.module.css'
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-function IngredientDetails({ currentIngredient }) {
+function IngredientDetails() {
+  const currentIngredient = useSelector(state => state.ingredients.currentIngredient);
 
   return (
-    <div className={styles.wrapper + ' pb-15 pl-10 pr-10'} currentingredient={currentIngredient._id}>
+    <div className={styles.wrapper + ' pb-15 pl-10 pr-10'} currentingredient={currentIngredient.id}>
       <img src={currentIngredient.image_large} alt={currentIngredient.name} />
       <h4 className={'mt-4 mb-8 text text_type_main-medium ' + styles.title}>{currentIngredient.name}</h4>
       <ul className={styles.options}>
@@ -29,8 +30,4 @@ function IngredientDetails({ currentIngredient }) {
   )
 }
 
-IngredientDetails.propTypes = { 
-	currentIngredient: PropTypes.object.isRequired
- };
-
-export default IngredientDetails
+export default IngredientDetails;

@@ -1,18 +1,9 @@
 import PropTypes from 'prop-types';
 import Ingredient from "../Ingredient/Ingredient";
-import { forwardRef, useContext } from 'react';
-import { IngredientsContext } from '../../../utils/IngredientsContext';
+import { forwardRef } from 'react';
 
 const IngredientCategory = forwardRef((
-  { category, heading, listStyle, textStyle, setShowIngredientPopup, setCurrentIngredient }, ref) => {
-  const burgerData = useContext(IngredientsContext);
-
-  const handleIngClick = (evt) => {
-    const id = evt.currentTarget.id
-    const current = burgerData.find(element => element._id === id);
-    setCurrentIngredient(current)
-    setShowIngredientPopup(true)
-  }
+  { category, heading, listStyle, textStyle }, ref) => {
 
   return (
     <div ref={ref}>
@@ -22,14 +13,8 @@ const IngredientCategory = forwardRef((
           return (
             <Ingredient
               count={0}
-              image={element.image}
-              alt={element.name}
-              price={element.price}
+              ingredient={element}
               key={element._id}
-              id={element._id}
-              setShowIngredientPopup={setShowIngredientPopup}
-              setCurrentIngredient={setCurrentIngredient}
-              handleIngClick={handleIngClick}
             />
           )
         }
@@ -44,9 +29,7 @@ IngredientCategory.propTypes = {
   category: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   heading: PropTypes.string.isRequired,
   listStyle: PropTypes.string.isRequired,
-  textStyle: PropTypes.string.isRequired,
-  setCurrentIngredient: PropTypes.func.isRequired,
-  setShowIngredientPopup: PropTypes.func.isRequired
+  textStyle: PropTypes.string.isRequired
 }
 
 export default IngredientCategory;
