@@ -6,6 +6,7 @@ import styles from './Ingredient.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeIngredientModalStatus } from "../../../services/actions/modal";
 import { currentIngredient } from "../../../services/actions/ingredients";
+import { IngredientPropTypes } from "../../../constants/constants";
 
 
 function Ingredient({ ingredient }) {
@@ -51,20 +52,7 @@ function Ingredient({ ingredient }) {
 }
 
 Ingredient.propTypes = { 
-  ingredient: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired,
-  }).isRequired,
-  setShowIngredientPopup: PropTypes.func.isRequired
+  ingredient: IngredientPropTypes
 }
 
 export default Ingredient;
