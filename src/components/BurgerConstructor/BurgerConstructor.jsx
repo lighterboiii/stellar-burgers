@@ -60,7 +60,7 @@ function BurgerConstructor({ closePopup }) {
     },
   });
   // not-working 
-  const moveIngredients = useCallback((dragIndex, hoverIndex, selectedIngredients) => {
+  const moveIngredients = useCallback((dragIndex, hoverIndex) => {
     dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
   }, [selectedIngredients, dispatch]);
 
