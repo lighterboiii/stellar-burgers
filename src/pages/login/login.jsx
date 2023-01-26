@@ -17,8 +17,12 @@ export function LoginPage() {
         <Button type='primary' size='medium'>Войти</Button>
       </form>
       <div className={"mt-20 " + styles.wrapper}>
-        <p className={'text text_type_main-default text_color_inactive ' + styles.text}>Вы новый пользователь? <Link to="/register" className={styles.link}>Зарегистрироваться</Link></p>
-        <p className={'text text_type_main-default text_color_inactive ' + styles.text}>Забыли пароль? <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link></p>
+        <p className={'text text_type_main-default text_color_inactive ' + styles.text}>Вы новый пользователь?
+          <a href="/register" className={styles.link}>Зарегистрироваться</a> {/* Поменять на Link*/}
+        </p>
+        <p className={'text text_type_main-default text_color_inactive ' + styles.text}>Забыли пароль?
+          <a href="/forgot-password" className={styles.link}>Восстановить пароль</a> {/* Поменять на Link*/}
+        </p>
       </div>
     </div>
   );

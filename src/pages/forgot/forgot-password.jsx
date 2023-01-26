@@ -16,7 +16,7 @@ export function ForgotPage() {
       </form>
       <div className={"mt-20 " + styles.wrapper}>
         <p className={'text text_type_main-default text_color_inactive ' + styles.text}>Вспомнили пароль?
-         <Link to="/login" className={styles.link}>Войти</Link></p>
+         <a href="/login" className={styles.link}>Войти</a></p> {/* Поменять на Link*/}
       </div>
     </div>
   );

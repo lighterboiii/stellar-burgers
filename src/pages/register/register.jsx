@@ -20,7 +20,7 @@ export function RegisterPage() {
       </form>
       <div className={"mt-20 "}>
         <p className={'text text_type_main-default text_color_inactive ' + styles.text}>Уже зарегистрированы?
-          <Link to="/login" className={styles.link}>Войти</Link>
+          <a href="/login" className={styles.link}>Войти</a> {/* Поменять на Link*/}
         </p>
       </div>
     </div>
