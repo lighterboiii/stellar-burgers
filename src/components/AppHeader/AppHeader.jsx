@@ -5,6 +5,7 @@ import {
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 import LinkItem from './LinkItem/LinkItem.jsx';
+import { Link } from "react-router-dom";
 
 import styles from './AppHeader.module.css';
 
@@ -21,7 +22,7 @@ function AppHeader() {
             textClass={'ml-2 text_color_primary'}
             icon={<BurgerIcon type='primary' />}
             text={'Конструктор'}
-            href={'#'}
+            href={'/'}
           />
           <LinkItem
             linkClass={linkStyle + styles.link}
@@ -32,15 +33,17 @@ function AppHeader() {
           />
         </div>
         <div className={styles.logo}>
-          <Logo />
+          <Link to='/'>
+            <Logo />
+          </Link>
         </div>
         <nav className={styles.layout}>
           <LinkItem
             linkClass={linkStyle + styles.link}
             textClass={'ml-2'}
-            icon={<ProfileIcon type='secondary'/>}
+            icon={<ProfileIcon type='secondary' />}
             text={'Личный кабинет'}
-            href={'#'}
+            href={'/login'}
           />
         </nav>
       </nav>
