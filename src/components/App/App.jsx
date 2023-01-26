@@ -10,6 +10,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeIngredientModalStatus, changeOrderModalStatus } from '../../services/actions/modal.js';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { LoginPage } from '../../pages/login/login';
+import { RegisterPage } from '../../pages/register/register';
+import { ForgotPage } from '../../pages/forgot/forgot-password';
+import { ResetPage } from '../../pages/reset/reset-password';
+import { PageNotfound } from '../../pages/404/404';
 
 function App() {
   const dispatch = useDispatch();
@@ -39,12 +43,20 @@ function App() {
             <Route path="/login" exact={true}>
               <LoginPage />
             </Route>
-            <Route path="/register" exact={true} />
-            <Route path="/forgot-password" exact={true} />
-            <Route path="/reset-password" exact={true} />
+            <Route path="/register" exact={true}>
+              <RegisterPage />
+            </Route>
+            <Route path="/forgot-password" exact={true}>
+              <ForgotPage />
+            </Route>
+            <Route path="/reset-password" exact={true}>
+              <ResetPage />
+            </Route>
             <Route path="/profile" exact={true} />
             <Route path="/ingredients/:id" exact={true} />
-            <Route path="/404" exact={true} />
+            {/* <Route path="/*">
+              <PageNotfound />
+            </Route> */}
           </div>
         </DndProvider>
       </Switch>

@@ -12,13 +12,13 @@ export function LoginPage() {
     <div className={styles.container}>
       <h2 className='text text_type_main-medium mb-6'>Вход</h2>
       <form className={styles.form}>
-        <EmailInput />
-        <PasswordInput />
+        <EmailInput required />
+        <PasswordInput required />
         <Button type='primary' size='medium'>Войти</Button>
       </form>
       <div className={"mt-20 " + styles.wrapper}>
-        <p className='text text_type_main-default text_color_inactive'>Вы новый пользователь? <Link to="/register" className={styles.link}>Зарегистрироваться</Link></p>
-        <p className='text text_type_main-default text_color_inactive'>Забыли пароль? <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link></p>
+        <p className={'text text_type_main-default text_color_inactive ' + styles.text}>Вы новый пользователь? <Link to="/register" className={styles.link}>Зарегистрироваться</Link></p>
+        <p className={'text text_type_main-default text_color_inactive ' + styles.text}>Забыли пароль? <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link></p>
       </div>
     </div>
   );
