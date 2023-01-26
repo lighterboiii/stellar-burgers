@@ -26,8 +26,8 @@ function AppHeader() {
           />
           <LinkItem
             linkClass={linkStyle + styles.link}
-            textClass={'ml-2'}
-            icon={<ListIcon type='secondary' />}
+            textClass={'ml-2 text_color_primary'}
+            icon={<ListIcon type='primary' />}
             text={'Лента заказов'}
             href={'#'}
           />
@@ -40,8 +40,8 @@ function AppHeader() {
         <nav className={styles.layout}>
           <LinkItem
             linkClass={linkStyle + styles.link}
-            textClass={'ml-2'}
-            icon={<ProfileIcon type='secondary' />}
+            textClass={'ml-2 text_color_primary'}
+            icon={<ProfileIcon type='primary' />}
             text={'Личный кабинет'}
             href={'/login'}
           />

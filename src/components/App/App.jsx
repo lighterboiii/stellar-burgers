@@ -15,6 +15,7 @@ import { RegisterPage } from '../../pages/register/register';
 import { ForgotPage } from '../../pages/forgot/forgot-password';
 import { ResetPage } from '../../pages/reset/reset-password';
 import { PageNotfound } from '../../pages/404/404';
+import { ProfilePage } from '../../pages/profile/profile';
 
 function App() {
 
@@ -24,12 +25,12 @@ function App() {
         <div className={styles.app}>
           <AppHeader />
           <Routes>
-            <Route path='/' element={<HomePage />} exact />
+            <Route path='/' element={<HomePage />} exact={true} />
             <Route path="/login" element={<LoginPage />} exact={true} />
             <Route path="/register" element={<RegisterPage />} exact={true} />
             <Route path="/forgot-password" element={<ForgotPage />} exact={true} />
             <Route path="/reset-password" element={<ResetPage />} exact={true} />
-            <Route path="/profile" exact={true} />
+            <Route path='/profile' element={<ProfilePage />} exact={true}/>
             <Route path="/ingredients/:id" exact={true} />
             <Route path='*' element={<PageNotfound />} />
           </Routes>
