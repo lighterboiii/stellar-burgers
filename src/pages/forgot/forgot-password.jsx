@@ -12,11 +12,11 @@ export function ForgotPage() {
       <h2 className='text text_type_main-medium mb-6'>Восстановление пароля</h2>
       <form className={styles.form}>
         <EmailInput placeholder='Укажите Email'/>
-        <Button type='primary' size='medium'>Восстановить</Button>
+        <Button type='primary' size='medium'><Link className={styles.buttonLink} to='/reset-password'>Восстановить</Link></Button>
       </form>
       <div className={"mt-20 " + styles.wrapper}>
         <p className={'text text_type_main-default text_color_inactive ' + styles.text}>Вспомнили пароль?
-         <a href="/login" className={styles.link}>Войти</a></p> {/* Поменять на Link*/}
+         <Link to="/login" className={styles.link}>Войти</Link></p>
       </div>
     </div>
   );
