@@ -8,6 +8,8 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { getIngredientsData } from '../../services/actions/ingredients';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeIngredientModalStatus, changeOrderModalStatus } from '../../services/actions/modal.js';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { LoginPage } from '../../pages/login';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,15 +25,28 @@ function App() {
   }
 
   return (
-    <div className={styles.app}>
-      <AppHeader />
-      <DndProvider backend={HTML5Backend}>
-        <main className={styles.main}>
-          <BurgerIngredients closePopup={closePopup}/>
-          <BurgerConstructor closePopup={closePopup}/>
-        </main>
-      </DndProvider>
-    </div>
+    <Router>
+      <Switch>
+        <DndProvider backend={HTML5Backend}>
+          <div className={styles.app}>
+            <AppHeader />
+            <Route path="/stellar-burgers" exact={true}>
+              <main className={styles.main}>
+                <BurgerIngredients closePopup={closePopup} />
+                <BurgerConstructor closePopup={closePopup} />
+              </main>
+            </Route>
+            <Route path="/login" element={<LoginPage />} exact={true}/>
+            <Route path="/register" exact={true}/>
+            <Route path="/forgot-password" exact={true}/>
+            <Route path="/reset-password" exact={true}/>
+            <Route path="/profile" exact={true}/>
+            <Route path="/ingredients/:id" exact={true}/>
+            <Route path="/404" exact={true}/>
+          </div>
+        </DndProvider>
+      </Switch>
+    </Router>
   );
 }
 
