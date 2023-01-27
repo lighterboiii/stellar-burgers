@@ -28,8 +28,8 @@ export const resetReducer = (state = initialState, action) => {
     case RESET_PASSWORD_FORM_SUBMIT: {
       return {
         ...state,
-        forgotPasswordRequest: true,
-        forgotPasswordFailed: false,
+        resetPasswordRequest: true,
+        resetPasswordFailed: false,
       }
     }
     case RESET_PASSWORD_FORM_SUBMIT_SUCCESS: {
@@ -38,7 +38,7 @@ export const resetReducer = (state = initialState, action) => {
         form: {
           ...state.form
         },
-        forgotPasswordFailed: false,
+        resetPasswordFailed: false,
         form: action.payload
       }
     }

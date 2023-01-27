@@ -1,5 +1,5 @@
 import {
-  BURGER_API_URL, FORGOT_PASS_URL
+  BURGER_API_URL, FORGOT_PASS_URL, RESET_PASS_URL
 } from "../constants/constants";
 
 const checkRes = (res) => {
@@ -38,4 +38,17 @@ function forgotPasswordRequest(email) {
   })
 }
 
-export { getIngredients, sendOrder, forgotPasswordRequest }
+function resetPasswordRequest(password, token) {
+  return request(`${BURGER_API_URL}${RESET_PASS_URL}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'password': password,
+      'token': token
+    })
+  })
+}
+
+export { getIngredients, sendOrder, forgotPasswordRequest, resetPasswordRequest }
