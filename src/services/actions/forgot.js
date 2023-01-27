@@ -4,10 +4,6 @@ export const SET_FORGOT_PASSWORD_VALUE = 'SET_FORGOT_PASSWORD_VALUE';
 export const FORGOT_PASS_FORM_SUBMIT = 'FORGOT_PASS_FORM_SUBMIT';
 export const FORGOT_PASS_FORM_SUBMIT_SUCCESS = 'FORGOT_PASS_FORM_SUBMIT_SUCCESS';
 export const FORGOT_PASS_FORM_SUBMIT_FAILED = 'FORGOT_PASS_FORM_SUBMIT_FAILED';
-// export const SET_RESET_PASSWORD_FORM = 'SET_RESET_PASSWORD_FORM';
-// export const RESET_PASSWORD_FORM_SUBMIT = 'RESET_PASSWORD_FORM_SUBMIT';
-// export const RESET_PASSWORD_FORM_SUBMIT_SUCCESS = 'RESET_PASSWORD_FORM_SUBMIT_SUCCESS';
-// export const RESET_PASSWORD_FORM_SUBMIT_FAILED = 'RESET_PASSWORD_FORM_SUBMIT_FAILED';
 
 // отслеживаю изменения инпута /forgot-passsword
 export const setForgotPasswordValue = (field, value) => ({
@@ -30,11 +26,3 @@ export const postForgotPasswordEmail = (email) => {
     .catch(() => dispatch(forgotPassFormSubmitFailed()))
   }
 };
-
-
-// отслеживаю изменения инпута /reset-password
-// export const setResetPasswordForm = (field, value) => ({
-//   type: SET_RESET_PASSWORD_FORM,
-//   field,
-//   value,
-// });

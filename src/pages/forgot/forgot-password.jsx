@@ -20,7 +20,7 @@ export function ForgotPage() {
   const onFormSubmit = useCallback((e) => {
     e.preventDefault();
     dispatch(postForgotPasswordEmail(email))
-  })
+  },[email])
 
   return (
     <div className={styles.container}>
