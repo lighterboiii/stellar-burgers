@@ -1,13 +1,7 @@
-import React from 'react';
 import styles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader.jsx';
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { getIngredientsData } from '../../services/actions/ingredients';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeIngredientModalStatus, changeOrderModalStatus } from '../../services/actions/modal.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HomePage } from '../../pages/home/home';
 import { LoginPage } from '../../pages/login/login';

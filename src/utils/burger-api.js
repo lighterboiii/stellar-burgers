@@ -1,4 +1,6 @@
-import { BURGER_API_URL } from "../constants/constants";
+import {
+  BURGER_API_URL, FORGOT_PASS_URL
+} from "../constants/constants";
 
 const checkRes = (res) => {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(`Ошибка загрузки данных с сервера: ${res.status}`))
@@ -24,4 +26,16 @@ function sendOrder(data) {
   })
 }
 
-export { getIngredients, sendOrder }
+function forgotPasswordRequest(email) {
+  return request(`${BURGER_API_URL}${FORGOT_PASS_URL}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'email': email
+    })
+  })
+}
+
+export { getIngredients, sendOrder, forgotPasswordRequest }

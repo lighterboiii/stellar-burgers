@@ -9,7 +9,7 @@ export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
 export const SORT_INGREDIENTS = 'SET_INGREDIENTS';
 export const DELETE_ALL_INGREDIENTS = 'DELETE_ALL_INGREDIENTS';
 
-export const deleteAllIngredients = (selectedIngredients) => {
+export const deleteAllIngredients = () => {
   return function (dispatch) {
     dispatch({
       type: DELETE_ALL_INGREDIENTS,
