@@ -1,32 +1,25 @@
-import { useCallback } from 'react';
+import { useState } from 'react';
 import styles from './forgot-password.module.css';
 import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setForgotPasswordValue, postForgotPasswordEmail } from '../../services/actions/forgot';
+import { forgotPasswordRequest } from '../../utils/burger-api';
 
 export function ForgotPage() {
-  const dispatch = useDispatch();
+  const [email, setEmail] = useState('');
 
-  const email = useSelector((state) => state.form);
-
-  const onFormChange = (e) => {
-    dispatch(setForgotPasswordValue(e.target.name, e.target.value));
-  };
-
-  const onFormSubmit = useCallback((e) => {
+  const onFormSubmit = (e) => {
     e.preventDefault();
-    dispatch(postForgotPasswordEmail(email))
-  }, [email])
+    forgotPasswordRequest(email);
+  };
 
   return (
     <div className={styles.container}>
       <h2 className='text text_type_main-medium mb-6'>Восстановление пароля</h2>
       <form className={styles.form}>
-        <EmailInput placeholder='Укажите Email' type='email' name='email' value={email} onChange={onFormChange} />
+        <EmailInput placeholder='Укажите Email' type='email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} />
         <Button type='primary' size='medium' onClick={onFormSubmit}>
           <Link className={styles.buttonLink} to='/reset-password'>
             Восстановить
