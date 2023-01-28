@@ -13,7 +13,7 @@ const initialState = {
   forgotPasswordFailed: false,
 }
 
-export const forgotReducer = (state = initialState, action) => {
+const forgotReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_FORGOT_PASSWORD_VALUE: {
       return {
@@ -53,4 +53,4 @@ export const forgotReducer = (state = initialState, action) => {
   }
 };
 
-export default forgotReducer;
+export { forgotReducer };

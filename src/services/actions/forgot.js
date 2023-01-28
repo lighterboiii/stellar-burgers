@@ -11,10 +11,10 @@ export const setForgotPasswordValue = (field, value) => ({
   field, value
 }); 
 export const forgotPassFormSubmit = () => ({ type: FORGOT_PASS_FORM_SUBMIT });
-export const forgotPassFormSubmitSuccess = (res) => ({ type: FORGOT_PASS_FORM_SUBMIT_SUCCESS, payload: res })
-export const forgotPassFormSubmitFailed = () => ({ type: FORGOT_PASS_FORM_SUBMIT_FAILED })
+export const forgotPassFormSubmitSuccess = (res) => ({ type: FORGOT_PASS_FORM_SUBMIT_SUCCESS, payload: res });
+export const forgotPassFormSubmitFailed = () => ({ type: FORGOT_PASS_FORM_SUBMIT_FAILED });
 
-export const postForgotPasswordEmail = (email) => {
+export const postForgotPasswordEmail = () => {
   return function (dispatch) {
     dispatch(forgotPassFormSubmit());
     forgotPasswordRequest()

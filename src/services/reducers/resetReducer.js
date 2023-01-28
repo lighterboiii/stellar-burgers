@@ -14,7 +14,7 @@ const initialState = {
   resetPasswordFailed: false
 }
 
-export const resetReducer = (state = initialState, action) => {
+const resetReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_RESET_PASSWORD_FORM_VALUE: {
       return {
@@ -54,4 +54,4 @@ export const resetReducer = (state = initialState, action) => {
   }
 };
 
-export default resetReducer;
+export { resetReducer };

@@ -1,9 +1,9 @@
 import {
-  BURGER_API_URL, FORGOT_PASS_URL, RESET_PASS_URL
+  BURGER_API_URL, FORGOT_PASS_URL, RESET_PASS_URL, INGREDIENTS_URL, ORDER_URL, REGISTER_USER_URL, LOGIN_URL
 } from "../constants/constants";
 
 const checkRes = (res) => {
-  return res.ok ? res.json() : res.json().then(err => Promise.reject(`Ошибка загрузки данных с сервера: ${res.status}`))
+  return res.ok ? res.json() : res.json().then(err => Promise.reject(`Ошибка загрузки данных с сервера: ${err.status}`))
 }
 
 function request(url, options) {
@@ -11,11 +11,11 @@ function request(url, options) {
 }
 
 function getIngredients() {
-  return request(`${BURGER_API_URL}/ingredients`)
+  return request(`${BURGER_API_URL}${INGREDIENTS_URL}`)
 }
 
 function sendOrder(data) {
-  return request(`${BURGER_API_URL}/orders`, {
+  return request(`${BURGER_API_URL}${ORDER_URL}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -51,4 +51,31 @@ function resetPasswordRequest(password, token) {
   })
 }
 
-export { getIngredients, sendOrder, forgotPasswordRequest, resetPasswordRequest }
+function registerUser(email, password, name) {
+  return request(`${BURGER_API_URL}${REGISTER_USER_URL}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email,
+      password,
+      name
+    })
+  })
+}
+
+function login(email, password) {
+  return request(`${BURGER_API_URL}${LOGIN_URL}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email,
+      password
+    })
+  })
+}
+
+export { getIngredients, sendOrder, forgotPasswordRequest, resetPasswordRequest, registerUser, login }

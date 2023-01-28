@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import styles from './forgot-password.module.css';
 import {
   EmailInput,
@@ -20,7 +20,7 @@ export function ForgotPage() {
   const onFormSubmit = useCallback((e) => {
     e.preventDefault();
     dispatch(postForgotPasswordEmail(email))
-  },[email])
+  }, [email])
 
   return (
     <div className={styles.container}>
