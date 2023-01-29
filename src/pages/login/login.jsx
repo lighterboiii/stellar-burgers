@@ -6,7 +6,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from '../../utils/api';
+// import { login } from '../../utils/api';
 import { setLogin } from '../../services/actions/user';
 import { useDispatch } from 'react-redux';
 
@@ -20,7 +20,7 @@ export function LoginPage() {
     e.preventDefault();
 
     dispatch(setLogin(email, password));
-    navigate('/profile');
+    navigate('/');
   };
 
   return (
