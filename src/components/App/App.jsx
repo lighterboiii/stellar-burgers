@@ -10,6 +10,7 @@ import { ForgotPage } from '../../pages/forgot/forgot-password';
 import { ResetPage } from '../../pages/reset/reset-password';
 import { PageNotfound } from '../../pages/404/404';
 import { ProfilePage } from '../../pages/profile/profile';
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
 
@@ -24,7 +25,7 @@ function App() {
             <Route path="/register" element={<RegisterPage />} exact={true} />
             <Route path="/forgot-password" element={<ForgotPage />} exact={true} />
             <Route path="/reset-password" element={<ResetPage />} exact={true} />
-            <Route path='/profile' element={<ProfilePage />} exact={true}/>
+            <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} />} exact={true}/>
             <Route path="/ingredients/:id" exact={true} />
             <Route path='*' element={<PageNotfound />} />
           </Routes>

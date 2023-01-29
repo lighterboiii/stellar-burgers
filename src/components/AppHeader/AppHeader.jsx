@@ -43,7 +43,7 @@ function AppHeader() {
             textClass={'ml-2 text_color_primary'}
             icon={<ProfileIcon type='primary' />}
             text={'Личный кабинет'}
-            href={'/login'}
+            href={'/profile'}
           />
         </nav>
       </nav>

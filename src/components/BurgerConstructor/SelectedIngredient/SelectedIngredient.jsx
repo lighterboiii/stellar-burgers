@@ -84,7 +84,7 @@ function SelectedIngredient({ ingredient, index, moveIngredient }) {
 
 SelectedIngredient.propTypes = {
   ingredient: IngredientPropTypes,
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   moveIngredient: PropTypes.func.isRequired
 }
 

@@ -6,7 +6,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { resetPasswordRequest } from '../../utils/burger-api';
+import { resetPasswordRequest } from '../../utils/api';
 
 export function ResetPage() {
   const [password, setPassword] = useState('');

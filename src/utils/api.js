@@ -1,5 +1,5 @@
 import {
-  BURGER_API_URL, FORGOT_PASS_URL, RESET_PASS_URL, INGREDIENTS_URL, ORDER_URL, REGISTER_USER_URL, LOGIN_URL
+  BURGER_API_URL, FORGOT_PASS_URL, RESET_PASS_URL, INGREDIENTS_URL, ORDER_URL, REGISTER_USER_URL, LOGIN_URL, USER_URL
 } from "../constants/constants";
 
 const checkRes = (res) => {
@@ -78,4 +78,14 @@ function login(email, password) {
   })
 }
 
-export { getIngredients, sendOrder, forgotPasswordRequest, resetPasswordRequest, registerUser, login }
+function getUserData(token) {
+  return request(`${BURGER_API_URL}${USER_URL}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': token
+    }
+  })
+}
+
+export { getIngredients, sendOrder, forgotPasswordRequest, resetPasswordRequest, registerUser, login, getUserData }

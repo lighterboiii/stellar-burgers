@@ -5,7 +5,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { forgotPasswordRequest } from '../../utils/burger-api';
+import { forgotPasswordRequest } from '../../utils/api';
 
 export function ForgotPage() {
   const [email, setEmail] = useState('');

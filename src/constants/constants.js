@@ -7,6 +7,7 @@ export const FORGOT_PASS_URL = '/password-reset';
 export const RESET_PASS_URL = '/password-reset/reset';
 export const REGISTER_USER_URL = '/auth/register';
 export const LOGIN_URL = '/auth/login';
+export const USER_URL = '/auth/user';
 
 export const IngredientPropTypes = PropTypes.shape({
   calories: PropTypes.number.isRequired,

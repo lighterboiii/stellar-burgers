@@ -6,17 +6,19 @@ import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
-import { registerUser } from '../../utils/burger-api';
+import { Link, useNavigate } from "react-router-dom";
+import { registerUser } from '../../utils/api';
 
 export function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    registerUser(email, password, name)
+    registerUser(email, password, name);
+    navigate('/profile');
   };
 
   return (

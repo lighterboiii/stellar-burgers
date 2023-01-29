@@ -5,18 +5,23 @@ import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
-import { login } from '../../utils/burger-api';
+import { Link, useNavigate } from "react-router-dom";
+import { login } from '../../utils/api';
+import { setLogin } from '../../services/actions/user';
+import { useDispatch } from 'react-redux';
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onFormSubmit = (e) => {
     e.preventDefault();
 
-    login(email, password);
-  }
+    dispatch(setLogin(email, password));
+    navigate('/profile');
+  };
 
   return (
     <div className={styles.container}>
@@ -24,14 +29,14 @@ export function LoginPage() {
       <form className={styles.form} onSubmit={onFormSubmit}>
         <EmailInput type='email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
         <PasswordInput type='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <Button type='primary' size='medium'>Войти</Button>
+        <Button type='primary' size='medium' >Войти</Button>
       </form>
       <div className={"mt-20 " + styles.wrapper}>
         <p className={'text text_type_main-default text_color_inactive ' + styles.text}>Вы новый пользователь?
-          <Link to="/register" className={styles.link}>Зарегистрироваться</Link> 
+          <Link to="/register" className={styles.link}>Зарегистрироваться</Link>
         </p>
         <p className={'text text_type_main-default text_color_inactive ' + styles.text}>Забыли пароль?
-          <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link> 
+          <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link>
         </p>
       </div>
     </div>

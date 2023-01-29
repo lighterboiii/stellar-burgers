@@ -1,4 +1,4 @@
-import { sendOrder } from "../../utils/burger-api";
+import { sendOrder } from "../../utils/api";
 
 export const SET_ORDER_DETAILS = 'SET_ORDER_DETAILS';
 export const SET_ORDER_DETAILS_FAILED = 'SET_ORDER_DETAILS_FAILED';
