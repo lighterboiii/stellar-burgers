@@ -8,7 +8,8 @@ export const RESET_PASS_URL = '/password-reset/reset';
 export const REGISTER_USER_URL = '/auth/register';
 export const LOGIN_URL = '/auth/login';
 export const USER_URL = '/auth/user';
-export const TOKEN_URL = '/auth/token'
+export const TOKEN_URL = '/auth/token';
+export const LOGOUT_URL = '/auth/token';
 
 export const IngredientPropTypes = PropTypes.shape({
   calories: PropTypes.number.isRequired,

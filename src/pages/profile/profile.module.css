@@ -26,12 +26,7 @@
   width: 320px;
 }
 
-.link {
-  text-decoration: none;
-  color: #4C4CFF;
-}
-
-.proflink {
+.profLink {
   text-decoration: none;
   width: 320px;
   height: 64px;
@@ -39,9 +34,8 @@
   align-items: center;
 }
 
-.proflink:hover {
-  border: 1px gray solid;
-  border-radius: 40px;
+.profLink:hover {
+  color: #F2F2F3;
 }
 
 .links {

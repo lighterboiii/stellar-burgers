@@ -1,4 +1,5 @@
 import { getUserData, login, registerUser } from "../../utils/api";
+import { setCookie, getCookie, deleteCookie } from '../../utils/cookie';
 
 export const GET_USER_DATA = 'GET_USER_DATA';
 export const GET_USER_DATA_SUCCESS = 'GET_USER_DATA_SUCCESS';
@@ -18,9 +19,9 @@ export const loginLoading = () => ({ type: LOGIN });
 export const loginLoadingSuccess = (token) => ({ type: LOGIN_SUCCESS, payload: token });
 export const loginLoadingFailed = () => ({ type: LOGIN_FAILED });
 
-// export const register = () => ({ type: REGISTER });
-// export const registerSuccess = (token) => ({ type: REGISTER_SUCCESS, payload: token });
-// export const registerFailed = () => ({ type: REGISTER_FAILED });
+export const register = () => ({ type: REGISTER });
+export const registerSuccess = (token) => ({ type: REGISTER_SUCCESS, payload: token });
+export const registerFailed = () => ({ type: REGISTER_FAILED });
 
 export const getUserInfo = (token) => {
   return function (dispatch) {
@@ -34,7 +35,7 @@ export const getUserInfo = (token) => {
       })
       .catch(() => getUserDataLoadingFailed());
   }
-}
+};
 
 export const setLogin = (email, password) => {
   return function (dispatch) {
@@ -42,25 +43,25 @@ export const setLogin = (email, password) => {
 
     login(email, password)
       .then(res => {
-          dispatch(loginLoadingSuccess(res));
+        dispatch(loginLoadingSuccess(res));
       })
       .catch(() => loginLoadingFailed());
   }
-}
+};
 
-// export const setRegistration = (email, password, name) => {
-//   return function (dispatch) {
-//     dispatch(register());
+export const setRegistration = (email, password, name) => {
+  return function (dispatch) {
+    dispatch(register());
 
-//     registerUser(email, password, name)
-//     .then(res => {
-//       if (res) {
-//         dispatch(registerSuccess(res.accessToken));
-//       }
-//     })
-//     .catch((err) =>  {
-//       registerFailed()
-//       console.log(err)
-//     })
-//   }
-// }
+    registerUser(email, password, name)
+    .then(res => {
+      if (res) {
+        dispatch(registerSuccess(res));
+      }
+    })
+    .catch((err) =>  {
+      registerFailed()
+      console.log(err)
+    })
+  }
+};

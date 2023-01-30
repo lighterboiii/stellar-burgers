@@ -7,17 +7,21 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import { registerUser } from '../../utils/api';
+import { useDispatch } from 'react-redux';
+// import { registerUser } from '../../utils/api';
+import { setRegistration } from '../../services/actions/user';
 
 export function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    registerUser(email, password, name);
+    // registerUser(email, password, name);
+    dispatch(setRegistration(email, password, name));
     navigate('/profile');
   };
 

@@ -28,6 +28,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loginRequest: false,
         accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken,
         user: action.payload.user,
       };
     }
