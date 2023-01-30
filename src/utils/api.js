@@ -88,4 +88,17 @@ function getUserData(token) {
   })
 }
 
-export { getIngredients, sendOrder, forgotPasswordRequest, resetPasswordRequest, registerUser, login, getUserData }
+function refreshToken(token) {
+  return request(`${BURGER_API_URL}${TOKEN_URL}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      token
+    })
+  }
+  )
+}
+
+export { getIngredients, sendOrder, forgotPasswordRequest, resetPasswordRequest, registerUser, login, getUserData, refreshToken }

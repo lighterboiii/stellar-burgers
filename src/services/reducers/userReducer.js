@@ -1,6 +1,7 @@
 import {
   GET_USER_DATA, GET_USER_DATA_SUCCESS, GET_USER_DATA_FAILED,
-  LOGIN, LOGIN_FAILED, LOGIN_SUCCESS, REGISTER, REGISTER_FAILED, REGISTER_SUCCESS
+  LOGIN, LOGIN_FAILED, LOGIN_SUCCESS, REGISTER, REGISTER_FAILED, REGISTER_SUCCESS,
+  REFRESH_TOKEN, REFRESH_TOKEN_FAILED, REFRESH_TOKEN_SUCCESS
 } from '../actions/user';
 
 const initialState = {
@@ -10,6 +11,8 @@ const initialState = {
   getUserDataRequestFailed: false,
   registrationRequest: false,
   registrationFailed: false,
+  refreshTokenRequest: false,
+  refreshTokenFailed: false,
   accessToken: null,
   user: null,
 }
@@ -39,6 +42,27 @@ const userReducer = (state = initialState, action) => {
         loginFailed: true,
       };
     }
+    case REGISTER: {
+      return {
+        ...state,
+        registrationRequest: true,
+        registrationFailed: false,
+      };
+    }
+    case REGISTER_SUCCESS: {
+      return {
+        ...state,
+        registrationRequest: false,
+        accessToken: action.payload,
+      };
+    }
+    case REGISTER_FAILED: {
+      return {
+        ...state,
+        registrationRequest: false,
+        registrationFailed: true,
+      };
+    }
     case GET_USER_DATA: {
       return {
         ...state,
@@ -60,26 +84,26 @@ const userReducer = (state = initialState, action) => {
         getUserDataRequestFailed: true,
       };
     }
-    case REGISTER: {
+    case REFRESH_TOKEN: {
       return {
         ...state,
-        registrationRequest: true,
-        registrationFailed: false,
-      };
+        refreshTokenRequest: true,
+        refreshTokenRequestFailed: false
+      }
     }
-    case REGISTER_SUCCESS: {
+    case REFRESH_TOKEN_SUCCESS: {
       return {
         ...state,
-        registrationRequest: false,
-        accessToken: action.payload,
-      };
+        refreshTokenRequest: false,
+        accessToken: action.payload
+      }
     }
-    case REGISTER_FAILED: {
+    case REFRESH_TOKEN_FAILED: {
       return {
         ...state,
-        registrationRequest: false,
-        registrationFailed: true,
-      };
+        refreshTokenRequest: false,
+        refreshTokenRequestFailed: true
+      }
     }
     default: {
       return state;

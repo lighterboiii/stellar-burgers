@@ -1,4 +1,4 @@
-import { getUserData, login, registerUser } from "../../utils/api";
+import { getUserData, login, refreshToken, registerUser } from "../../utils/api";
 import { setCookie, getCookie, deleteCookie } from '../../utils/cookie';
 
 export const GET_USER_DATA = 'GET_USER_DATA';
@@ -10,10 +10,9 @@ export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const REGISTER = 'REGISTER';
 export const REGISTER_SUCCESS = ' REGISTER_SUCCESS';
 export const REGISTER_FAILED = 'REGISTER_FAILED';
-
-export const getUserDataLoading = () => ({ type: GET_USER_DATA });
-export const getUserDataLoadingSuccess = (userData) => ({ type: GET_USER_DATA_SUCCESS, payload: userData });
-export const getUserDataLoadingFailed = () => ({ type: GET_USER_DATA_FAILED });
+export const REFRESH_TOKEN = 'REFRESH_TOKEN';
+export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
+export const REFRESH_TOKEN_FAILED = 'REFRESH_TOKEN_FAILED';
 
 export const loginLoading = () => ({ type: LOGIN });
 export const loginLoadingSuccess = (token) => ({ type: LOGIN_SUCCESS, payload: token });
@@ -22,6 +21,48 @@ export const loginLoadingFailed = () => ({ type: LOGIN_FAILED });
 export const register = () => ({ type: REGISTER });
 export const registerSuccess = (token) => ({ type: REGISTER_SUCCESS, payload: token });
 export const registerFailed = () => ({ type: REGISTER_FAILED });
+
+export const getUserDataLoading = () => ({ type: GET_USER_DATA });
+export const getUserDataLoadingSuccess = (userData) => ({ type: GET_USER_DATA_SUCCESS, payload: userData });
+export const getUserDataLoadingFailed = () => ({ type: GET_USER_DATA_FAILED });
+
+export const refreshTokenLoading = () => ({ type: REFRESH_TOKEN });
+export const refreshTokenSuccess = (token) => ({ type: REFRESH_TOKEN_SUCCESS, payload: token });
+export const refreshTokenFailed = () => ({ type: REFRESH_TOKEN_FAILED });
+
+export const setLogin = (email, password) => {
+  return function (dispatch) {
+    dispatch(loginLoading());
+
+    login(email, password)
+      .then(res => {
+        dispatch(loginLoadingSuccess(res));
+        localStorage.setItem('refreshToken', res.refreshToken)
+      })
+      .catch((err) => {
+        loginLoadingFailed()
+        console.log(err)
+      });
+  }
+};
+
+export const setRegistration = (email, password, name) => {
+  return function (dispatch) {
+    dispatch(register());
+
+    registerUser(email, password, name)
+      .then(res => {
+        if (res) {
+          dispatch(registerSuccess(res));
+          localStorage.setItem('refreshToken', res.refreshToken)
+        }
+      })
+      .catch((err) => {
+        registerFailed()
+        console.log(err)
+      })
+  }
+};
 
 export const getUserInfo = (token) => {
   return function (dispatch) {
@@ -33,35 +74,27 @@ export const getUserInfo = (token) => {
           dispatch(getUserDataLoadingSuccess(res));
         }
       })
-      .catch(() => getUserDataLoadingFailed());
+      .catch((err) => {
+        getUserDataLoadingFailed()
+        dispatch(setRefreshToken(localStorage.getItem('refreshToken')))
+        console.log(err)
+      });
   }
 };
 
-export const setLogin = (email, password) => {
+export const setRefreshToken = (token) => {
   return function (dispatch) {
-    dispatch(loginLoading());
+    dispatch(refreshTokenLoading());
 
-    login(email, password)
-      .then(res => {
-        dispatch(loginLoadingSuccess(res));
+    refreshToken(token)
+      .then((res) => {
+        if (res) {
+          dispatch(refreshTokenSuccess(res));
+        }
       })
-      .catch(() => loginLoadingFailed());
+      .catch((err) => {
+        getUserDataLoadingFailed()
+        console.log(err)
+      })
   }
-};
-
-export const setRegistration = (email, password, name) => {
-  return function (dispatch) {
-    dispatch(register());
-
-    registerUser(email, password, name)
-    .then(res => {
-      if (res) {
-        dispatch(registerSuccess(res));
-      }
-    })
-    .catch((err) =>  {
-      registerFailed()
-      console.log(err)
-    })
-  }
-};
+}
