@@ -1,7 +1,9 @@
 import {
   GET_USER_DATA, GET_USER_DATA_SUCCESS, GET_USER_DATA_FAILED,
   LOGIN, LOGIN_FAILED, LOGIN_SUCCESS, REGISTER, REGISTER_FAILED, REGISTER_SUCCESS,
-  REFRESH_TOKEN, REFRESH_TOKEN_FAILED, REFRESH_TOKEN_SUCCESS
+  REFRESH_TOKEN, REFRESH_TOKEN_FAILED, REFRESH_TOKEN_SUCCESS,
+  LOGOUT, LOGOUT_FAILED, LOGOUT_SUCCESS,
+  SET_USER_DATA, SET_USER_DATA_SUCCESS, SET_USER_DATA_FAILED
 } from '../actions/user';
 
 const initialState = {
@@ -63,6 +65,27 @@ const userReducer = (state = initialState, action) => {
         registrationFailed: true,
       };
     }
+    case SET_USER_DATA: {
+      return {
+        ...state,
+        setUserDataRequest: true,
+        setUserDataFailed: false,
+      };
+    }
+    case SET_USER_DATA_SUCCESS: {
+      return {
+        ...state,
+        setUserDataRequest: false,
+        user: action.payload
+      };
+    }
+    case SET_USER_DATA_FAILED: {
+      return {
+        ...state,
+        setUserDataRequest: false,
+        setUserDataFailed: true,
+      };
+    }
     case GET_USER_DATA: {
       return {
         ...state,
@@ -88,7 +111,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         refreshTokenRequest: true,
-        refreshTokenRequestFailed: false
+        refreshTokenFailed: false
       }
     }
     case REFRESH_TOKEN_SUCCESS: {
@@ -102,7 +125,29 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         refreshTokenRequest: false,
-        refreshTokenRequestFailed: true
+        refreshTokenFailed: true
+      }
+    }
+    case LOGOUT: {
+      return {
+        ...state,
+        logoutRequest: true,
+        logoutFailed: false
+      }
+    }
+    case LOGOUT_SUCCESS: {
+      return {
+        ...state,
+        logoutRequest: false,
+        refreshToken: action.payload,
+        user: null
+      }
+    }
+    case LOGOUT_FAILED: {
+      return {
+        ...state,
+        logoutRequest: false,
+        logoutFailed: true
       }
     }
     default: {

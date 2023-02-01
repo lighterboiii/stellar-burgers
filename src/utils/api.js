@@ -88,6 +88,21 @@ function getUserData(token) {
   })
 }
 
+function patchUserData(token, name, email, password) {
+  return request(`${BURGER_API_URL}${USER_URL}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': token
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      password
+    })
+  })
+}
+
 function refreshToken(token) {
   return request(`${BURGER_API_URL}${TOKEN_URL}`, {
     method: 'POST',
@@ -101,4 +116,16 @@ function refreshToken(token) {
   )
 }
 
-export { getIngredients, sendOrder, forgotPasswordRequest, resetPasswordRequest, registerUser, login, getUserData, refreshToken }
+function signOut(token) {
+  return request(`${BURGER_API_URL}${LOGOUT_URL}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      token
+    })
+  })
+}
+
+export { getIngredients, sendOrder, forgotPasswordRequest, resetPasswordRequest, registerUser, login, getUserData, refreshToken, signOut, patchUserData }

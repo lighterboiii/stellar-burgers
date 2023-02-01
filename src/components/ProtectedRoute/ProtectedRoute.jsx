@@ -7,10 +7,6 @@ export const ProtectedRoute = ({ element }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.userInfo.accessToken);
   const userData = useSelector((state) => state.userInfo.user);
-  const refr = localStorage.getItem('refreshToken');
-  console.log(refr);
-  console.log(token);
-  console.log(userData)
 
   useEffect(() => {
     if (!userData) {
