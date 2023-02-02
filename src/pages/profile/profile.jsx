@@ -59,8 +59,16 @@ export function ProfilePage() {
   const onFormSubmit = (e) => {
     e.preventDefault();
     dispatch(sendUserInfo(token, nameValue, emailValue, passwordValue));
+    alert('User Data successfully changed');
   }
 
+  const handleCancel = (e) => {
+    e.preventDefault();
+    setNameValue(userData.name);
+    setEmailValue(userData.email);
+    setPasswordValue('');
+  }
+  
   return (
     <div className={styles.container}>
       <nav className={styles.navigation}>
@@ -91,12 +99,12 @@ export function ProfilePage() {
           <Input type='text' name='password' placeholder='Пароль' icon={'EditIcon'}
             value={passwordValue} ref={passRef} onChange={onPassChange} />
           {
-          isInfoChanged && (
-            <div className="buttons">
-              <Button type='secondary' size='medium' >Отмена</Button>
-              <Button type='primary' size='medium' >Сохранить</Button>
-            </div>
-          )
+            isInfoChanged && (
+              <div className={styles.buttons}>
+                <Button type='secondary' size='medium' onClick={handleCancel}>Отмена</Button>
+                <Button type='primary' size='medium' >Сохранить</Button>
+              </div>
+            )
           }
         </form>
       </div>

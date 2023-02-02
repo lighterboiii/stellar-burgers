@@ -77,7 +77,7 @@ function login(email, password) {
     })
   })
 }
-
+// запрос данных пользователя
 function getUserData(token) {
   return request(`${BURGER_API_URL}${USER_URL}`, {
     method: 'GET',
@@ -87,7 +87,7 @@ function getUserData(token) {
     }
   })
 }
-
+// обновление данных пользователя
 function patchUserData(token, name, email, password) {
   return request(`${BURGER_API_URL}${USER_URL}`, {
     method: 'PATCH',
@@ -102,7 +102,7 @@ function patchUserData(token, name, email, password) {
     })
   })
 }
-
+// запрос рефреша
 function refreshToken(token) {
   return request(`${BURGER_API_URL}${TOKEN_URL}`, {
     method: 'POST',
@@ -115,7 +115,7 @@ function refreshToken(token) {
   }
   )
 }
-
+// запрос логаута
 function signOut(token) {
   return request(`${BURGER_API_URL}${LOGOUT_URL}`, {
     method: 'POST',
