@@ -3,7 +3,7 @@ import {
   LOGIN, LOGIN_FAILED, LOGIN_SUCCESS, REGISTER, REGISTER_FAILED, REGISTER_SUCCESS,
   REFRESH_TOKEN, REFRESH_TOKEN_FAILED, REFRESH_TOKEN_SUCCESS,
   LOGOUT, LOGOUT_FAILED, LOGOUT_SUCCESS,
-  SET_USER_DATA, SET_USER_DATA_SUCCESS, SET_USER_DATA_FAILED
+  SET_USER_DATA, SET_USER_DATA_SUCCESS, SET_USER_DATA_FAILED, SET_FORGOT_PASSWORD
 } from '../actions/user';
 
 const initialState = {
@@ -15,6 +15,7 @@ const initialState = {
   registrationFailed: false,
   refreshTokenRequest: false,
   refreshTokenFailed: false,
+  isPasswordForgot: false,
   accessToken: null,
   user: null,
 }
@@ -148,6 +149,12 @@ const userReducer = (state = initialState, action) => {
         ...state,
         logoutRequest: false,
         logoutFailed: true
+      }
+    }
+    case SET_FORGOT_PASSWORD: {
+      return {
+        ...state,
+        isPasswordForgot: action.payload,
       }
     }
     default: {

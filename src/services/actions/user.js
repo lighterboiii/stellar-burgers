@@ -24,6 +24,8 @@ export const SET_USER_DATA_FAILED = 'SET_USER_DATA_FAILED';
 export const GET_USER_DATA = 'GET_USER_DATA';
 export const GET_USER_DATA_SUCCESS = 'GET_USER_DATA_SUCCESS';
 export const GET_USER_DATA_FAILED = 'GET_USER_DATA_FAILED';
+// password forgot check
+export const SET_FORGOT_PASSWORD = 'SET_FORGOT_PASSWORD';
 
 export const loginLoading = () => ({ type: LOGIN });
 export const loginLoadingSuccess = (token) => ({ type: LOGIN_SUCCESS, payload: token });
@@ -48,6 +50,8 @@ export const refreshTokenFailed = () => ({ type: REFRESH_TOKEN_FAILED });
 export const setLogoutLoading = () => ({ type: LOGOUT });
 export const logoutSuccess = (token) => ({ type: LOGOUT_SUCCESS, payload: token });
 export const logoutFailed = () => ({ type: LOGOUT_FAILED });
+
+export const setForgotPassword = (state) => ({ type: SET_FORGOT_PASSWORD, payload: state });
 
 export const setLogin = (email, password) => {
   return function (dispatch) {

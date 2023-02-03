@@ -1,22 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './reset-password.module.css';
 import {
   Input,
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { resetPasswordRequest } from '../../utils/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { setForgotPassword } from '../../services/actions/user';
 
 export function ResetPage() {
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const isPasswordForgot = useSelector((state) => state.userInfo.isPasswordForgot); 
   const onFormSubmit = (e) => {
     e.preventDefault();
     
     resetPasswordRequest(password, token)
+    dispatch(setForgotPassword(false));
   }
+
+  useEffect(() => {
+    if (!isPasswordForgot) {
+      navigate('/forgot-password')
+    }
+  }, [isPasswordForgot])
 
   return (
     <div className={styles.container}>

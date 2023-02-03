@@ -1,18 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './login.module.css';
 import {
   PasswordInput,
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useNavigate } from "react-router-dom";
-// import { login } from '../../utils/api';
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { setLogin } from '../../services/actions/user';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const userData = useSelector((state) => state.userInfo.user);
+  const token = useSelector((state) => state.userInfo.accessToken);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,7 +29,7 @@ export function LoginPage() {
       <h2 className='text text_type_main-medium mb-6'>Вход</h2>
       <form className={styles.form} onSubmit={onFormSubmit}>
         <EmailInput type='email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <PasswordInput type='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <PasswordInput type='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} required /> {/* Заходит по любому паролю */}
         <Button type='primary' size='medium' >Войти</Button>
       </form>
       <div className={"mt-20 " + styles.wrapper}>

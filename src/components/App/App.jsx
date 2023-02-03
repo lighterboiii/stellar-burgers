@@ -20,13 +20,13 @@ function App() {
         <div className={styles.app}>
           <AppHeader />
           <Routes>
-            <Route path='/' element={<HomePage />} exact={true} />
-            <Route path="/login" element={<LoginPage />} exact={true} />
-            <Route path="/register" element={<RegisterPage />} exact={true} />
-            <Route path="/forgot-password" element={<ForgotPage />} exact={true} />
-            <Route path="/reset-password" element={<ResetPage />} exact={true} />
-            <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} />} exact={true} />
-            <Route path="/ingredients/:id" exact={true} />
+            <Route path='/' element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/forgot-password" element={<ForgotPage />} />
+            <Route path="/reset-password" element={<ResetPage />} />
+            <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} />} />
+            <Route path="/ingredients/:id"  />
             <Route path='*' element={<PageNotfound />} />
           </Routes>
         </div>

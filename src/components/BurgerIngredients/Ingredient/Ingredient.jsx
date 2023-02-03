@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeIngredientModalStatus } from "../../../services/actions/modal";
 import { currentIngredient } from "../../../services/actions/ingredients";
 import { IngredientPropTypes } from "../../../constants/constants";
-
+import { Link } from "react-router-dom";
 
 function Ingredient({ ingredient }) {
   const { image, name, price, _id } = ingredient;
@@ -39,6 +39,7 @@ function Ingredient({ ingredient }) {
   return (
     <li id={_id} key={_id} className={`${styles.listItem} ${isDrag && styles.dragging}`} onClick={handleIngClick} ref={dragRef} >
       {counter > 0 && <Counter count={counter} size={'default'} />}
+      <Link className={styles.link} to={{ pathname: `/ingredients/${_id}`}} >
       <img src={image} alt={name} className={'mr-4 ml-4'} />
       <p className={'mt-1 mb-1 text text_type_digits-default text_color_primary ' + styles.paragraph}>
         <span className={'pr-2'}>{price}</span>
@@ -47,6 +48,7 @@ function Ingredient({ ingredient }) {
       <p className={'text text_type_main-default text_color_primary ' + styles.bunName}>
         {name}
       </p>
+      </Link>
     </li>
   );
 }
