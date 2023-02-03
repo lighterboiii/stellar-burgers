@@ -3,7 +3,7 @@ import {
   LOGIN, LOGIN_FAILED, LOGIN_SUCCESS, REGISTER, REGISTER_FAILED, REGISTER_SUCCESS,
   REFRESH_TOKEN, REFRESH_TOKEN_FAILED, REFRESH_TOKEN_SUCCESS,
   LOGOUT, LOGOUT_FAILED, LOGOUT_SUCCESS,
-  SET_USER_DATA, SET_USER_DATA_SUCCESS, SET_USER_DATA_FAILED, SET_FORGOT_PASSWORD
+  SET_USER_DATA, SET_USER_DATA_SUCCESS, SET_USER_DATA_FAILED, SET_FORGOT_PASSWORD, SET_LOGGED
 } from '../actions/user';
 
 const initialState = {
@@ -34,7 +34,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loginRequest: false,
         accessToken: action.payload.accessToken,
-        refreshToken: action.payload.refreshToken,
+        // refreshToken: action.payload.refreshToken,
         user: action.payload.user,
       };
     }
@@ -133,15 +133,16 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         logoutRequest: true,
-        logoutFailed: false
+        logoutFailed: false,
+        isUserLogged: false
       }
     }
     case LOGOUT_SUCCESS: {
       return {
         ...state,
         logoutRequest: false,
-        refreshToken: action.payload,
-        user: null
+        user: null,
+        accessToken: null,
       }
     }
     case LOGOUT_FAILED: {

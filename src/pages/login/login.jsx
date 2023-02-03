@@ -19,12 +19,12 @@ export function LoginPage() {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-
     dispatch(setLogin(email, password));
     navigate('/');
   };
 
   return (
+    (userData && token) ? 
     <div className={styles.container}>
       <h2 className='text text_type_main-medium mb-6'>Вход</h2>
       <form className={styles.form} onSubmit={onFormSubmit}>
@@ -40,6 +40,6 @@ export function LoginPage() {
           <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link>
         </p>
       </div>
-    </div>
+    </div> : <Navigate to='/' replace />
   );
 }

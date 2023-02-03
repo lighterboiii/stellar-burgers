@@ -10,7 +10,7 @@ export function ProfilePage() {
   const navigate = useNavigate();
   const token = useSelector((state) => state.userInfo.accessToken);
   const userData = useSelector((state) => state.userInfo.user);
-  console.log(userData);
+
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');

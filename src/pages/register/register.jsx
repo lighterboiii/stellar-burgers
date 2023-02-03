@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './register.module.css';
 import {
   Input,
@@ -6,26 +6,27 @@ import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-// import { registerUser } from '../../utils/api';
+import { Link, useNavigate, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 import { setRegistration } from '../../services/actions/user';
 
 export function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const userData = useSelector((state) => state.userInfo.user);
+  const token = useSelector((state) => state.userInfo.accessToken);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    // registerUser(email, password, name);
     dispatch(setRegistration(email, password, name));
     navigate('/profile');
   };
 
   return (
+    (userData && token) ?
     <div className={styles.container}>
       <h2 className='text text_type_main-medium mb-6'>Регистрация</h2>
       <form className={styles.form} onSubmit={onFormSubmit} >
@@ -39,6 +40,6 @@ export function RegisterPage() {
           <Link to="/login" className={styles.link}>Войти</Link>
         </p>
       </div>
-    </div>
+    </div> : <Navigate to='/' replace />
   )
 } 
