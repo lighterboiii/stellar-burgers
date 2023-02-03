@@ -25,7 +25,7 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/forgot-password" element={<ForgotPage />} />
             <Route path="/reset-password" element={<ResetPage />} />
-            <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} />} />
+            <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} to={'/login'}/>} />
             <Route path="/ingredients/:id"  />
             <Route path='*' element={<PageNotfound />} />
           </Routes>

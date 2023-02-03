@@ -16,6 +16,7 @@ export function LoginPage() {
   const token = useSelector((state) => state.userInfo.accessToken);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
 
   const onFormSubmit = (e) => {
     e.preventDefault();
@@ -23,8 +24,15 @@ export function LoginPage() {
     navigate('/');
   };
 
+  // useEffect(() => {
+  //   if (userData && token) {
+  //     navigate('/');
+  //   } 
+  //   return
+  // }, [userData, token] )
+
   return (
-    (userData && token) ? 
+    // (userData && token) ? 
     <div className={styles.container}>
       <h2 className='text text_type_main-medium mb-6'>Вход</h2>
       <form className={styles.form} onSubmit={onFormSubmit}>
@@ -40,6 +48,7 @@ export function LoginPage() {
           <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link>
         </p>
       </div>
-    </div> : <Navigate to='/' replace />
+    </div>
+    //  : <Navigate to='/' replace />
   );
 }

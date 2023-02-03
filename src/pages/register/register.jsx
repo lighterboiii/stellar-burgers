@@ -26,7 +26,6 @@ export function RegisterPage() {
   };
 
   return (
-    (userData && token) ?
     <div className={styles.container}>
       <h2 className='text text_type_main-medium mb-6'>Регистрация</h2>
       <form className={styles.form} onSubmit={onFormSubmit} >
@@ -40,6 +39,6 @@ export function RegisterPage() {
           <Link to="/login" className={styles.link}>Войти</Link>
         </p>
       </div>
-    </div> : <Navigate to='/' replace />
+    </div>
   )
 } 

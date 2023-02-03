@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../services/actions/user";
 
-export const ProtectedRoute = ({ element }) => {
+export const ProtectedRoute = ({ element, to }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.userInfo.accessToken);
   const userData = useSelector((state) => state.userInfo.user);
@@ -14,5 +14,5 @@ export const ProtectedRoute = ({ element }) => {
     }
   }, [dispatch, token, userData])
 
-  return (userData && token) ? element : <Navigate to="/login" replace/>;
+  return (userData && token) ? element : <Navigate to={to} replace/>;
 }
