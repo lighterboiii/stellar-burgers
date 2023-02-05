@@ -3,12 +3,13 @@ import {
   LOGIN, LOGIN_FAILED, LOGIN_SUCCESS, REGISTER, REGISTER_FAILED, REGISTER_SUCCESS,
   REFRESH_TOKEN, REFRESH_TOKEN_FAILED, REFRESH_TOKEN_SUCCESS,
   LOGOUT, LOGOUT_FAILED, LOGOUT_SUCCESS,
-  SET_USER_DATA, SET_USER_DATA_SUCCESS, SET_USER_DATA_FAILED, SET_FORGOT_PASSWORD, SET_LOGGED
+  SET_USER_DATA, SET_USER_DATA_SUCCESS, SET_USER_DATA_FAILED, SET_FORGOT_PASSWORD, SET_IS_LOGIN
 } from '../actions/user';
 
 const initialState = {
   loginRequest: false,
   loginFailed: false,
+  isLogin: false,
   getUserDataRequest: false,
   getUserDataRequestFailed: false,
   registrationRequest: false,
@@ -34,15 +35,20 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loginRequest: false,
         accessToken: action.payload.accessToken,
-        // refreshToken: action.payload.refreshToken,
-        user: action.payload.user,
+        user: action.payload.user
       };
+    }
+    case SET_IS_LOGIN: {
+      return {
+        ...state,
+        isLogin: action.payload
+      }
     }
     case LOGIN_FAILED: {
       return {
         ...state,
         loginRequest: false,
-        loginFailed: true,
+        loginFailed: true
       };
     }
     case REGISTER: {
@@ -57,6 +63,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         registrationRequest: false,
         accessToken: action.payload,
+        user: action.payload
       };
     }
     case REGISTER_FAILED: {
@@ -133,8 +140,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         logoutRequest: true,
-        logoutFailed: false,
-        isUserLogged: false
+        logoutFailed: false
       }
     }
     case LOGOUT_SUCCESS: {

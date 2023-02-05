@@ -4,6 +4,8 @@ import { getUserData, login, refreshToken, registerUser, signOut, patchUserData 
 export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
+
+export const SET_IS_LOGIN = 'SET_IS_LOGIN';
 // registration
 export const REGISTER = 'REGISTER';
 export const REGISTER_SUCCESS = ' REGISTER_SUCCESS';
@@ -20,7 +22,7 @@ export const LOGOUT_FAILED = 'LOGOUT_FAILED';
 export const SET_USER_DATA = 'SET_USER_DATA';
 export const SET_USER_DATA_SUCCESS = 'SET_USER_DATA_SUCCESS';
 export const SET_USER_DATA_FAILED = 'SET_USER_DATA_FAILED';
-// not using this
+// get user data
 export const GET_USER_DATA = 'GET_USER_DATA';
 export const GET_USER_DATA_SUCCESS = 'GET_USER_DATA_SUCCESS';
 export const GET_USER_DATA_FAILED = 'GET_USER_DATA_FAILED';
@@ -30,6 +32,8 @@ export const SET_FORGOT_PASSWORD = 'SET_FORGOT_PASSWORD';
 export const loginLoading = () => ({ type: LOGIN });
 export const loginLoadingSuccess = (token) => ({ type: LOGIN_SUCCESS, payload: token });
 export const loginLoadingFailed = () => ({ type: LOGIN_FAILED });
+
+export const setIsLogin= (state) => ({ type: SET_IS_LOGIN, payload: state })
 
 export const register = () => ({ type: REGISTER });
 export const registerSuccess = (token) => ({ type: REGISTER_SUCCESS, payload: token });
@@ -59,6 +63,7 @@ export const setLogin = (email, password) => {
 
     login(email, password)
       .then(res => {
+        dispatch(setIsLogin(true)); // убрать
         dispatch(loginLoadingSuccess(res));
         localStorage.setItem('refreshToken', res.refreshToken)
       })
@@ -149,6 +154,7 @@ export const logout = (token) => {
         if (res) {
           console.log(res);
           localStorage.removeItem('refreshToken');
+          dispatch(setIsLogin(false)); // убрать
           dispatch(logoutSuccess(res));
         }
       })

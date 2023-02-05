@@ -7,7 +7,7 @@ import { useRef } from 'react';
 import {
   DELETE_INGREDIENT
 } from '../../../services/actions/ingredients';
-import { IngredientPropTypes } from '../../../constants/constants';
+import { IngredientPropTypes } from '../../../utils/constants/constants';
 
 function SelectedIngredient({ ingredient, index, moveIngredient }) {
   const dispatch = useDispatch();

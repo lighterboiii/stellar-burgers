@@ -1,6 +1,6 @@
 import styles from './profile.module.css';
-import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink, useNavigate, Routes, Route } from "react-router-dom";
+import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserInfo, logout, sendUserInfo } from '../../services/actions/user';
@@ -44,7 +44,7 @@ export function ProfilePage() {
     if (userData) {
       setEmailValue(userData.email);
       setNameValue(userData.name);
-      setPasswordValue('');
+      setPasswordValue(passwordValue);
     } else {
       dispatch(getUserInfo(token));
       navigate('/profile', { replace: true })
@@ -96,7 +96,7 @@ export function ProfilePage() {
             value={nameValue} ref={nameRef} onChange={onNameChange} />
           <Input type='text' name='login' placeholder='Логин' icon={'EditIcon'}
             value={emailValue} ref={emailRef} onChange={onEmailChange} />
-          <Input type='text' name='password' placeholder='Пароль' icon={'EditIcon'}
+          <PasswordInput type='text' name='password' placeholder='Пароль' icon={'EditIcon'}
             value={passwordValue} ref={passRef} onChange={onPassChange} />
           {
             isInfoChanged && (

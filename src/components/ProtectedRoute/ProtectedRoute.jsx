@@ -16,3 +16,17 @@ export const ProtectedRoute = ({ element, to }) => {
 
   return (userData && token) ? element : <Navigate to={to} replace/>;
 }
+
+export const AuthRoute = ({ element, to }) => {
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.userInfo.accessToken);
+  const userData = useSelector((state) => state.userInfo.user);
+
+  useEffect(() => {
+    if (!userData) {
+      dispatch(getUserInfo(token))
+    }
+  }, [dispatch, token, userData])
+
+  return (!userData && !token) ? element : <Navigate to={to} replace/>;
+}

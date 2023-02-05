@@ -1,6 +1,6 @@
 import {
   BURGER_API_URL, FORGOT_PASS_URL, RESET_PASS_URL, INGREDIENTS_URL, ORDER_URL, REGISTER_USER_URL, LOGIN_URL, USER_URL, TOKEN_URL, LOGOUT_URL
-} from "../constants/constants";
+} from "./constants/constants";
 
 const checkRes = (res) => {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(`Ошибка загрузки данных с сервера: ${err.status}`))

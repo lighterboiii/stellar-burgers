@@ -15,12 +15,13 @@ export function ResetPage() {
   const [token, setToken] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const isPasswordForgot = useSelector((state) => state.userInfo.isPasswordForgot); 
+
   const onFormSubmit = (e) => {
     e.preventDefault();
     
     resetPasswordRequest(password, token)
+    navigate('/login');
     dispatch(setForgotPassword(false));
   }
 
