@@ -6,7 +6,6 @@ import { useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails.jsx';
 import Modal from '../Modal/Modal';
-import { Route, Routes, useLocation } from 'react-router-dom';
 
 function BurgerIngredients({ closePopup }) {
 	const isIngredientModalOpen = useSelector(state => state.modalState.isIngredientModalOpen);
@@ -21,7 +20,7 @@ function BurgerIngredients({ closePopup }) {
 	const mainRef = useRef(null);
 
 	const [current, setCurrent] = useState('buns');
-
+	const currentIngredient = useSelector(state => state.ingredients.currentIngredient);
 	const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
 
 	const handleClick = (value) => {
@@ -85,7 +84,7 @@ function BurgerIngredients({ closePopup }) {
 			</div>
 			{isIngredientModalOpen && (
 				<Modal title={'Детали ингредиента'} closePopup={closePopup}>
-					<IngredientDetails />
+					<IngredientDetails currentIngredient={currentIngredient}/>
 				</Modal>
 			)}
 		</section>

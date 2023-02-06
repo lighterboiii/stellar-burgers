@@ -4,10 +4,6 @@
 	background-color: var(--background);
 }
 
-.active {
-	color: #F2F2F3;
-}
-
 .layout {
 	display: flex;
 	justify-content: space-between;

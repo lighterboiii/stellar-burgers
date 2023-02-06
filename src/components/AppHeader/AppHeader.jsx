@@ -5,10 +5,8 @@ import {
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 import LinkItem from './LinkItem/LinkItem.jsx';
-import { Link, NavLink, useMatch } from "react-router-dom";
-
+import { Link, useMatch } from "react-router-dom";
 import styles from './AppHeader.module.css';
-import { useSelector } from 'react-redux';
 
 
 function AppHeader() {
@@ -16,7 +14,7 @@ function AppHeader() {
   const unActiveStyle = 'text text_type_main-default text_color_inactive mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 ';
 
   const matchHome = useMatch('/');
-  const matchList = useMatch('orders-list');
+  const matchList = useMatch('/feed');
   const matchProfile = useMatch('/profile');
 
   return (
@@ -35,7 +33,7 @@ function AppHeader() {
             textClass={'ml-2'}
             icon={<ListIcon type={Boolean(matchList) ? 'primary' : 'secondary'} />}
             text={'Лента заказов'}
-            href={'/orders-list'}
+            href={'/feed'}
           />
         </div>
         <div className={styles.logo}>

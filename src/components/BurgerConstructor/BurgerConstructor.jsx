@@ -14,32 +14,40 @@ import { useDrop } from "react-dnd";
 import { SelectedIngredient } from "./SelectedIngredient/SelectedIngredient";
 import Modal from '../Modal/Modal';
 import OrderDetails from '../Modal/OrderDetails/OrderDetails';
+import { useNavigate } from 'react-router-dom';
 
 function BurgerConstructor({ closePopup }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const isLogin = useSelector((state) => state.userInfo.isLogin);
   const burgerData = useSelector(state => state.ingredients.ingredients);
   const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
+  const orderDetails = useSelector(state => state.orderData.orderDetails);
+  const isOrderModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
 
   const notBun = useMemo(() => selectedIngredients.filter((ingredient) => ingredient.type !== 'bun'), [selectedIngredients]);
   const bun = useMemo(() => selectedIngredients.find((ingredient) => ingredient.type === 'bun'), [selectedIngredients]);
-
-  const orderDetails = useSelector(state => state.orderData.orderDetails);
-  const isOrderModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
 
   //calculating items prices
   const sum = useMemo(() => {
     return selectedIngredients.reduce(
       (acc, ingredient) =>
         ingredient === bun ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
-  }, [selectedIngredients]);
+  }, [selectedIngredients, bun]);
 
   // order button listener
   const onOrderClick = () => {
     const dataId = selectedIngredients.map((element) => element._id);
-    dispatch(setOrderData(dataId));
-    dispatch(changeOrderModalStatus(true));
-    dispatch(deleteAllIngredients(selectedIngredients));
+    if (!isLogin) {
+      navigate('/login');
+      dispatch(changeOrderModalStatus(false));
+      dispatch(deleteAllIngredients(selectedIngredients));
+    } else {
+      dispatch(setOrderData(dataId));
+      dispatch(changeOrderModalStatus(true));
+      dispatch(deleteAllIngredients(selectedIngredients));
+    }
   };
   // drop listener
   const handleDrop = (item) => {

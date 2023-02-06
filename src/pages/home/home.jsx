@@ -8,13 +8,13 @@ import { changeIngredientModalStatus, changeOrderModalStatus } from '../../servi
 
 export function HomePage() {
   const dispatch = useDispatch();
-  // order modal status
+
   const isOrderModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
-  // get ingredients data from server
+
   React.useEffect(() => {
     dispatch(getIngredientsData())
   }, [dispatch]);
-  // popup closing func
+
   const closePopup = () => {
     isOrderModalOpen ? dispatch(changeOrderModalStatus(false)) : dispatch(changeIngredientModalStatus(false));
   }

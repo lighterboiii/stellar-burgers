@@ -49,7 +49,7 @@ export function ProfilePage() {
       dispatch(getUserInfo(token));
       navigate('/profile', { replace: true })
     }
-  }, [dispatch, navigate, userData])
+  }, [dispatch, navigate, userData, token, passwordValue])
 
   const handleLogout = () => {
     const refreshToken = localStorage.getItem('refreshToken');
