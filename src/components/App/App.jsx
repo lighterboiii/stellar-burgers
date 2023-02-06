@@ -3,8 +3,8 @@ import AppHeader from '../AppHeader/AppHeader.jsx';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { getIngredientsData } from '../../services/actions/ingredients';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { HomePage } from '../../pages/home/home';
 import { LoginPage } from '../../pages/login/login';
@@ -41,8 +41,8 @@ function App() {
               <Route path='/feed/:id' /> {/* Айди заказа */}
             </Route> {/* Лента заказов */}
             <Route path='/profile/orders'>
-              <Route path='/profile/orders/:id' /> {/* must be protected route */}
-            </Route>  {/* must be protected route */}
+              <Route path='/profile/orders/:id' /> {/* must be a protected route */}
+            </Route>  {/* must be a protected route */}
             <Route path="/ingredients/:id" element={<IngredientPage />} />
             <Route path="*" element={<PageNotfound />} />
           </Routes>

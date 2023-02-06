@@ -1,4 +1,5 @@
 import styles from './IngredientDetails.module.css'
+import { IngredientPropTypes } from '../../../utils/constants/constants';
 
 function IngredientDetails({ currentIngredient }) {
 
@@ -26,6 +27,10 @@ function IngredientDetails({ currentIngredient }) {
       </ul>
     </div>
   )
+}
+
+IngredientDetails.propTypes = {
+  currentIngredient: IngredientPropTypes.isRequired
 }
 
 export default IngredientDetails;

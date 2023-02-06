@@ -4,9 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from 'react';
-import {
-  DELETE_INGREDIENT
-} from '../../../services/actions/ingredients';
+import { DELETE_INGREDIENT } from '../../../services/actions/ingredients';
 import { IngredientPropTypes } from '../../../utils/constants/constants';
 
 function SelectedIngredient({ ingredient, index, moveIngredient }) {

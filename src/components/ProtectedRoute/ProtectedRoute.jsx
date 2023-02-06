@@ -2,6 +2,8 @@ import { Navigate } from "react-router-dom"
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../services/actions/user";
+import PropTypes from 'prop-types';
+import { IngredientPropTypes } from "../../utils/constants/constants";
 
 export const ProtectedRoute = ({ element, to }) => {
   const dispatch = useDispatch();
@@ -29,4 +31,9 @@ export const AuthRoute = ({ element, to }) => {
   }, [dispatch, token, userData])
 
   return (!userData && !token) ? element : <Navigate to={to} replace/>;
+}
+
+ProtectedRoute.propTypes = {
+  element: IngredientPropTypes.isRequired,
+  to: PropTypes.string.isRequired
 }
