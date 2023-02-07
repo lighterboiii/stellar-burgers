@@ -42,7 +42,6 @@ function BurgerConstructor({ closePopup }) {
     if (!isLogin) {
       navigate('/login');
       dispatch(changeOrderModalStatus(false));
-      dispatch(deleteAllIngredients(selectedIngredients));
     } else {
       dispatch(setOrderData(dataId));
       dispatch(changeOrderModalStatus(true));
@@ -84,7 +83,7 @@ function BurgerConstructor({ closePopup }) {
         </ul>
         <BottomBun />
       </div>
-      {selectedIngredients.length > 0 ?
+      {selectedIngredients.length > 0 && bun ?
         <div className={'mr-4 ' + styles.total}>
           <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon />}</span>
           <Button size="large" type="primary" htmlType='button' onClick={onOrderClick}>Оформить заказ</Button>

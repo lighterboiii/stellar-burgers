@@ -78,22 +78,22 @@ function login(email, password) {
   })
 }
 // запрос данных пользователя
-function getUserData(token) {
+function getUserData(accessToken) {
   return request(`${BURGER_API_URL}${USER_URL}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'authorization': token
+      'authorization': accessToken
     }
   })
 }
 // обновление данных пользователя
-function patchUserData(token, name, email, password) {
+function patchUserData(accessToken, name, email, password) {
   return request(`${BURGER_API_URL}${USER_URL}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      'authorization': token
+      'authorization': accessToken
     },
     body: JSON.stringify({
       name,
@@ -103,27 +103,28 @@ function patchUserData(token, name, email, password) {
   })
 }
 // запрос рефреша
-function refreshToken(token) {
+function refreshToken(refreshToken) {
   return request(`${BURGER_API_URL}${TOKEN_URL}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      token
+      token: refreshToken
     })
   }
   )
 }
+
 // запрос логаута
-function signOut(token) {
+function signOut(refreshToken) {
   return request(`${BURGER_API_URL}${LOGOUT_URL}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      token
+      token: refreshToken
     })
   })
 }

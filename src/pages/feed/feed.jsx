@@ -79,7 +79,7 @@ export function FeedPage() {
         </section>
         <section className={styles.statistics}>
           <div className={'mb-15 ' + styles.container}>
-            <div lassName="ready">
+            <div className="ready">
               <h4 className='text text_type_main-medium mb-6'>Готовы:</h4>
               <ul className={styles.list}>
                 <li className={'text text_color_success text_type_digits-default ' + styles.li}>1001</li>

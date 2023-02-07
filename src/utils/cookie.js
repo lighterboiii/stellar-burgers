@@ -30,5 +30,5 @@ export function setCookie(name, value, props) {
 
 export function deleteCookie(name) {
 
-  setCookie(name, null, { expires: -1 });
+  setCookie(name,null, { expires: -1 });
 }

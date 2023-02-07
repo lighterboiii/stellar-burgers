@@ -1,15 +1,16 @@
 import styles from './profile.module.css';
-import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserInfo, logout, sendUserInfo } from '../../services/actions/user';
+import { getCookie } from '../../utils/cookie';
 
 export function ProfilePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector((state) => state.userInfo.accessToken);
-  const userData = useSelector((state) => state.userInfo.user);
+  const userData = useSelector((state) => state.userInfo.user.user);
 
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
@@ -19,6 +20,7 @@ export function ProfilePage() {
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passRef = useRef(null);
+
   const onNameChange = (e) => {
     const value = e.target.value;
     setTimeout(() => nameRef.current.focus(), 0);
@@ -42,17 +44,17 @@ export function ProfilePage() {
 
   useEffect(() => {
     if (userData) {
-      setEmailValue(userData.email);
       setNameValue(userData.name);
+      setEmailValue(userData.email);
       setPasswordValue(passwordValue);
     } else {
-      dispatch(getUserInfo(token));
+      dispatch(getUserInfo());
       navigate('/profile', { replace: true })
     }
-  }, [dispatch, navigate, userData, token, passwordValue])
+  }, [userData])
 
   const handleLogout = () => {
-    const refreshToken = localStorage.getItem('refreshToken');
+    const refreshToken = getCookie("refreshToken");
     dispatch(logout(refreshToken));
   }
 
@@ -91,18 +93,18 @@ export function ProfilePage() {
         </p>
       </nav>
       <div className={styles.wrapper}>
-        <form className={styles.form} onSubmit={onFormSubmit}>
+        <form className={styles.form} onSubmit={onFormSubmit} name="profile">
           <Input type='text ' name='name' placeholder='Имя' icon={'EditIcon'}
             value={nameValue} ref={nameRef} onChange={onNameChange} />
-          <Input type='text' name='login' placeholder='Логин' icon={'EditIcon'}
+          <Input type='email' name='login' placeholder='Логин' icon={'EditIcon'}
             value={emailValue} ref={emailRef} onChange={onEmailChange} />
-          <PasswordInput type='text' name='password' placeholder='Пароль' icon={'EditIcon'}
+          <Input type='password' name='password' placeholder='Пароль' icon={'EditIcon'}
             value={passwordValue} ref={passRef} onChange={onPassChange} />
           {
             isInfoChanged && (
               <div className={styles.buttons}>
                 <Button type='secondary' size='medium' onClick={handleCancel}>Отмена</Button>
-                <Button type='primary' size='medium' >Сохранить</Button>
+                <Button type='primary' size='medium'>Сохранить</Button>
               </div>
             )
           }

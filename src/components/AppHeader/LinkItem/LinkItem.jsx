@@ -11,7 +11,7 @@ function LinkItem({ linkClass, icon, textClass, text, href }) {
 }
 
 LinkItem.propTypes = {
-  linkClass: PropTypes.string.isRequired,
+  linkClass: PropTypes.func.isRequired,
   icon: PropTypes.element.isRequired,
   text: PropTypes.string.isRequired,
   href: PropTypes.string.isRequired,

@@ -17,7 +17,6 @@ const initialState = {
   refreshTokenRequest: false,
   refreshTokenFailed: false,
   isPasswordForgot: false,
-  accessToken: null,
   user: null,
 }
 
@@ -35,15 +34,16 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loginRequest: false,
         accessToken: action.payload.accessToken,
+        isLogin: true,
         user: action.payload.user
       };
     }
-    case SET_IS_LOGIN: {
-      return {
-        ...state,
-        isLogin: action.payload
-      }
-    }
+    // case SET_IS_LOGIN: {
+    //   return {
+    //     ...state,
+    //     isLogin: action.payload
+    //   }
+    // }
     case LOGIN_FAILED: {
       return {
         ...state,
@@ -62,7 +62,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         registrationRequest: false,
-        accessToken: action.payload,
+        // accessToken: action.payload,
         user: action.payload
       };
     }
@@ -114,27 +114,6 @@ const userReducer = (state = initialState, action) => {
         getUserDataRequest: false,
         getUserDataRequestFailed: true,
       };
-    }
-    case REFRESH_TOKEN: {
-      return {
-        ...state,
-        refreshTokenRequest: true,
-        refreshTokenFailed: false
-      }
-    }
-    case REFRESH_TOKEN_SUCCESS: {
-      return {
-        ...state,
-        refreshTokenRequest: false,
-        accessToken: action.payload
-      }
-    }
-    case REFRESH_TOKEN_FAILED: {
-      return {
-        ...state,
-        refreshTokenRequest: false,
-        refreshTokenFailed: true
-      }
     }
     case LOGOUT: {
       return {
