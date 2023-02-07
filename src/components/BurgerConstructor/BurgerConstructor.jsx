@@ -19,8 +19,8 @@ import { useNavigate } from 'react-router-dom';
 function BurgerConstructor({ closePopup }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const isLogin = useSelector((state) => state.userInfo.isLogin);
+  
+  const userData = useSelector((state) => state.userInfo.user);
   const burgerData = useSelector(state => state.ingredients.ingredients);
   const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
   const orderDetails = useSelector(state => state.orderData.orderDetails);
@@ -39,7 +39,7 @@ function BurgerConstructor({ closePopup }) {
   // order button listener
   const onOrderClick = () => {
     const dataId = selectedIngredients.map((element) => element._id);
-    if (!isLogin) {
+    if (!userData) {
       navigate('/login');
       dispatch(changeOrderModalStatus(false));
     } else {

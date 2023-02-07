@@ -1,21 +1,14 @@
-import { getUserData, login, refreshToken, registerUser, signOut, patchUserData, fetchWithRefresh } from "../../utils/api";
+import { getUserData, login, refreshToken, registerUser, signOut, patchUserData } from "../../utils/api";
 import { setCookie, getCookie, deleteCookie } from "../../utils/cookie";
-import { request } from "../../utils/api";
 
 // login
 export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
-
-export const SET_IS_LOGIN = 'SET_IS_LOGIN';
 // registration
 export const REGISTER = 'REGISTER';
 export const REGISTER_SUCCESS = ' REGISTER_SUCCESS';
 export const REGISTER_FAILED = 'REGISTER_FAILED';
-// refreshing
-// export const REFRESH_TOKEN = 'REFRESH_TOKEN';
-// export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
-// export const REFRESH_TOKEN_FAILED = 'REFRESH_TOKEN_FAILED';
 // sing out
 export const LOGOUT = 'LOGOUT';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
@@ -35,8 +28,6 @@ export const loginLoading = () => ({ type: LOGIN });
 export const loginLoadingSuccess = (token) => ({ type: LOGIN_SUCCESS, payload: token });
 export const loginLoadingFailed = () => ({ type: LOGIN_FAILED });
 
-export const setIsLogin = (state) => ({ type: SET_IS_LOGIN, payload: state })
-
 export const register = () => ({ type: REGISTER });
 export const registerSuccess = (token) => ({ type: REGISTER_SUCCESS, payload: token });
 export const registerFailed = () => ({ type: REGISTER_FAILED });
@@ -48,10 +39,6 @@ export const setUserDataFailed = () => ({ type: SET_USER_DATA_FAILED });
 export const getUserDataLoading = () => ({ type: GET_USER_DATA });
 export const getUserDataLoadingSuccess = (res) => ({ type: GET_USER_DATA_SUCCESS, payload: res });
 export const getUserDataLoadingFailed = () => ({ type: GET_USER_DATA_FAILED });
-
-// export const refreshTokenLoading = () => ({ type: REFRESH_TOKEN });
-// export const refreshTokenSuccess = (token) => ({ type: REFRESH_TOKEN_SUCCESS, payload: token });
-// export const refreshTokenFailed = () => ({ type: REFRESH_TOKEN_FAILED });
 
 export const setLogoutLoading = () => ({ type: LOGOUT });
 export const logoutSuccess = (token) => ({ type: LOGOUT_SUCCESS, payload: token });
@@ -65,7 +52,6 @@ export const setLogin = (email, password) => {
 
     login(email, password)
       .then(res => {
-        dispatch(setIsLogin(true)); // убрать
         dispatch(loginLoadingSuccess(res));
         setCookie("accessToken", res.accessToken)
         setCookie("refreshToken", res.refreshToken);
@@ -131,7 +117,6 @@ export const getUserInfo = () => {
 
 export const setRefreshToken = () => {
   return function (dispatch) {
-    // dispatch(refreshTokenLoading());
     refreshToken(refreshToken)
       .then((res) => {
         if (res) {
@@ -156,7 +141,6 @@ export const logout = (token) => {
         if (res) {
           deleteCookie("accessToken");
           deleteCookie("refreshToken");
-          dispatch(setIsLogin(false)); // убрать
           dispatch(logoutSuccess(res));
         }
       })

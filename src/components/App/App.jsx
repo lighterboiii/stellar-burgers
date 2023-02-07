@@ -3,7 +3,7 @@ import AppHeader from '../AppHeader/AppHeader.jsx';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { getIngredientsData } from '../../services/actions/ingredients';
-import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { HomePage } from '../../pages/home/home';

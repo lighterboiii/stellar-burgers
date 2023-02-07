@@ -1,15 +1,13 @@
 import {
   GET_USER_DATA, GET_USER_DATA_SUCCESS, GET_USER_DATA_FAILED,
   LOGIN, LOGIN_FAILED, LOGIN_SUCCESS, REGISTER, REGISTER_FAILED, REGISTER_SUCCESS,
-  REFRESH_TOKEN, REFRESH_TOKEN_FAILED, REFRESH_TOKEN_SUCCESS,
   LOGOUT, LOGOUT_FAILED, LOGOUT_SUCCESS,
-  SET_USER_DATA, SET_USER_DATA_SUCCESS, SET_USER_DATA_FAILED, SET_FORGOT_PASSWORD, SET_IS_LOGIN
+  SET_USER_DATA, SET_USER_DATA_SUCCESS, SET_USER_DATA_FAILED, SET_FORGOT_PASSWORD
 } from '../actions/user';
 
 const initialState = {
   loginRequest: false,
   loginFailed: false,
-  isLogin: false,
   getUserDataRequest: false,
   getUserDataRequestFailed: false,
   registrationRequest: false,
@@ -34,16 +32,9 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loginRequest: false,
         accessToken: action.payload.accessToken,
-        isLogin: true,
         user: action.payload.user
       };
     }
-    // case SET_IS_LOGIN: {
-    //   return {
-    //     ...state,
-    //     isLogin: action.payload
-    //   }
-    // }
     case LOGIN_FAILED: {
       return {
         ...state,
@@ -62,7 +53,6 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         registrationRequest: false,
-        // accessToken: action.payload,
         user: action.payload
       };
     }

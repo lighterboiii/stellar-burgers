@@ -14,7 +14,7 @@ export const ProtectedRoute = ({ element, to }) => {
     if (!userData) {
       dispatch(getUserInfo(userData))
     }
-  }, [])
+  }, [dispatch, userData])
 
   return (userData && token) ? element : <Navigate to={to} replace/>;
 }
