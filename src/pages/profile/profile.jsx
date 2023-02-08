@@ -3,7 +3,7 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserInfo, logout, sendUserInfo } from '../../services/actions/user';
+import { logout, sendUserInfo } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
 
 export function ProfilePage() {
@@ -48,7 +48,6 @@ export function ProfilePage() {
       setEmailValue(userData.email);
       setPasswordValue(passwordValue);
     } else {
-      dispatch(getUserInfo());
       navigate('/profile', { replace: true })
     }
   }, [dispatch, userData, navigate, passwordValue])
