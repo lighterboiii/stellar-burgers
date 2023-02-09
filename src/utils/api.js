@@ -1,6 +1,7 @@
 import {
   BURGER_API_URL, FORGOT_PASS_URL, RESET_PASS_URL, INGREDIENTS_URL, ORDER_URL, REGISTER_USER_URL, LOGIN_URL, USER_URL, TOKEN_URL, LOGOUT_URL
 } from "./constants/constants";
+// import { setCookie } from "./cookie";
 
 const checkRes = (res) => {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(`Ошибка загрузки данных с сервера: ${err.status}`))
@@ -116,6 +117,26 @@ function refreshToken(refreshToken) {
   }
   )
 }
+// export const fetchWithRefresh = async (url, options) => {
+//   try {
+//     const res = await fetch(`${BURGER_API_URL}${TOKEN_URL}`, options);
+//     return await checkRes(res);
+//   } catch (err) {
+//     if (err.message === "jwt expired") {
+//       const refreshData = await refreshToken();
+//       if (!refreshData.success) {
+//         Promise.reject(refreshData);
+//       }
+//       localStorage.setItem("refreshToken", refreshData.refreshToken);
+//       setCookie("accessToken", refreshData.accessToken);
+//       options.headers.authorization = refreshData.accessToken;
+//       const res = await fetch(`${BURGER_API_URL}${TOKEN_URL}`, options);
+//       return await checkRes(res);
+//     } else {
+//       return Promise.reject(err);
+//     }
+//   }
+// };
 
 // запрос логаута
 function signOut(refreshToken) {

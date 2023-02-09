@@ -1,5 +1,6 @@
 import { sendOrder } from "../../utils/api";
 import { getCookie } from "../../utils/cookie";
+import { setRefreshToken } from "./user";
 
 export const SET_ORDER_DETAILS = 'SET_ORDER_DETAILS';
 export const SET_ORDER_DETAILS_FAILED = 'SET_ORDER_DETAILS_FAILED';
@@ -13,7 +14,6 @@ export const clearOrderDetails = () => ({ type: CLEAR_ORDER_DETAILS });
 
 export const setOrderData = (dataId) => {
   return function (dispatch) {
-    console.log(dataId)
     dispatch(setOrderDetails())
     sendOrder(dataId, getCookie("accessToken"))
       .then(res => {
@@ -25,6 +25,14 @@ export const setOrderData = (dataId) => {
         dispatch(clearOrderDetails())
       })
       .catch((err) => {
+        if (err.message === "jwt expired") {
+          dispatch(setRefreshToken(getCookie("refreshToken")))
+            .then(() => sendOrder(dataId, getCookie("accessToken"))
+              .then(res => {
+                  dispatch(setOrderDetailsSuccess(res))
+              })
+            )
+        }
         dispatch(setOrderDetailsLoadingFailed())
         console.log(err)
       })

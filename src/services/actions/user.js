@@ -101,7 +101,7 @@ export const sendUserInfo = (token, name, email, password) => {
 
 export const getUserInfo = () => {
   return function (dispatch) {
-    // dispatch(getUserDataLoading());
+    dispatch(getUserDataLoading());
     getUserData(getCookie("accessToken"))
       .then((res) => {
         if (res) {
@@ -123,7 +123,7 @@ export const setRefreshToken = () => {
       .then((res) => {
         setCookie("accessToken", res.accessToken);
         setCookie("refreshToken", res.refreshToken);
-        dispatch(getUserInfo(getCookie("accessToken")));
+        dispatch(getUserInfo(getCookie("refreshToken")));
       })
   }
 }
