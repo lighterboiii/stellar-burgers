@@ -14,11 +14,12 @@ function getIngredients() {
   return request(`${BURGER_API_URL}${INGREDIENTS_URL}`)
 }
 
-function sendOrder(data) {
+function sendOrder(data, accessToken) {
   return request(`${BURGER_API_URL}${ORDER_URL}`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'authorization': accessToken
     },
     body: JSON.stringify({
       "ingredients": data

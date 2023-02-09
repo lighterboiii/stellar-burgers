@@ -5,13 +5,14 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, sendUserInfo } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
+import { getUserInfo } from '../../services/actions/user';
 
 export function ProfilePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector((state) => state.userInfo.accessToken);
   const userData = useSelector((state) => state.userInfo.user.user);
-
+  
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
@@ -48,6 +49,7 @@ export function ProfilePage() {
       setEmailValue(userData.email);
       setPasswordValue(passwordValue);
     } else {
+      dispatch(getUserInfo());
       navigate('/profile', { replace: true })
     }
   }, [dispatch, userData, navigate, passwordValue])

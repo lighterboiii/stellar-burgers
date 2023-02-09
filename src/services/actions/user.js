@@ -109,7 +109,9 @@ export const getUserInfo = () => {
         }
       })
       .catch((err) => {
-        dispatch(setRefreshToken(getCookie("refreshToken")));
+        if (err.message === "jwt expired" || "jwt malformed") {
+          dispatch(setRefreshToken(getCookie("refreshToken")));
+        }
         console.log(err)
       });
   }
@@ -119,15 +121,9 @@ export const setRefreshToken = () => {
   return function (dispatch) {
     refreshToken(refreshToken)
       .then((res) => {
-        if (res) {
-          setCookie("accessToken", res.accessToken);
-          setCookie("refreshToken", res.refreshToken);
-          dispatch(getUserInfo(getCookie("accessToken")));
-        }
-      })
-      .catch((err) => {
-        getUserDataLoadingFailed()
-        console.log(err)
+        setCookie("accessToken", res.accessToken);
+        setCookie("refreshToken", res.refreshToken);
+        dispatch(getUserInfo(getCookie("accessToken")));
       })
   }
 }

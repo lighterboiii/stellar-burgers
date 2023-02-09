@@ -1,4 +1,5 @@
 import { sendOrder } from "../../utils/api";
+import { getCookie } from "../../utils/cookie";
 
 export const SET_ORDER_DETAILS = 'SET_ORDER_DETAILS';
 export const SET_ORDER_DETAILS_FAILED = 'SET_ORDER_DETAILS_FAILED';
@@ -10,11 +11,11 @@ export const setOrderDetailsSuccess = (res) => ({ type: SET_ORDER_DETAILS_SUCCES
 export const setOrderDetailsLoadingFailed = () => ({ type: SET_ORDER_DETAILS_FAILED });
 export const clearOrderDetails = () => ({ type: CLEAR_ORDER_DETAILS });
 
-
 export const setOrderData = (dataId) => {
   return function (dispatch) {
+    console.log(dataId)
     dispatch(setOrderDetails())
-    sendOrder(dataId)
+    sendOrder(dataId, getCookie("accessToken"))
       .then(res => {
         if (res) {
           dispatch(setOrderDetailsSuccess(res))
@@ -23,6 +24,9 @@ export const setOrderData = (dataId) => {
       .then(() => {
         dispatch(clearOrderDetails())
       })
-      .catch(() => dispatch(setOrderDetailsLoadingFailed()))
+      .catch((err) => {
+        dispatch(setOrderDetailsLoadingFailed())
+        console.log(err)
+      })
   }
 };

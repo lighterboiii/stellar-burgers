@@ -10,7 +10,7 @@ import { useMemo, useCallback } from "react";
 import { changeOrderModalStatus } from "../../services/actions/modal";
 import { deleteAllIngredients } from '../../services/actions/ingredients';
 import { useSelector, useDispatch } from 'react-redux';
-import { useDrop } from "react-dnd";
+import { useDrop } from "react-dnd"
 import { SelectedIngredient } from "./SelectedIngredient/SelectedIngredient";
 import Modal from '../Modal/Modal';
 import OrderDetails from '../Modal/OrderDetails/OrderDetails';
