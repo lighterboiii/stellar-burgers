@@ -1,4 +1,4 @@
-import { sendOrder } from "../../utils/api";
+import { sendOrderRequest } from "../../utils/api";
 import { getCookie } from "../../utils/cookie";
 import { setRefreshToken } from "./user";
 
@@ -15,7 +15,7 @@ export const clearOrderDetails = () => ({ type: CLEAR_ORDER_DETAILS });
 export const setOrderData = (dataId) => {
   return function (dispatch) {
     dispatch(setOrderDetails())
-    sendOrder(dataId, getCookie("accessToken"))
+    sendOrderRequest(dataId, getCookie("accessToken"))
       .then(res => {
         if (res) {
           dispatch(setOrderDetailsSuccess(res))
@@ -27,7 +27,7 @@ export const setOrderData = (dataId) => {
       .catch((err) => {
         if (err.message === "jwt expired") {
           dispatch(setRefreshToken(getCookie("refreshToken")))
-            .then(() => sendOrder(dataId, getCookie("accessToken"))
+            .then(() => sendOrderRequest(dataId, getCookie("accessToken"))
               .then(res => {
                   dispatch(setOrderDetailsSuccess(res))
               })

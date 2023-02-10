@@ -34,7 +34,6 @@ function BurgerConstructor({ closePopup }) {
       (acc, ingredient) =>
         ingredient === bun ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
   }, [selectedIngredients, bun]);
-
   // order button listener
   const onOrderClick = () => {
     const dataId = notBun.map((element) => element._id);
@@ -43,10 +42,9 @@ function BurgerConstructor({ closePopup }) {
     const ingredientsData = dataId.concat(bunIds)
     if (!userData) {
       navigate('/login');
-      dispatch(changeOrderModalStatus(false));
     } else {
-      dispatch(changeOrderModalStatus(true));
       dispatch(setOrderData(ingredientsData));
+      dispatch(changeOrderModalStatus(true));
       dispatch(deleteAllIngredients(selectedIngredients));
     }
   };

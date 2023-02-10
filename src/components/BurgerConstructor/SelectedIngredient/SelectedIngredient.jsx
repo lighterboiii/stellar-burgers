@@ -9,7 +9,7 @@ import { IngredientPropTypes } from '../../../utils/constants/constants';
 
 function SelectedIngredient({ ingredient, index, moveIngredient }) {
   const dispatch = useDispatch();
-  const { image, name, price, _id } = ingredient;
+  const { image, name, price } = ingredient;
   const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
 
   const handleDeleteIngredient = (item) => {

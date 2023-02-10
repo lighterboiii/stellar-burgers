@@ -7,15 +7,15 @@ const checkRes = (res) => {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(`Ошибка загрузки данных с сервера: ${err.status}`))
 }
 
-function request(url, options) {
+export function request(url, options) {
   return fetch(url, options).then(checkRes)
 }
 
-function getIngredients() {
+export function getIngredients() {
   return request(`${BURGER_API_URL}${INGREDIENTS_URL}`)
 }
 
-function sendOrder(data, accessToken) {
+export function sendOrderRequest(data, accessToken) {
   return request(`${BURGER_API_URL}${ORDER_URL}`, {
     method: 'POST',
     headers: {
@@ -28,7 +28,7 @@ function sendOrder(data, accessToken) {
   })
 }
 
-function forgotPasswordRequest(email) {
+export function forgotPasswordRequest(email) {
   return request(`${BURGER_API_URL}${FORGOT_PASS_URL}`, {
     method: 'POST',
     headers: {
@@ -40,7 +40,7 @@ function forgotPasswordRequest(email) {
   })
 }
 
-function resetPasswordRequest(password, token) {
+export function resetPasswordRequest(password, token) {
   return request(`${BURGER_API_URL}${RESET_PASS_URL}`, {
     method: 'POST',
     headers: {
@@ -53,7 +53,7 @@ function resetPasswordRequest(password, token) {
   })
 }
 
-function registerUser(email, password, name) {
+export function registerUserRequest(email, password, name) {
   return request(`${BURGER_API_URL}${REGISTER_USER_URL}`, {
     method: 'POST',
     headers: {
@@ -67,7 +67,7 @@ function registerUser(email, password, name) {
   })
 }
 
-function login(email, password) {
+export function loginRequest(email, password) {
   return request(`${BURGER_API_URL}${LOGIN_URL}`, {
     method: 'POST',
     headers: {
@@ -80,7 +80,7 @@ function login(email, password) {
   })
 }
 // запрос данных пользователя
-function getUserData(accessToken) {
+export function checkUserDataRequest(accessToken) {
   return request(`${BURGER_API_URL}${USER_URL}`, {
     method: 'GET',
     headers: {
@@ -90,7 +90,7 @@ function getUserData(accessToken) {
   })
 }
 // обновление данных пользователя
-function patchUserData(accessToken, name, email, password) {
+export function changeUserDataRequest(name, email, password, accessToken) {
   return request(`${BURGER_API_URL}${USER_URL}`, {
     method: 'PATCH',
     headers: {
@@ -105,7 +105,7 @@ function patchUserData(accessToken, name, email, password) {
   })
 }
 // запрос рефреша
-function refreshToken(refreshToken) {
+export function refreshTokenRequest(refreshToken) {
   return request(`${BURGER_API_URL}${TOKEN_URL}`, {
     method: 'POST',
     headers: {
@@ -117,29 +117,8 @@ function refreshToken(refreshToken) {
   }
   )
 }
-// export const fetchWithRefresh = async (url, options) => {
-//   try {
-//     const res = await fetch(`${BURGER_API_URL}${TOKEN_URL}`, options);
-//     return await checkRes(res);
-//   } catch (err) {
-//     if (err.message === "jwt expired") {
-//       const refreshData = await refreshToken();
-//       if (!refreshData.success) {
-//         Promise.reject(refreshData);
-//       }
-//       localStorage.setItem("refreshToken", refreshData.refreshToken);
-//       setCookie("accessToken", refreshData.accessToken);
-//       options.headers.authorization = refreshData.accessToken;
-//       const res = await fetch(`${BURGER_API_URL}${TOKEN_URL}`, options);
-//       return await checkRes(res);
-//     } else {
-//       return Promise.reject(err);
-//     }
-//   }
-// };
-
 // запрос логаута
-function signOut(refreshToken) {
+export function signOutRequest(refreshToken) {
   return request(`${BURGER_API_URL}${LOGOUT_URL}`, {
     method: 'POST',
     headers: {
@@ -150,5 +129,3 @@ function signOut(refreshToken) {
     })
   })
 }
-
-export { getIngredients, sendOrder, forgotPasswordRequest, resetPasswordRequest, registerUser, login, getUserData, refreshToken, signOut, patchUserData }

@@ -1,4 +1,4 @@
-import { getUserData, login, refreshToken, registerUser, signOut, patchUserData } from "../../utils/api";
+import { checkUserDataRequest, loginRequest, refreshTokenRequest, registerUserRequest, signOutRequest, changeUserDataRequest } from "../../utils/api";
 import { setCookie, getCookie, deleteCookie } from "../../utils/cookie";
 
 // login
@@ -50,7 +50,7 @@ export const setLogin = (email, password) => {
   return function (dispatch) {
     dispatch(loginLoading());
 
-    login(email, password)
+    loginRequest(email, password)
       .then(res => {
         dispatch(loginLoadingSuccess(res));
         setCookie("accessToken", res.accessToken)
@@ -67,7 +67,7 @@ export const setRegistration = (email, password, name) => {
   return function (dispatch) {
     dispatch(register());
 
-    registerUser(email, password, name)
+    registerUserRequest(email, password, name)
       .then(res => {
         if (res) {
           dispatch(registerSuccess(res));
@@ -82,11 +82,11 @@ export const setRegistration = (email, password, name) => {
   }
 };
 
-export const sendUserInfo = (token, name, email, password) => {
+export const sendUserInfo = (name, email, password, token) => {
   return function (dispatch) {
     dispatch(setUserDataLoading());
 
-    patchUserData(token, name, email, password)
+    changeUserDataRequest(name, email, password, token)
       .then(res => {
         if (res) {
           dispatch(setUserDataSuccess(res));
@@ -102,7 +102,7 @@ export const sendUserInfo = (token, name, email, password) => {
 export const getUserInfo = () => {
   return function (dispatch) {
     dispatch(getUserDataLoading());
-    getUserData(getCookie("accessToken"))
+    checkUserDataRequest(getCookie("accessToken"))
       .then((res) => {
         if (res) {
           dispatch(getUserDataLoadingSuccess(res));
@@ -117,9 +117,9 @@ export const getUserInfo = () => {
   }
 };
 
-export const setRefreshToken = () => {
+export const setRefreshToken = (refreshToken) => {
   return function (dispatch) {
-    refreshToken(refreshToken)
+    refreshTokenRequest(refreshToken)
       .then((res) => {
         setCookie("accessToken", res.accessToken);
         setCookie("refreshToken", res.refreshToken);
@@ -128,11 +128,11 @@ export const setRefreshToken = () => {
   }
 }
 
-export const logout = (token) => {
+export const setLogout = (token) => {
   return function (dispatch) {
     dispatch(setLogoutLoading());
 
-    signOut(token)
+    signOutRequest(token)
       .then((res) => {
         if (res) {
           deleteCookie("accessToken");

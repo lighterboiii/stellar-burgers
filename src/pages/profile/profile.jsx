@@ -3,7 +3,7 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, sendUserInfo } from '../../services/actions/user';
+import { setLogout, sendUserInfo } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
 import { getUserInfo } from '../../services/actions/user';
 
@@ -56,12 +56,12 @@ export function ProfilePage() {
 
   const handleLogout = () => {
     const refreshToken = getCookie("refreshToken");
-    dispatch(logout(refreshToken));
+    dispatch(setLogout(refreshToken));
   }
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    dispatch(sendUserInfo(token, nameValue, emailValue, passwordValue));
+    dispatch(sendUserInfo(nameValue, emailValue, passwordValue, token));
     alert('User Data successfully changed'); // убрать
   }
 
@@ -104,8 +104,8 @@ export function ProfilePage() {
           {
             isInfoChanged && (
               <div className={styles.buttons}>
-                <Button type='secondary' size='medium' onClick={handleCancel}>Отмена</Button>
-                <Button type='primary' size='medium'>Сохранить</Button>
+                <Button type='secondary' size='medium' htmlType='button' onClick={handleCancel}>Отмена</Button>
+                <Button type='primary' size='medium' htmlType='submit' >Сохранить</Button>
               </div>
             )
           }
