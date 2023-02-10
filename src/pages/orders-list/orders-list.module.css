@@ -1,0 +1,27 @@
+.feed {
+  margin-top: 44px;
+  height: 640px;
+  display: flex;
+  flex-direction: column;
+  width: 856px;
+  overflow-y: scroll;
+}
+
+.orders {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.order {
+  box-sizing: border-box;
+  border-radius: 40px;
+  background-color: #1C1C21;
+  padding: 24px;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

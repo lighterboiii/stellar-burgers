@@ -15,6 +15,7 @@ import { PageNotfound } from '../../pages/404/404';
 import { ProfilePage } from '../../pages/profile/profile';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { IngredientPage } from '../../pages/ingredient/IngredientPage';
+import { OrdersListPage } from '../../pages/orders-list/orders-list';
 import { FeedPage } from '../../pages/feed/feed';
 import { getUserInfo } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
@@ -40,15 +41,13 @@ function App() {
             <Route path="/register" element={(!userData && !access) ? <RegisterPage /> : <Navigate to={'/'} /> }/>
             <Route path="/forgot-password" element={(!userData && !access) ? <ForgotPage /> : <Navigate to={'/'}/>} />
             <Route path="/reset-password" element={<ResetPage />} />
-            <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} to={'/login'} />} />
-            <Route path='/feed' element={<FeedPage />}>
-              <Route path='/feed/:id' /> {/* Айди заказа */}
-            </Route> {/* Лента заказов */}
-            <Route path='/profile/orders'>
-              <Route path='/profile/orders/:id' /> {/* must be a protected route */}
-            </Route>  {/* must be a protected route */}
+            <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} to={'/login'} />} >
+              <Route path='orders' element={<OrdersListPage /> } />
+            </Route>
+            <Route path='/feed' element={<FeedPage />} />
             <Route path="/ingredients/:id" element={<IngredientPage />} />
             <Route path="*" element={<PageNotfound />} />
+            {/* Сверстать странички для конкретного ингредиента в ленте заказов и в истории заказов*/}
           </Routes>
         </div>
       </DndProvider>
