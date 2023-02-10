@@ -23,7 +23,6 @@ function BurgerConstructor({ closePopup }) {
   const userData = useSelector((state) => state.userInfo.user);
   const burgerData = useSelector(state => state.ingredients.ingredients);
   const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
-  const orderDetails = useSelector(state => state.orderData.orderDetails);
   const isOrderModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
 
   const notBun = useMemo(() => selectedIngredients.filter((ingredient) => ingredient.type !== 'bun'), [selectedIngredients]);
