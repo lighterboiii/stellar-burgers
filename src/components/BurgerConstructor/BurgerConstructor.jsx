@@ -93,7 +93,7 @@ function BurgerConstructor({ closePopup }) {
           <Button size="large" type="secondary" htmlType='button' disabled onClick={onOrderClick}>Оформить заказ</Button>
         </div>
       }
-      {isOrderModalOpen && orderDetails && (
+      {isOrderModalOpen && (
         <Modal title={''} closePopup={closePopup}>
           <OrderDetails />
         </Modal>
