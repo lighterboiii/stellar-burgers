@@ -10,36 +10,42 @@ import { useMemo, useCallback } from "react";
 import { changeOrderModalStatus } from "../../services/actions/modal";
 import { deleteAllIngredients } from '../../services/actions/ingredients';
 import { useSelector, useDispatch } from 'react-redux';
-import { useDrop } from "react-dnd";
+import { useDrop } from "react-dnd"
 import { SelectedIngredient } from "./SelectedIngredient/SelectedIngredient";
 import Modal from '../Modal/Modal';
 import OrderDetails from '../Modal/OrderDetails/OrderDetails';
+import { useNavigate } from 'react-router-dom';
 
 function BurgerConstructor({ closePopup }) {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  
+  const userData = useSelector((state) => state.userInfo.user);
   const burgerData = useSelector(state => state.ingredients.ingredients);
   const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
+  const isOrderModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
 
   const notBun = useMemo(() => selectedIngredients.filter((ingredient) => ingredient.type !== 'bun'), [selectedIngredients]);
   const bun = useMemo(() => selectedIngredients.find((ingredient) => ingredient.type === 'bun'), [selectedIngredients]);
-
-  const orderDetails = useSelector(state => state.orderData.orderDetails);
-  const isOrderModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
-
   //calculating items prices
   const sum = useMemo(() => {
     return selectedIngredients.reduce(
       (acc, ingredient) =>
         ingredient === bun ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
-  }, [selectedIngredients]);
-
+  }, [selectedIngredients, bun]);
   // order button listener
   const onOrderClick = () => {
-    const dataId = selectedIngredients.map((element) => element._id);
-    dispatch(setOrderData(dataId));
-    dispatch(changeOrderModalStatus(true));
-    dispatch(deleteAllIngredients(selectedIngredients));
+    const dataId = notBun.map((element) => element._id);
+    const buns = new Array(2).fill(bun);
+    const bunIds = buns.map((el) => el._id)
+    const ingredientsData = dataId.concat(bunIds)
+    if (!userData) {
+      navigate('/login');
+    } else {
+      dispatch(setOrderData(ingredientsData));
+      dispatch(changeOrderModalStatus(true));
+      dispatch(deleteAllIngredients(selectedIngredients));
+    }
   };
   // drop listener
   const handleDrop = (item) => {
@@ -59,7 +65,7 @@ function BurgerConstructor({ closePopup }) {
       handleDrop(item)
     },
   });
-  // not-working 
+  // not-working as i want to
   const moveIngredients = useCallback((dragIndex, hoverIndex) => {
     dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
   }, [selectedIngredients, dispatch]);
@@ -76,7 +82,7 @@ function BurgerConstructor({ closePopup }) {
         </ul>
         <BottomBun />
       </div>
-      {selectedIngredients.length > 0 ?
+      {selectedIngredients.length > 0 && bun ?
         <div className={'mr-4 ' + styles.total}>
           <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon />}</span>
           <Button size="large" type="primary" htmlType='button' onClick={onOrderClick}>Оформить заказ</Button>
@@ -86,7 +92,7 @@ function BurgerConstructor({ closePopup }) {
           <Button size="large" type="secondary" htmlType='button' disabled onClick={onOrderClick}>Оформить заказ</Button>
         </div>
       }
-      {isOrderModalOpen && orderDetails && (
+      {isOrderModalOpen && (
         <Modal title={''} closePopup={closePopup}>
           <OrderDetails />
         </Modal>

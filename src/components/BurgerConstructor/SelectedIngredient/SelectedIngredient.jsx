@@ -4,14 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from 'react';
-import {
-  DELETE_INGREDIENT
-} from '../../../services/actions/ingredients';
-import { IngredientPropTypes } from '../../../constants/constants';
+import { DELETE_INGREDIENT } from '../../../services/actions/ingredients';
+import { IngredientPropTypes } from '../../../utils/constants/constants';
 
 function SelectedIngredient({ ingredient, index, moveIngredient }) {
   const dispatch = useDispatch();
-  const { image, name, price, _id } = ingredient;
+  const { image, name, price } = ingredient;
   const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
 
   const handleDeleteIngredient = (item) => {
@@ -84,7 +82,7 @@ function SelectedIngredient({ ingredient, index, moveIngredient }) {
 
 SelectedIngredient.propTypes = {
   ingredient: IngredientPropTypes,
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   moveIngredient: PropTypes.func.isRequired
 }
 

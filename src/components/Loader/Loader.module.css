@@ -1,8 +1,10 @@
-.app {
-  margin: 0;
-  width: 100vw;
+.loader {
+  width: 30%;
+}
+
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 16px;
 }

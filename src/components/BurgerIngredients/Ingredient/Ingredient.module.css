@@ -15,3 +15,7 @@
 .bunName {
   composes: paragraph;
 }
+
+.link {
+  text-decoration: none;
+}

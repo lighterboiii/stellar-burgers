@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails.jsx';
 import Modal from '../Modal/Modal';
 
-
 function BurgerIngredients({ closePopup }) {
 	const isIngredientModalOpen = useSelector(state => state.modalState.isIngredientModalOpen);
 	const burgerData = useSelector(state => state.ingredients.ingredients);
@@ -21,7 +20,7 @@ function BurgerIngredients({ closePopup }) {
 	const mainRef = useRef(null);
 
 	const [current, setCurrent] = useState('buns');
-
+	const currentIngredient = useSelector(state => state.ingredients.currentIngredient);
 	const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
 
 	const handleClick = (value) => {
@@ -85,7 +84,7 @@ function BurgerIngredients({ closePopup }) {
 			</div>
 			{isIngredientModalOpen && (
 				<Modal title={'Детали ингредиента'} closePopup={closePopup}>
-					<IngredientDetails />
+					<IngredientDetails currentIngredient={currentIngredient}/>
 				</Modal>
 			)}
 		</section>
@@ -93,7 +92,7 @@ function BurgerIngredients({ closePopup }) {
 };
 
 BurgerIngredients.propTypes = {
-  closePopup: PropTypes.func.isRequired
+	closePopup: PropTypes.func.isRequired
 }
 
 
