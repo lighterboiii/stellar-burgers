@@ -8,8 +8,8 @@ import {
 const initialState = {
   wsConnected: false,
   orders: [],
-  total: null,
-  totalToday: null,
+  total: 0,
+  totalToday: 0,
   error: undefined
 };
 
@@ -37,7 +37,9 @@ export const wsReducer = (state = initialState, action) => {
       return {
         ...state,
         error: undefined,
-        orders: action.payload.orders
+        orders: action.payload.orders,
+        total: action.payload.total,
+        totalToday: action.payload.totalToday
       };
     default:
       return state;

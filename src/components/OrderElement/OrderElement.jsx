@@ -34,7 +34,7 @@ export function OrderElement({ order }) {
   }, 0);
 
   return (
-    <article className={styles.order}>
+    <article className={styles.order + ' mr-2'}>
       <div className={styles.info + ' mb-6'}>
         <p className={'text text_type_digits-default'}>{order.number}</p>
         <p className={"text text_color_inactive text_type_main-default "}>{order.createdAt}</p>
