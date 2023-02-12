@@ -12,9 +12,6 @@ export function ProfilePage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const matchOrders = useMatch('/profile/orders');
-  const matchProfile = useMatch('/profile');
-
   const token = useSelector((state) => state.userInfo.accessToken);
   const userData = useSelector((state) => state.userInfo.user.user);
 
@@ -26,6 +23,9 @@ export function ProfilePage() {
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passRef = useRef(null);
+
+  const matchOrders = useMatch('/profile/orders');
+  const matchProfile = useMatch('/profile');
 
   const onNameChange = (e) => {
     const value = e.target.value;

@@ -25,3 +25,8 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.status {
+  display: flex;
+  flex-direction: column;
+}
