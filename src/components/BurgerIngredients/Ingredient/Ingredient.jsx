@@ -5,7 +5,7 @@ import styles from './Ingredient.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeIngredientModalStatus } from "../../../services/actions/modal";
 import { currentIngredient } from "../../../services/actions/ingredients";
-import { IngredientPropTypes } from "../../../utils/constants/constants";
+import { IngredientPropTypes } from "../../../utils/constants";
 
 function Ingredient({ ingredient }) {
   const { image, name, price, _id } = ingredient;

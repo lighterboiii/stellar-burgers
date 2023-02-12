@@ -37,12 +37,14 @@ function App() {
           <AppHeader />
           <Routes>
             <Route path='/' element={<HomePage />} />
-            <Route path="/login" element={(!userData && !access) ? <LoginPage /> : <Navigate to={'/'} /> }/>
-            <Route path="/register" element={(!userData && !access) ? <RegisterPage /> : <Navigate to={'/'} /> }/>
-            <Route path="/forgot-password" element={(!userData && !access) ? <ForgotPage /> : <Navigate to={'/'}/>} />
+            <Route path="/login" element={(!userData && !access) ? <LoginPage /> : <Navigate to={'/'} />} />
+            <Route path="/register" element={(!userData && !access) ? <RegisterPage /> : <Navigate to={'/'} />} />
+            <Route path="/forgot-password" element={(!userData && !access) ? <ForgotPage /> : <Navigate to={'/'} />} />
             <Route path="/reset-password" element={<ResetPage />} />
             <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} to={'/login'} />} >
-              <Route path='orders' element={<OrdersListPage /> } />
+              <Route path='orders' element={<OrdersListPage />}>
+                <Route path=':id' />
+              </Route>
             </Route>
             <Route path='/feed' element={<FeedPage />} />
             <Route path="/ingredients/:id" element={<IngredientPage />} />

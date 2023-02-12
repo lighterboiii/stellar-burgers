@@ -1,5 +1,6 @@
 import styles from './orders-list.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Link } from 'react-router-dom';
 
 export function OrdersListPage() {
   const textStyleMedium = 'text text_type_main-medium';
@@ -10,8 +11,10 @@ export function OrdersListPage() {
       <div className={styles.orders + ' mr-2'}>
         <article className={styles.order}>
           <div className={styles.info + ' mb-6'}>
-            <p className={'text text_type_digits-default'}>#30463</p>
-            <p className={"text text_color_inactive text_type_main-default "}>Сегодня, 16:20 i-GMT+3</p>
+            {/* <Link className={styles.link} to={`/orders/${id}`} > */}
+              <p className={'text text_type_digits-default'}>#30463</p>
+              <p className={"text text_color_inactive text_type_main-default "}>Сегодня, 16:20 i-GMT+3</p>
+            {/* </Link> */}
           </div>
           <div className={styles.status}>
             <h3 className={textStyleMedium + ' mb-2'}>Black Hole Singularity острый бургер</h3>

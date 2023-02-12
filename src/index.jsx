@@ -9,7 +9,8 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { socketMiddleware } from './services/middleware/socketMiddleware';
 import { 
-  WS_CONNECTION_START,
+  WS_CONNECTION_START_ALL,
+  WS_CONNECTION_START_USER,
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
@@ -18,11 +19,12 @@ import {
  } from './services/actions/wsActions';
 
 const wsActions = {
-  wsStart: WS_CONNECTION_START,
-  wsSuccess: WS_CONNECTION_SUCCESS,
+  wsStartAll: WS_CONNECTION_START_ALL,
+  wsStartUser: WS_CONNECTION_START_USER,
+  onOpen: WS_CONNECTION_SUCCESS,
   onError: WS_CONNECTION_ERROR,
   onClose: WS_CONNECTION_CLOSED,
-  wsGet: WS_GET_MESSAGE,
+  onMessage: WS_GET_MESSAGE,
   wsSend: WS_SEND_MESSAGE
 }
 

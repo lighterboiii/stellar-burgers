@@ -1,22 +1,22 @@
 import {
-  BURGER_API_URL, FORGOT_PASS_URL, RESET_PASS_URL, INGREDIENTS_URL, ORDER_URL, REGISTER_USER_URL, LOGIN_URL, USER_URL, TOKEN_URL, LOGOUT_URL
-} from "./constants/constants";
-// import { setCookie } from "./cookie";
+  BURGER_API_URL, FORGOT_PASS_KEY, RESET_PASS_KEY, INGREDIENTS_KEY, ORDERS_KEY, REGISTER_USER_KEY, LOGIN_KEY, USER_KEY, TOKEN_KEY, LOGOUT_KEY
+} from "./constants";
 
 const checkRes = (res) => {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(`Ошибка загрузки данных с сервера: ${err.status}`))
 }
 
-export function request(url, options) {
-  return fetch(url, options).then(checkRes)
+export async function request(url, options) {
+  const res = await fetch(url, options);
+  return checkRes(res);
 }
 
 export function getIngredients() {
-  return request(`${BURGER_API_URL}${INGREDIENTS_URL}`)
+  return request(`${BURGER_API_URL}${INGREDIENTS_KEY}`)
 }
 
 export function sendOrderRequest(data, accessToken) {
-  return request(`${BURGER_API_URL}${ORDER_URL}`, {
+  return request(`${BURGER_API_URL}${ORDERS_KEY}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export function sendOrderRequest(data, accessToken) {
 }
 
 export function forgotPasswordRequest(email) {
-  return request(`${BURGER_API_URL}${FORGOT_PASS_URL}`, {
+  return request(`${BURGER_API_URL}${FORGOT_PASS_KEY}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ export function forgotPasswordRequest(email) {
 }
 
 export function resetPasswordRequest(password, token) {
-  return request(`${BURGER_API_URL}${RESET_PASS_URL}`, {
+  return request(`${BURGER_API_URL}${RESET_PASS_KEY}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ export function resetPasswordRequest(password, token) {
 }
 
 export function registerUserRequest(email, password, name) {
-  return request(`${BURGER_API_URL}${REGISTER_USER_URL}`, {
+  return request(`${BURGER_API_URL}${REGISTER_USER_KEY}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -68,7 +68,7 @@ export function registerUserRequest(email, password, name) {
 }
 
 export function loginRequest(email, password) {
-  return request(`${BURGER_API_URL}${LOGIN_URL}`, {
+  return request(`${BURGER_API_URL}${LOGIN_KEY}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ export function loginRequest(email, password) {
 }
 // запрос данных пользователя
 export function checkUserDataRequest(accessToken) {
-  return request(`${BURGER_API_URL}${USER_URL}`, {
+  return request(`${BURGER_API_URL}${USER_KEY}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ export function checkUserDataRequest(accessToken) {
 }
 // обновление данных пользователя
 export function changeUserDataRequest(name, email, password, accessToken) {
-  return request(`${BURGER_API_URL}${USER_URL}`, {
+  return request(`${BURGER_API_URL}${USER_KEY}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ export function changeUserDataRequest(name, email, password, accessToken) {
 }
 // запрос рефреша
 export function refreshTokenRequest(refreshToken) {
-  return request(`${BURGER_API_URL}${TOKEN_URL}`, {
+  return request(`${BURGER_API_URL}${TOKEN_KEY}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -119,7 +119,7 @@ export function refreshTokenRequest(refreshToken) {
 }
 // запрос логаута
 export function signOutRequest(refreshToken) {
-  return request(`${BURGER_API_URL}${LOGOUT_URL}`, {
+  return request(`${BURGER_API_URL}${LOGOUT_KEY}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -128,4 +128,8 @@ export function signOutRequest(refreshToken) {
       token: refreshToken
     })
   })
+}
+// запрос ордеров
+export function ordersRequest() {
+  return request(``)
 }

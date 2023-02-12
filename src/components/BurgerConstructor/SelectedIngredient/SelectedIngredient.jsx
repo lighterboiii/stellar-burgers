@@ -5,7 +5,7 @@ import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burg
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from 'react';
 import { DELETE_INGREDIENT } from '../../../services/actions/ingredients';
-import { IngredientPropTypes } from '../../../utils/constants/constants';
+import { IngredientPropTypes } from '../../../utils/constants';
 
 function SelectedIngredient({ ingredient, index, moveIngredient }) {
   const dispatch = useDispatch();
