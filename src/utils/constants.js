@@ -12,8 +12,7 @@ export const USER_KEY = '/auth/user';
 export const TOKEN_KEY = '/auth/token';
 export const LOGOUT_KEY = '/auth/logout';
 
-export const ORDERS_WS_URL = 'wss://norma.nomoreparties.space/orders/all';
-export const USER_ORDERS_WS_URL = 'wss://norma.nomoreparties.space/orders';
+export const wsUrl = 'wss://norma.nomoreparties.space/orders';
 
 export const IngredientPropTypes = PropTypes.shape({
   calories: PropTypes.number.isRequired,

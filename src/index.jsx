@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './components/App/App';
@@ -8,6 +7,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { socketMiddleware } from './services/middleware/socketMiddleware';
+import { wsUrl } from './utils/constants';
 import { 
   WS_CONNECTION_START_ALL,
   WS_CONNECTION_START_USER,
@@ -27,8 +27,6 @@ const wsActions = {
   onMessage: WS_GET_MESSAGE,
   wsSend: WS_SEND_MESSAGE
 }
-
-const wsUrl = 'wss://norma.nomoreparties.space/orders';
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

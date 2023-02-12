@@ -1,14 +1,21 @@
-// socketMiddleware.js
-export const socketMiddleware = wsUrl => {
+import { getCookie } from "../../utils/cookie";
+
+export const socketMiddleware = (wsUrl, wsActions) => {
   return store => {
     let socket = null;
 
     return next => action => {
       const { dispatch } = store;
       const { type, payload } = action;
+      const accessToken = getCookie('accessToken');
+      const { wsStartAll, wsStartUser, onClose } = wsActions;
 
-      if (type === 'WS_CONNECTION_START') {
-        socket = new WebSocket(wsUrl);
+      if (type === wsStartAll) {
+        socket = new WebSocket(`${wsUrl}/all`)
+      } else if (type === wsStartUser) {
+        socket = new WebSocket(`${wsUrl}?token=${accessToken}`)
+      } else if (type === onClose) {
+        socket.close(1000, 'CLOSE_NORMAL')
       }
       if (socket) {
         socket.onopen = event => {
@@ -19,7 +26,8 @@ export const socketMiddleware = wsUrl => {
         };
         socket.onmessage = event => {
           const { data } = event;
-          dispatch({ type: 'WS_GET_MESSAGE', payload: data });
+          const parsedData = JSON.parse(data);
+          dispatch({ type: 'WS_GET_MESSAGE', payload: parsedData });
         };
         socket.onclose = event => {
           dispatch({ type: 'WS_CONNECTION_CLOSED', payload: event });
