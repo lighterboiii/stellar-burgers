@@ -10,7 +10,8 @@ const initialState = {
   orders: [],
   total: 0,
   totalToday: 0,
-  error: undefined
+  error: false,
+  errMessage: null
 };
 
 export const wsReducer = (state = initialState, action) => {
@@ -24,7 +25,8 @@ export const wsReducer = (state = initialState, action) => {
     case WS_CONNECTION_ERROR:
       return {
         ...state,
-        error: action.payload,
+        error: true,
+        errMessage: action.payload,
         wsConnected: false
       };
     case WS_CONNECTION_CLOSED:

@@ -6,7 +6,7 @@ export function OrderPage() {
   const orders = useSelector((state) => state.socketReducer.orders);
   const { id } = useParams();
   const order = orders.find((item) => item._id === id);
-  console.log(order)
+
   return (
     order && (
       <div className="wrapper">

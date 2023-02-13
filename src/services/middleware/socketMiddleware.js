@@ -3,17 +3,17 @@ import { getCookie } from "../../utils/cookie";
 export const socketMiddleware = (wsUrl, wsActions) => {
   return store => {
     let socket = null;
+    let url = undefined;
 
     return next => action => {
       const { dispatch } = store;
       const { type, payload } = action;
       const accessToken = getCookie('accessToken');
-      const { wsStartAll, wsStartUser, onClose } = wsActions;
+      const { wsStart, onOpen, onError, onClose } = wsActions;
 
-      if (type === wsStartAll) {
-        socket = new WebSocket(`${wsUrl}/all`)
-      } else if (type === wsStartUser) {
-        socket = new WebSocket(`${wsUrl}?token=${accessToken}`)
+      if (type === wsStart) {
+        url = payload;
+        socket = new WebSocket(url);
       } else if (type === onClose) {
         socket.close(1000, 'CLOSE_NORMAL')
       }

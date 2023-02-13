@@ -9,8 +9,7 @@ import thunk from 'redux-thunk';
 import { socketMiddleware } from './services/middleware/socketMiddleware';
 import { wsUrl } from './utils/constants';
 import { 
-  WS_CONNECTION_START_ALL,
-  WS_CONNECTION_START_USER,
+  WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
@@ -19,8 +18,7 @@ import {
  } from './services/actions/wsActions';
 
 const wsActions = {
-  wsStartAll: WS_CONNECTION_START_ALL,
-  wsStartUser: WS_CONNECTION_START_USER,
+  wsStart: WS_CONNECTION_START,
   onOpen: WS_CONNECTION_SUCCESS,
   onError: WS_CONNECTION_ERROR,
   onClose: WS_CONNECTION_CLOSED,
