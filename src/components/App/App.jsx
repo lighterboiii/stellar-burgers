@@ -19,6 +19,7 @@ import { OrdersListPage } from '../../pages/orders-list/orders-list';
 import { FeedPage } from '../../pages/feed/feed';
 import { getUserInfo } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
+import { OrderPage } from '../../pages/order-page/order-page';
 
 function App() {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ function App() {
             <Route path="/reset-password" element={<ResetPage />} />
             <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} to={'/login'} />} >
               <Route path='orders' element={<OrdersListPage />}>
-                <Route path=':id' />
+                <Route path=':id' element={<OrderPage/> } />
               </Route>
             </Route>
             <Route path='/feed' element={<FeedPage />} />

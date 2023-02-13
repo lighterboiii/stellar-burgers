@@ -1,6 +1,6 @@
 import styles from './feed.module.css';
 import { FeedList } from '../../components/FeedList/FeedList';
-import { OrdersCounter } from '../../components/OrderaCounter/OrdersCounter';
+import { OrdersCounter } from '../../components/OrdersCounter/OrdersCounter';
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { wsConnectionStartAll } from '../../services/actions/wsActions';
