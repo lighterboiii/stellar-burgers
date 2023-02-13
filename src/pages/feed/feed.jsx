@@ -3,14 +3,15 @@ import { FeedList } from '../../components/FeedList/FeedList';
 import { OrdersCounter } from '../../components/OrdersCounter/OrdersCounter';
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { wsConnectionStartAll } from '../../services/actions/wsActions';
+import { wsConnectionStart } from '../../services/actions/wsActions';
+import { wsUrl } from '../../utils/constants';
 
 export function FeedPage() {
   const dispatch = useDispatch();
   const { orders, total, totalToday } = useSelector((state) => state.socketReducer);
 
   useEffect(() => {
-    dispatch(wsConnectionStartAll())
+    dispatch(wsConnectionStart(`${wsUrl}/all`))
   }, [dispatch])
 
   const { doneList, preparingList } = useMemo(() => {

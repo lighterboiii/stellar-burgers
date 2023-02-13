@@ -6,9 +6,8 @@ export const WS_CONNECTION_CLOSED = 'WS_CONNECTION_CLOSED';
 export const WS_GET_MESSAGE = 'WS_GET_MESSAGE';
 export const WS_SEND_MESSAGE = 'WS_SEND_MESSAGE';
 
-export const wsConnectionStartUser = () => ({ type: WS_CONNECTION_START_USER });
 
-export const wsConnectionStartAll = () => ({ type: WS_CONNECTION_START_ALL });
+export const wsConnectionStart = (url) => ({ type: WS_CONNECTION_START_ALL, payload: url });
 
 export const wsConnectionSuccess = () => ({ type: WS_CONNECTION_SUCCESS });
 

@@ -15,7 +15,7 @@ import { PageNotfound } from '../../pages/404/404';
 import { ProfilePage } from '../../pages/profile/profile';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { IngredientPage } from '../../pages/ingredient/IngredientPage';
-import { OrdersListPage } from '../../pages/orders-list/orders-list';
+import { ProfileFeedPage } from '../../pages/profile-feed/profile-feed';
 import { FeedPage } from '../../pages/feed/feed';
 import { getUserInfo } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
@@ -43,7 +43,7 @@ function App() {
             <Route path="/forgot-password" element={(!userData && !access) ? <ForgotPage /> : <Navigate to={'/'} />} />
             <Route path="/reset-password" element={<ResetPage />} />
             <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} to={'/login'} />} >
-              <Route path='orders' element={<OrdersListPage />}>
+              <Route path='orders' element={<ProfileFeedPage />}>
                 <Route path=':id' element={<OrderPage/> } />
               </Route>
             </Route>

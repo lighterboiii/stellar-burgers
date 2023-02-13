@@ -2,7 +2,7 @@ import styles from './OrderImagesList.module.css';
 import { OrderIngredientImage } from "../OrderIngredientImage/OrderIngredientImage";
 
 export function OrderImagesList({ ingredients }) {
-  console.log(ingredients)
+
   function showMore() {
     if (ingredients.length - 6 === 0) {
       return false

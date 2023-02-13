@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLogout, sendUserInfo } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
 import { getUserInfo } from '../../services/actions/user';
+// import { wsConnectionStartUser } from '../../services/actions/wsActions';
 
 export function ProfilePage() {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ export function ProfilePage() {
   }
 
   useEffect(() => {
+    // dispatch(wsConnectionStartUser()); 
     if (userData) {
       setNameValue(userData.name);
       setEmailValue(userData.email);
