@@ -46,10 +46,9 @@ export function OrderFeedElement({ order }) {
   const time = "i-GMT" + (currentDate > 0 ? "-" + currentDate : "+" + -currentDate);
 
   const matchProfile = useMatch('/profile/orders');
-
   return (
     <article className={Boolean(matchProfile) ? styles.orderProfile : styles.order}>
-      <Link className={styles.link} to={`/orders/${id}`} >
+      <Link className={styles.link} to={`/feed/${id}`} >
         <div className={styles.info + ' mb-6'}>
           <p className={'text text_type_digits-default'}>#{order.number}</p>
           <p className={"text text_color_inactive text_type_main-default "}>

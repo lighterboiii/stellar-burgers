@@ -43,14 +43,13 @@ function App() {
             <Route path="/forgot-password" element={(!userData && !access) ? <ForgotPage /> : <Navigate to={'/'} />} />
             <Route path="/reset-password" element={<ResetPage />} />
             <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} to={'/login'} />} >
-              <Route path='orders' element={<ProfileFeedPage />}>
-                <Route path=':id' element={<OrderPage/> } />
-              </Route>
+              <Route path='orders' element={<ProfileFeedPage />} />
             </Route>
+            <Route path='/profile/orders/:id' element={<OrderPage />} />
             <Route path='/feed' element={<FeedPage />} />
+            <Route path='/feed/:id' element={<OrderPage />} />
             <Route path="/ingredients/:id" element={<IngredientPage />} />
             <Route path="*" element={<PageNotfound />} />
-            {/* Сверстать странички для конкретного ингредиента в ленте заказов и в истории заказов*/}
           </Routes>
         </div>
       </DndProvider>

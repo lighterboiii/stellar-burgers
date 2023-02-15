@@ -8,7 +8,6 @@ export const socketMiddleware = (wsUrl, wsActions) => {
     return next => action => {
       const { dispatch } = store;
       const { type, payload } = action;
-      const accessToken = getCookie('accessToken');
       const { wsStart, onOpen, onError, onClose } = wsActions;
 
       if (type === wsStart) {

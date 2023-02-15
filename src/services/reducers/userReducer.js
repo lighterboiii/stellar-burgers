@@ -24,7 +24,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loginRequest: true,
-        loginFailed: false,
+        loginFailed: false
       };
     }
     case LOGIN_SUCCESS: {

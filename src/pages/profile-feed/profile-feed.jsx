@@ -14,7 +14,7 @@ export function ProfileFeedPage() {
   
   useEffect(() => {
     dispatch(wsConnectionStart(`${wsUrl}?token=${accessToken}`))
-  }, [])
+  }, [accessToken, dispatch])
 
   useEffect(() => {
     if (error) {
@@ -23,7 +23,7 @@ export function ProfileFeedPage() {
         .then(() => dispatch(wsConnectionStart(`${wsUrl}?token=${accessToken}`)))
         .catch(() => dispatch(wsConnectionClosed()));
     }
-  }, [error]);
+  }, [error, accessToken, dispatch]);
 
   return (
     orders && 

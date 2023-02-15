@@ -25,7 +25,7 @@ export function FeedPage() {
             count.preparingList.push(element.number);
             break;
         }
-        return count;
+        return count; // eslint (no default case)
       },
       { doneList: [], preparingList: [] }
     );
