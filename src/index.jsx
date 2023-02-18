@@ -3,19 +3,20 @@ import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { rootReducer } from './services/reducers/RootReducer';
+import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { socketMiddleware } from './services/middleware/socketMiddleware';
 import { wsUrl } from './utils/constants';
-import { 
+import {
   WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
   WS_SEND_MESSAGE
- } from './services/actions/wsActions';
+} from './services/actions/wsActions';
 
 const wsActions = {
   wsStart: WS_CONNECTION_START,
@@ -40,9 +41,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   // <React.StrictMode>
-    <Provider store={store}>
+  <Provider store={store}>
+    <BrowserRouter>
       <App />
-    </Provider>
+    </BrowserRouter>
+  </Provider>
   // </React.StrictMode>
 );
 

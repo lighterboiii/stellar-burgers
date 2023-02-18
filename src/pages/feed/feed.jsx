@@ -33,6 +33,7 @@ export function FeedPage() {
 
   return (
     orders && (
+    <>
     <div className={styles.wrapper}>
       <h2 className={'text text_type_main-large mb-5 ' + styles.title}>Лента заказов</h2>
       <div className={styles.content}>
@@ -40,6 +41,8 @@ export function FeedPage() {
         <OrdersCounter doneList={doneList} preparingList={preparingList} total={total} totalToday={totalToday} />
       </div>
     </div>
+
+    </>
   )
   )
 }

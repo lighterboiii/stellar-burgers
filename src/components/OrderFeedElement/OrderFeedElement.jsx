@@ -1,12 +1,21 @@
 import styles from './OrderFeedElement.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
-import { Link, useMatch } from 'react-router-dom';
+import { Link, useLocation, useMatch } from 'react-router-dom';
 import { OrderImagesList } from '../OrderImagesList/OrderImagesList';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 export function OrderFeedElement({ order }) {
   const ingredients = useSelector((store) => store.ingredients.ingredients);
-  const id = order._id;
+  const location = useLocation();
+  const [isProfile, setIsProfile] = useState(false);
+
+  useEffect(() => {
+    if (matchProfile) {
+      setIsProfile(true)
+    }
+  })
 
   const getOrderList = () => {
     const elements = [];
@@ -46,9 +55,11 @@ export function OrderFeedElement({ order }) {
   const time = "i-GMT" + (currentDate > 0 ? "-" + currentDate : "+" + -currentDate);
 
   const matchProfile = useMatch('/profile/orders');
+  
   return (
     <article className={Boolean(matchProfile) ? styles.orderProfile : styles.order}>
-      <Link className={styles.link} to={`/feed/${id}`} >
+      <Link className={styles.link}  to={isProfile ? `/profile/orders/${order._id}` : `/feed/${order._id}`}
+        state={isProfile ? { locationProfileFeed: location } : { locationFeedList: location }}>
         <div className={styles.info + ' mb-6'}>
           <p className={'text text_type_digits-default'}>#{order.number}</p>
           <p className={"text text_color_inactive text_type_main-default "}>

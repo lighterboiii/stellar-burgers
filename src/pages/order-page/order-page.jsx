@@ -1,3 +1,4 @@
+import styles from './order-page.module.css';
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -27,7 +28,7 @@ export function OrderPage() {
 
   return (
     order && (
-      <div className="wrapper">
+      <div className={styles.container}>
         <BurgerOrderDetails />
       </div>
     )
