@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLogout, sendUserInfo } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
 import { getUserInfo } from '../../services/actions/user';
-import { wsConnectionStart } from '../../services/actions/wsActions';
-import { wsUrl } from '../../utils/constants';
 
 export function ProfilePage() {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import styles from './BurgerOrderDetails.module.css';
 import { useSelector } from "react-redux";
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useParams } from "react-router-dom";
+import { Link, useMatch, useParams } from "react-router-dom";
 import { BurgerContains } from "../BurgerContains/BurgerContains";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -47,17 +47,21 @@ export default function BurgerOrderDetails() {
   const currentDate = new Date().getTimezoneOffset() / 60;
   const time = "i-GMT" + (currentDate > 0 ? "-" + currentDate : "+" + -currentDate);
 
+  const feedMatch = useMatch('/feed');
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <p className={'text text_type_digits-default mb-10 ' + styles.number}>{`#${order.number}`}</p>
-        <p className='text text_type_main-medium mb-2'>{`${order.name}`}</p>
+        <Link to={Boolean(feedMatch) ? `/feed/${id}` : `/profile/orders/${id}`} className={styles.link}>
+          <p className='text text_type_main-medium mb-2'>{`${order.name}`}</p>
+        </Link>
         <p className='text text_type_main-default status'>{orderStatus}</p>
       </div>
       <BurgerContains ingredients={orderIngredients} />
       <div className={styles.container}>
         <p className="text text_type_main-default text_color_inactive">
-        <FormattedDate date={new Date(order.createdAt)} /> {`${time}`}
+          <FormattedDate date={new Date(order.createdAt)} /> {`${time}`}
         </p>
         <div className={styles.price}>
           <CurrencyIcon type="primary" />
