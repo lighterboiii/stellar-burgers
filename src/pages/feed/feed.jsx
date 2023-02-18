@@ -41,7 +41,6 @@ export function FeedPage() {
         <OrdersCounter doneList={doneList} preparingList={preparingList} total={total} totalToday={totalToday} />
       </div>
     </div>
-
     </>
   )
   )

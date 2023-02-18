@@ -42,4 +42,4 @@ export function RegisterPage() {
       </div>
     </div> 
   )
-} 
+}

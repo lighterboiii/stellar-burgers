@@ -1,7 +1,7 @@
 import styles from './OrdersCounter.module.css';
+import PropTypes from 'prop-types';
 
 export function OrdersCounter({ doneList, preparingList, total, totalToday }) {
-
 
   return (
     <section className={styles.wrapper}>
@@ -41,4 +41,11 @@ export function OrdersCounter({ doneList, preparingList, total, totalToday }) {
       </article>
     </section>
   )
+}
+
+OrdersCounter.propTypes = {
+  doneList: PropTypes.array.isRequired,
+  preparingList: PropTypes.array.isRequired,
+  total: PropTypes.number.isRequired,
+  totalToday: PropTypes.number.isRequired
 }

@@ -1,4 +1,6 @@
 import styles from './OrderIngredientImage.module.css';
+import PropTypes from 'prop-types';
+import { IngredientPropTypes } from '../../utils/constants';
 
 export function OrderIngredientImage({ showMore, length, ingredient, index }) {
 
@@ -10,4 +12,11 @@ export function OrderIngredientImage({ showMore, length, ingredient, index }) {
       )}
     </li>
   )
+}
+
+OrderIngredientImage.propTypes = {
+  ingredient: IngredientPropTypes,
+  index: PropTypes.number.isRequired,
+  showMore: PropTypes.bool.isRequired,
+  length: PropTypes.number.isRequired
 }

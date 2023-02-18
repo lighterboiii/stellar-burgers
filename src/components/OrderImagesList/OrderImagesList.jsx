@@ -1,4 +1,5 @@
 import styles from './OrderImagesList.module.css';
+import PropTypes from 'prop-types';
 import { OrderIngredientImage } from "../OrderIngredientImage/OrderIngredientImage";
 
 export function OrderImagesList({ ingredients }) {
@@ -37,4 +38,8 @@ export function OrderImagesList({ ingredients }) {
       }
     </ul>
   )
+}
+
+OrderImagesList.propTypes = {
+  ingredients: PropTypes.array.isRequired
 }

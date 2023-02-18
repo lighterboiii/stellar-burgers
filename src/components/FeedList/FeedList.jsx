@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { OrderFeedElement } from "../OrderFeedElement/OrderFeedElement"
 import styles from './FeedList.module.css';
 
@@ -12,4 +13,8 @@ export function FeedList({ orders }) {
       })}
     </ul>
   )
+}
+
+FeedList.propTypes = {
+  orders: PropTypes.array.isRequired
 }

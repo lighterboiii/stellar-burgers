@@ -1,4 +1,5 @@
 import styles from './OrderFeedElement.module.css';
+import PropTypes from 'prop-types';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 import { Link, useLocation, useMatch } from 'react-router-dom';
@@ -77,4 +78,16 @@ export function OrderFeedElement({ order }) {
       </Link>
     </article>
   )
+}
+
+OrderFeedElement.propTypes = {
+  order: PropTypes.shape = {
+    createdAt: PropTypes.string.isRequired,
+    ingredients: PropTypes.array.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.number.isRequired,
+    status: PropTypes.string.isRequired,
+    updatedAt: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired
+  }
 }

@@ -1,5 +1,6 @@
 import OrderPageItem from "../OrderPageItem/OrderPageItem";
 import styles from './BurgerContains.module.css';
+import PropTypes from 'prop-types';
 
 export function BurgerContains({ ingredients }) {
 
@@ -25,4 +26,8 @@ export function BurgerContains({ ingredients }) {
       </ul>
     </div>
   );
+}
+
+BurgerContains.propTypes = {
+  ingredients: PropTypes.array.isRequired
 }
