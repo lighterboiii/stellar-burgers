@@ -81,7 +81,7 @@ export function OrderFeedElement({ order }) {
 }
 
 OrderFeedElement.propTypes = {
-  order: PropTypes.shape = {
+  order: PropTypes.shape({
     createdAt: PropTypes.string.isRequired,
     ingredients: PropTypes.array.isRequired,
     name: PropTypes.string.isRequired,
@@ -89,5 +89,5 @@ OrderFeedElement.propTypes = {
     status: PropTypes.string.isRequired,
     updatedAt: PropTypes.string.isRequired,
     _id: PropTypes.string.isRequired
-  }
+  })
 }

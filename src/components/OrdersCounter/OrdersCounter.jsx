@@ -9,9 +9,9 @@ export function OrdersCounter({ doneList, preparingList, total, totalToday }) {
         <div className={styles.counter}>
           <h4 className='text text_type_main-medium'>Готовы:</h4>
           <ul className={styles.list}>
-            {doneList.map((item) => {
+            {doneList.map((item, index) => {
               return (
-                <li className={'text text_type_digits-default text_color_success'}>
+                <li className={'text text_type_digits-default text_color_success'} key={index}>
                   {item}
                 </li>
               )
@@ -21,9 +21,9 @@ export function OrdersCounter({ doneList, preparingList, total, totalToday }) {
         <div className={styles.counter}>
           <h4 className='text text_type_main-medium'>В работе:</h4>
           <ul className={styles.list}>
-            {preparingList.map((item) => {
+            {preparingList.map((item, index) => {
               return (
-                <li className={'text text_type_digits-default'}>
+                <li className={'text text_type_digits-default'} key={index}>
                   {item}
                 </li>
               )
