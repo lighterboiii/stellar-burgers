@@ -18,9 +18,9 @@ export function BurgerContains({ ingredients }) {
     <div className={styles.container}>
       <p className="text text_type_main-medium mb-6">Состав:</p>
       <ul className={styles.list + ' custom-scroll'}>
-        {ingredients.map((ingredient) => {
+        {ingredients.map((ingredient, index) => {
           return (
-            <OrderPageItem counter={counter(ingredient)} ingredient={ingredient} />
+            <OrderPageItem counter={counter(ingredient)} ingredient={ingredient} key={index} />
           )
         })}
       </ul>

@@ -35,7 +35,7 @@ const Modal = ({ title, children, closePopup }) => {
 }
 
 Modal.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   children: PropTypes.object.isRequired,
   closePopup: PropTypes.func.isRequired
 }

@@ -68,7 +68,7 @@ function App() {
           <Routes>
             <Route path="/feed/:id" element={
               <Modal closePopup={closePopup}>
-                <BurgerOrderDetails />
+                <BurgerOrderDetails title='' />
               </Modal>
             } />
           </Routes>
@@ -77,7 +77,7 @@ function App() {
           <Routes>
             <Route path="/profile/orders/:id" element={
               <Modal closePopup={closePopup}>
-                <BurgerOrderDetails />
+                <BurgerOrderDetails title='' />
               </Modal>
             } />
           </Routes>
