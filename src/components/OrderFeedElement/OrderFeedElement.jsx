@@ -1,61 +1,24 @@
 import styles from './OrderFeedElement.module.css';
 import PropTypes from 'prop-types';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
-import { Link, useLocation, useMatch } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { OrderImagesList } from '../OrderImagesList/OrderImagesList';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useOrderData } from '../../hooks/useOrderData';
 
 export function OrderFeedElement({ order }) {
-  const ingredients = useSelector((store) => store.ingredients.ingredients);
+  
   const location = useLocation();
   const [isProfile, setIsProfile] = useState(false);
+
+  const { orderIngredients, orderStatus, orderPrice, time, matchProfile } = useOrderData(order);
 
   useEffect(() => {
     if (matchProfile) {
       setIsProfile(true)
     }
   })
-
-  const getOrderList = () => {
-    const elements = [];
-    order.ingredients.forEach((ingredientId) => {
-      ingredients.forEach((ingredient) => {
-        if (ingredient._id === ingredientId) {
-          elements.push(ingredient);
-        }
-      });
-    });
-
-    return elements;
-  };
-  const orderIngredients = getOrderList();
-  const statusClassName = document.querySelectorAll('.status');
-  
-  const getOrderStatus = () => {
-    if (order.status === "done") {
-      statusClassName.forEach((element) => {
-        element.classList.add('text_color_success');
-      })
-      return "Выполнен";
-    } else {
-      statusClassName.forEach((element) => {
-        element.classList.add('text_color_primary');
-      })
-      return "Готовится";
-    }
-  };
-  const orderStatus = getOrderStatus();
-
-  const orderPrice = orderIngredients.reduce((count, item) => {
-    return count + item.price;
-  }, 0);
-
-  const currentDate = new Date().getTimezoneOffset() / 60;
-  const time = "i-GMT" + (currentDate > 0 ? "-" + currentDate : "+" + -currentDate);
-
-  const matchProfile = useMatch('/profile/orders');
   
   return (
     <article className={Boolean(matchProfile) ? styles.orderProfile : styles.order}>
