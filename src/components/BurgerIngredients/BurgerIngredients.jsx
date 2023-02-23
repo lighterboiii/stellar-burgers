@@ -68,7 +68,7 @@ function BurgerIngredients({ closePopup }) {
 				</Tab>
 			</div>
 			<div className={styles.wrapper}>
-				<div className={styles.scroll + ' custom-scroll pt-10'} ref={scrollRef} onScroll={handleScroll}>
+				<div className={styles.scroll + ' custom-scroll mt-10'} ref={scrollRef} onScroll={handleScroll}>
 					<IngredientCategory ref={bunRef} category={buns} heading={'Булки'}
 						listStyle={'pl-4 pr-4 ' + styles.list} textStyle={textStyle}
 					/>
