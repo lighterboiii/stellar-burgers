@@ -13,13 +13,15 @@ export default function BurgerOrderDetails() {
   const order = orders.find((item) => item._id === id);
   const { orderIngredients, orderStatus, orderPrice, time } = useOrderData(order);
 
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <p className={'text text_type_digits-default mb-10 ' + styles.number}>{`#${order.number}`}</p>
         <p className='text text_type_main-medium mb-2'>{`${order.name}`}</p>
-        <p className='text text_type_main-default status'>{orderStatus}</p>
+        {(order.status === 'done') 
+            ? <p className='text text_type_main-default text_color_success'>{orderStatus}</p>
+            : <p className='text text_type_main-default text_color_primary'>{orderStatus}</p>
+        }
       </div>
       <BurgerContains ingredients={orderIngredients} />
       <div className={styles.container}>

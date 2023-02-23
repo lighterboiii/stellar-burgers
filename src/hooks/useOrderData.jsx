@@ -17,18 +17,11 @@ export function useOrderData(order) {
     return elements;
   };
   const orderIngredients = getOrderList();
-  const statusClassName = document.querySelectorAll('.status');
 
   const getOrderStatus = () => {
     if (order.status === "done") {
-      statusClassName.forEach((element) => {
-        element.classList.add('text_color_success');
-      })
       return "Выполнен";
     } else {
-      statusClassName.forEach((element) => {
-        element.classList.add('text_color_primary');
-      })
       return "Готовится";
     }
   };
