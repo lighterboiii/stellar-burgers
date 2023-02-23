@@ -32,10 +32,3 @@ export function deleteCookie(name) {
 
   setCookie(name,null, { expires: -1 });
 }
-
-
-export function parseCookie(name) {
-  let token;
-  token = name.split("Bearer ")[1];
-  return token;
-}

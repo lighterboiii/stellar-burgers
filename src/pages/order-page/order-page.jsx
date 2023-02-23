@@ -15,16 +15,14 @@ export function OrderPage({ isLogin }) {
   const { id } = useParams();
   const order = orders.find((item) => item._id === id);
 
-  // const accessToken = getCookie("accessToken").split("Bearer ")[1];
-
   useEffect(() => {
     dispatch(getIngredientsData());
     isLogin
       ? dispatch(wsConnectionStart(`${wsUrl}?token=${getCookie("accessToken").split("Bearer ")[1]}`))
       : dispatch(wsConnectionStart(`${wsUrl}/all`));
-    // return () => {
-    //   dispatch(wsConnectionClosed());
-    // };
+    return () => {
+      dispatch(wsConnectionClosed());
+    };
   }, []);
 
   return (

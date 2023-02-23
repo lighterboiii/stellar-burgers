@@ -1,5 +1,3 @@
-import { getCookie } from "../../utils/cookie";
-
 export const socketMiddleware = (wsUrl, wsActions) => {
   return store => {
     let socket = null;
@@ -8,7 +6,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
     return next => action => {
       const { dispatch } = store;
       const { type, payload } = action;
-      const { wsStart, onOpen, onError, onClose } = wsActions;
+      const { wsStart, onOpen, onError, onClose, onMessage, wsSend } = wsActions;
 
       if (type === wsStart) {
         url = payload;
@@ -18,21 +16,21 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       }
       if (socket) {
         socket.onopen = event => {
-          dispatch({ type: 'WS_CONNECTION_SUCCESS', payload: event });
+          dispatch({ type: onOpen, payload: event });
         };
         socket.onerror = event => {
-          dispatch({ type: 'WS_CONNECTION_ERROR', payload: event });
+          dispatch({ type: onError, payload: event });
         };
         socket.onmessage = event => {
           const { data } = event;
           const parsedData = JSON.parse(data);
-          dispatch({ type: 'WS_GET_MESSAGE', payload: parsedData });
+          dispatch({ type: onMessage, payload: parsedData });
         };
         socket.onClose = event => {
-          dispatch({ type: 'WS_CONNECTION_CLOSED', payload: event });
+          dispatch({ type: onClose, payload: event });
         };
 
-        if (type === 'WS_SEND_MESSAGE') {
+        if (type === wsSend) {
           const message = payload;
           socket.send(JSON.stringify(message));
         }
