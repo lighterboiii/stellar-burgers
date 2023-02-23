@@ -18,10 +18,10 @@ export function OrderFeedElement({ order }) {
     if (matchProfile) {
       setIsProfile(true)
     }
-  }, [])
+  }, [matchProfile])
   
   return (
-    <article className={styles.order}>
+    <article className={Boolean(matchProfile) ? `${styles.profileOrder}` : `${styles.order}`}>
       <Link className={styles.link}  to={isProfile ? `/profile/orders/${order._id}` : `/feed/${order._id}`}
         state={isProfile ? { locationProfileFeed: location } : { locationFeedList: location }}>
         <div className={styles.info + ' mb-6'}>

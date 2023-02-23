@@ -7,6 +7,11 @@
   margin-right: 8px;
 }
 
+.profileOrder {
+  composes: order;
+  width: 836px;
+}
+
 
 .info {
   display: flex;

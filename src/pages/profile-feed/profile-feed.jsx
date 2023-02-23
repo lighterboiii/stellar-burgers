@@ -23,6 +23,9 @@ export function ProfileFeedPage() {
         .then(() => dispatch(wsConnectionStart(`${wsUrl}?token=${accessToken}`)))
         .catch(() => dispatch(wsConnectionClosed()));
     }
+    return () => {
+      dispatch(wsConnectionClosed());
+    };
   }, [error, accessToken, dispatch]);
 
   return (
