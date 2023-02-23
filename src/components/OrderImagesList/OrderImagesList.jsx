@@ -12,6 +12,8 @@ export function OrderImagesList({ ingredients }) {
 
   return (
     <ul className={styles.list}>
+      {/* ругается на отсутствие ожидаемого коллбека функции */}
+      {/* eslint-disable */}
       {ingredients.map((el, index) => {
         if (index === 5) {
           return (
@@ -39,6 +41,7 @@ export function OrderImagesList({ ingredients }) {
     </ul>
   )
 }
+{/* eslint-enable */ }
 
 OrderImagesList.propTypes = {
   ingredients: PropTypes.array.isRequired

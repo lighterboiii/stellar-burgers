@@ -3,6 +3,7 @@
   flex-direction: column;
   padding: 40px;
   align-items: center;
+  width: 640px;
 }
 
 .header { 

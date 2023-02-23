@@ -41,7 +41,7 @@ export function useOrderData(order) {
   const currentDate = new Date().getTimezoneOffset() / 60;
   const time = "i-GMT" + (currentDate > 0 ? "-" + currentDate : "+" + -currentDate);
 
-  const matchProfile = useMatch('/profile/orders');
+  const matchProfile = useMatch('/profile/orders/');
   const feedMatch = useMatch('/feed');
 
   return { orderIngredients, orderPrice, orderStatus, time, feedMatch, matchProfile };

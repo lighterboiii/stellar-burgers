@@ -1,7 +1,7 @@
 import styles from './BurgerOrderDetails.module.css';
 import { useSelector } from "react-redux";
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { BurgerContains } from "../BurgerContains/BurgerContains";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useOrderData } from '../../hooks/useOrderData';
@@ -11,16 +11,14 @@ export default function BurgerOrderDetails() {
   const { id } = useParams();
   const orders = useSelector((state) => state.socketReducer.orders);
   const order = orders.find((item) => item._id === id);
+  const { orderIngredients, orderStatus, orderPrice, time } = useOrderData(order);
 
-  const { orderIngredients, orderStatus, orderPrice, time, feedMatch } = useOrderData(order);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <p className={'text text_type_digits-default mb-10 ' + styles.number}>{`#${order.number}`}</p>
-        <Link to={Boolean(feedMatch) ? `/feed/${id}` : `/profile/orders/${id}`} className={styles.link}>
-          <p className='text text_type_main-medium mb-2'>{`${order.name}`}</p>
-        </Link>
+        <p className='text text_type_main-medium mb-2'>{`${order.name}`}</p>
         <p className='text text_type_main-default status'>{orderStatus}</p>
       </div>
       <BurgerContains ingredients={orderIngredients} />

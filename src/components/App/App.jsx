@@ -3,7 +3,10 @@ import AppHeader from '../AppHeader/AppHeader.jsx';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { getIngredientsData } from '../../services/actions/ingredients';
+// отключил, потому что если уберу импорт Router, рендер сломается
+/* eslint-disable */
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
+/* eslint-enable */
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { HomePage } from '../../pages/home/home';
@@ -58,9 +61,9 @@ function App() {
           <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} to={'/login'} />} >
             <Route path='orders' element={<ProfileFeedPage />} />
           </Route>
-          <Route path='/profile/orders/:id' element={<OrderPage />} />
+          <Route path='/profile/orders/:id' element={<OrderPage isLogin={true} />} />
           <Route path='/feed' element={<FeedPage />} />
-          <Route path='/feed/:id' element={<OrderPage />} />
+          <Route path='/feed/:id' element={<OrderPage isLogin={false} />} />
           <Route path="/ingredients/:id" element={<IngredientPage />} />
           <Route path="*" element={<PageNotfound />} />
         </Routes>

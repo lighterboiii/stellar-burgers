@@ -3,7 +3,7 @@ import { FeedList } from '../../components/FeedList/FeedList';
 import { OrdersCounter } from '../../components/OrdersCounter/OrdersCounter';
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { wsConnectionStart } from '../../services/actions/wsActions';
+import { wsConnectionStart, wsConnectionClosed } from '../../services/actions/wsActions';
 import { wsUrl } from '../../utils/constants';
 
 export function FeedPage() {
@@ -12,7 +12,10 @@ export function FeedPage() {
 
   useEffect(() => {
     dispatch(wsConnectionStart(`${wsUrl}/all`))
-  }, [dispatch])
+    return () => {
+      dispatch(wsConnectionClosed())
+    }
+  }, [])
 
   const { doneList, preparingList } = useMemo(() => {
     return orders.reduce(
@@ -25,7 +28,7 @@ export function FeedPage() {
             count.preparingList.push(element.number);
             break;
         }
-        return count; // eslint (no default case)
+        return count;
       },
       { doneList: [], preparingList: [] }
     );

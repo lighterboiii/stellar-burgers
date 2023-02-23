@@ -16,6 +16,7 @@ const initialState = {
   refreshTokenFailed: false,
   isPasswordForgot: false,
   user: null,
+  isLogin: false
 }
 
 const userReducer = (state = initialState, action) => {
@@ -32,7 +33,8 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loginRequest: false,
         accessToken: action.payload.accessToken,
-        user: action.payload.user
+        user: action.payload.user,
+        isLogin: true
       };
     }
     case LOGIN_FAILED: {
