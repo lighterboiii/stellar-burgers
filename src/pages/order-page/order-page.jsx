@@ -10,7 +10,6 @@ import { wsConnectionClosed, wsConnectionStart } from '../../services/actions/ws
 
 export function OrderPage({ isLogin }) {
   const dispatch = useDispatch();
-
   const orders = useSelector((state) => state.socketReducer.orders);
   const { id } = useParams();
   const order = orders.find((item) => item._id === id);
@@ -23,7 +22,7 @@ export function OrderPage({ isLogin }) {
     return () => {
       dispatch(wsConnectionClosed());
     };
-  }, []);
+  }, [isLogin, dispatch]);
 
   return (
     order && (
