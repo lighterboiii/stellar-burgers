@@ -12,7 +12,7 @@ export function ProfilePage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const token = useSelector((state) => state.userInfo.accessToken);
+  const accessToken = getCookie("accessToken");
   const userData = useSelector((state) => state.userInfo.user.user);
 
   const [nameValue, setNameValue] = useState('');
@@ -66,7 +66,7 @@ export function ProfilePage() {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    dispatch(sendUserInfo(nameValue, emailValue, passwordValue, token));
+    dispatch(sendUserInfo(nameValue, emailValue, passwordValue, accessToken));
     alert('User Data successfully changed'); // убрать
   }
 

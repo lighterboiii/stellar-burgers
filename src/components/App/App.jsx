@@ -40,8 +40,10 @@ function App() {
 
   useEffect(() => {
     dispatch(getIngredientsData());
-    dispatch(getUserInfo());
-  }, [dispatch]);
+    if (access) {
+      dispatch(getUserInfo());
+    }
+  }, [dispatch, access]);
 
   const background =
     location.state?.locationFeedList ||
@@ -61,7 +63,7 @@ function App() {
           <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} to={'/login'} />} >
             <Route path='orders' element={<ProfileFeedPage />} />
           </Route>
-          <Route path='/profile/orders/:id' element={<ProtectedRoute element={<OrderPage isLogin={true} />} to={'/login'} />} />
+          <Route path='/profile/orders/:id' element={(!userData && !access) ? <LoginPage /> : <OrderPage isLogin={true} />} />
           <Route path='/feed' element={<FeedPage />} />
           <Route path='/feed/:id' element={<OrderPage isLogin={false} />} />
           <Route path="/ingredients/:id" element={<IngredientPage />} />

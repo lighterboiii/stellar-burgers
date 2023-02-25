@@ -1,6 +1,7 @@
 import {
   BURGER_API_URL, FORGOT_PASS_KEY, RESET_PASS_KEY, INGREDIENTS_KEY, ORDERS_KEY, REGISTER_USER_KEY, LOGIN_KEY, USER_KEY, TOKEN_KEY, LOGOUT_KEY
 } from "./constants";
+import { setCookie } from "./cookie";
 
 const checkRes = (res) => {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(`Ошибка загрузки данных с сервера: ${err.status}`))
@@ -11,12 +12,31 @@ export async function request(url, options) {
   return checkRes(res);
 }
 
+export const requestWithRefresh = async (url, options) => {
+  try {
+    const res = await fetch(url, options);
+    return await checkRes(res);
+  } catch (err) {
+    if (err.message === 'jwt expired') {
+      const refreshData = await refreshTokenRequest();
+      if (!refreshData.success) {
+        Promise.reject(refreshData);
+      }
+      localStorage.setItem('refreshToken', refreshData.refreshToken);
+      setCookie('accessToken', refreshData.accessToken);
+      options.headers.authorization = refreshData.accessToken;
+      const res = await fetch(url, options);
+      return await checkRes(res);
+    }
+  }
+};
+
 export function getIngredients() {
   return request(`${BURGER_API_URL}${INGREDIENTS_KEY}`)
 }
 
 export function sendOrderRequest(data, accessToken) {
-  return request(`${BURGER_API_URL}${ORDERS_KEY}`, {
+  return requestWithRefresh(`${BURGER_API_URL}${ORDERS_KEY}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -81,7 +101,7 @@ export function loginRequest(email, password) {
 }
 // запрос данных пользователя
 export function checkUserDataRequest(accessToken) {
-  return request(`${BURGER_API_URL}${USER_KEY}`, {
+  return requestWithRefresh(`${BURGER_API_URL}${USER_KEY}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -91,7 +111,7 @@ export function checkUserDataRequest(accessToken) {
 }
 // обновление данных пользователя
 export function changeUserDataRequest(name, email, password, accessToken) {
-  return request(`${BURGER_API_URL}${USER_KEY}`, {
+  return requestWithRefresh(`${BURGER_API_URL}${USER_KEY}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -128,8 +148,4 @@ export function signOutRequest(refreshToken) {
       token: refreshToken
     })
   })
-}
-// запрос ордеров
-export function ordersRequest() {
-  return request(``)
 }
