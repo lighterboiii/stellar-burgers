@@ -5,7 +5,7 @@ import styles from './Ingredient.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeIngredientModalStatus } from "../../../services/actions/modal";
 import { currentIngredient } from "../../../services/actions/ingredients";
-import { IngredientPropTypes } from "../../../utils/constants/constants";
+import { IngredientPropTypes } from "../../../utils/constants";
 
 function Ingredient({ ingredient }) {
   const { image, name, price, _id } = ingredient;
@@ -35,7 +35,6 @@ function Ingredient({ ingredient }) {
 
 
   return (
-    // <Link className={styles.link} to={`/${_id}`} >
       <li id={_id} key={_id} className={`${styles.listItem} ${isDrag && styles.dragging}`} onClick={handleIngClick} ref={dragRef} >
         {counter > 0 && <Counter count={counter} size={'default'} />}
         <img src={image} alt={name} className={'mr-4 ml-4'} />
@@ -47,7 +46,6 @@ function Ingredient({ ingredient }) {
           {name}
         </p>
       </li>
-    // </Link>
   );
 }
 

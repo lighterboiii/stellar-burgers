@@ -1,0 +1,47 @@
+.wrapper {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 600px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.imgContainer {
+  position: relative;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 2px solid #801AB2;
+  width: 64px;
+  height: 64px;
+  background: #131316;
+  margin-left: -15px;
+  overflow: hidden;
+}
+
+.image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  width: 112px;
+  height: 56px;
+}
+
+.name {
+  max-width: 320px;
+}
+
+.price {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}

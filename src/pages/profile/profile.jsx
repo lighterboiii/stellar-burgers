@@ -1,6 +1,6 @@
 import styles from './profile.module.css';
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Outlet, useLocation, useMatch } from "react-router-dom";
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLogout, sendUserInfo } from '../../services/actions/user';
@@ -10,9 +10,11 @@ import { getUserInfo } from '../../services/actions/user';
 export function ProfilePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = useSelector((state) => state.userInfo.accessToken);
+  const location = useLocation();
+
+  const accessToken = getCookie("accessToken");
   const userData = useSelector((state) => state.userInfo.user.user);
-  
+
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
@@ -21,6 +23,9 @@ export function ProfilePage() {
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passRef = useRef(null);
+
+  const matchOrders = useMatch('/profile/orders');
+  const matchProfile = useMatch('/profile');
 
   const onNameChange = (e) => {
     const value = e.target.value;
@@ -61,7 +66,7 @@ export function ProfilePage() {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    dispatch(sendUserInfo(nameValue, emailValue, passwordValue, token));
+    dispatch(sendUserInfo(nameValue, emailValue, passwordValue, accessToken));
     alert('User Data successfully changed'); // убрать
   }
 
@@ -76,12 +81,12 @@ export function ProfilePage() {
     <div className={styles.container}>
       <nav className={styles.navigation}>
         <div className={styles.links + ' mb-20'}>
-          <NavLink className={({ isActive }) => isActive ? `${styles.profLink} text text_type_main-medium text_color_primary`
+          <NavLink className={Boolean(matchProfile) ? `${styles.profLink} text text_type_main-medium text_color_primary`
             : `${styles.profLink} text text_type_main-medium text_color_inactive`} to='/profile'>
             Профиль
           </NavLink>
-          <NavLink className={({ isActive }) => isActive ? `${styles.profLink} text text_type_main-medium text_color_primary`
-            : `${styles.profLink} text text_type_main-medium text_color_inactive`} to='/profile/orders'>
+          <NavLink className={Boolean(matchOrders) ? `${styles.profLink} text text_type_main-medium text_color_primary`
+            : `${styles.profLink} text text_type_main-medium text_color_inactive`} to='orders'>
             История заказов
           </NavLink>
           <NavLink className={({ isActive }) => isActive ? `${styles.profLink} text text_type_main-medium text_color_primary`
@@ -93,24 +98,26 @@ export function ProfilePage() {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </nav>
-      <div className={styles.wrapper}>
-        <form className={styles.form} onSubmit={onFormSubmit} name="profile">
-          <Input type='text ' name='name' placeholder='Имя' icon={'EditIcon'}
-            value={nameValue} ref={nameRef} onChange={onNameChange} />
-          <Input type='email' name='login' placeholder='Логин' icon={'EditIcon'}
-            value={emailValue} ref={emailRef} onChange={onEmailChange} />
-          <Input type='password' name='password' placeholder='Пароль' icon={'EditIcon'}
-            value={passwordValue} ref={passRef} onChange={onPassChange} />
-          {
-            isInfoChanged && (
-              <div className={styles.buttons}>
-                <Button type='secondary' size='medium' htmlType='button' onClick={handleCancel}>Отмена</Button>
-                <Button type='primary' size='medium' htmlType='submit' >Сохранить</Button>
-              </div>
-            )
-          }
-        </form>
-      </div>
+        <div className={styles.wrapper}>
+        {location.pathname === '/profile/orders' ? <Outlet /> :
+          <form className={styles.form} onSubmit={onFormSubmit} name="profile">
+            <Input type='text ' name='name' placeholder='Имя' icon={'EditIcon'}
+              value={nameValue} ref={nameRef} onChange={onNameChange} />
+            <Input type='email' name='login' placeholder='Логин' icon={'EditIcon'}
+              value={emailValue} ref={emailRef} onChange={onEmailChange} />
+            <Input type='password' name='password' placeholder='Пароль' icon={'EditIcon'}
+              value={passwordValue} ref={passRef} onChange={onPassChange} />
+            {
+              isInfoChanged && (
+                <div className={styles.buttons}>
+                  <Button type='secondary' size='medium' htmlType='button' onClick={handleCancel}>Отмена</Button>
+                  <Button type='primary' size='medium' htmlType='submit' >Сохранить</Button>
+                </div>
+              )
+            }
+          </form>
+                }
+        </div>
     </div>
   )
 } 

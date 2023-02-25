@@ -35,5 +35,5 @@ export function ForgotPage() {
           <Link to="/login" className={styles.link}>Войти</Link></p>
       </div>
     </div>
-  );
+  )
 }

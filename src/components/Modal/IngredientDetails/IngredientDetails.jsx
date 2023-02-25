@@ -1,5 +1,5 @@
 import styles from './IngredientDetails.module.css'
-import { IngredientPropTypes } from '../../../utils/constants/constants';
+import { IngredientPropTypes } from '../../../utils/constants';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 

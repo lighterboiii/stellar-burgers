@@ -1,4 +1,3 @@
-
 import styles from './Loader.module.css';
 import PropTypes from 'prop-types';
 
@@ -23,7 +22,7 @@ export default function Loader({ loading, error, text }) {
 }
 
 Loader.propTypes = {
-  // loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
   error: PropTypes.bool.isRequired,
   text: PropTypes.string
 }
