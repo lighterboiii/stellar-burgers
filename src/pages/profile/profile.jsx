@@ -57,7 +57,7 @@ export function ProfilePage() {
       dispatch(getUserInfo());
       navigate('/profile', { replace: true })
     }
-  }, [dispatch, userData, navigate, passwordValue])
+  }, [])
 
   const handleLogout = () => {
     const refreshToken = getCookie("refreshToken");

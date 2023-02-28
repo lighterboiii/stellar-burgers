@@ -22,7 +22,7 @@ export function OrderPage({ isLogin }) {
     return () => {
       dispatch(wsConnectionClosed());
     };
-  }, [dispatch, isLogin]);
+  }, []);
 
   return (
     order && (
