@@ -1,13 +1,10 @@
 import { getIngredients } from '../../utils/api.js';
-
-export const GET_INGREDIENTS = 'GET_INGREDIENTS';
-export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
-export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
-export const OPEN_INGREDIENT_INFO = 'OPEN_INGREDIENT_INFO';
-export const SELECT_INGREDIENT = 'SELECT_INGREDIENT';
-export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
-export const SORT_INGREDIENTS = 'SET_INGREDIENTS';
-export const DELETE_ALL_INGREDIENTS = 'DELETE_ALL_INGREDIENTS';
+import {
+  GET_INGREDIENTS_SUCCESS,
+  OPEN_INGREDIENT_INFO,
+  DELETE_ALL_INGREDIENTS,
+  SORT_INGREDIENTS
+} from '../constants/index.js';
 
 export const deleteAllIngredients = () => {
   return function (dispatch) {

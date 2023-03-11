@@ -1,5 +1,5 @@
 import {
-GET_INGREDIENTS,
+GET_INGREDIENTS_REQUEST,
 GET_INGREDIENTS_FAILED,
 GET_INGREDIENTS_SUCCESS,
 SELECT_INGREDIENT,
@@ -20,7 +20,7 @@ isElementDrag: false
 
 export const ingredientsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_INGREDIENTS: {
+    case GET_INGREDIENTS_REQUEST: {
       return {
         ...state,
         ingredientsRequest: true,

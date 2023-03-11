@@ -1,18 +1,19 @@
 import { sendOrderRequest } from "../../utils/api";
 import { getCookie } from "../../utils/cookie";
 import { setRefreshToken } from "./user";
-
-export const SET_ORDER_DETAILS = 'SET_ORDER_DETAILS';
-export const SET_ORDER_DETAILS_FAILED = 'SET_ORDER_DETAILS_FAILED';
-export const SET_ORDER_DETAILS_SUCCESS = 'SET_ORDER_DETAILS_SUCCESS';
-export const CLEAR_ORDER_DETAILS = 'CLEAR_ORDER_DETAILS';
+import {
+  SET_ORDER_DETAILS,
+  SET_ORDER_DETAILS_FAILED,
+  SET_ORDER_DETAILS_SUCCESS,
+  CLEAR_ORDER_DETAILS
+} from '../constants/index.js';
 
 export const setOrderDetails = () => ({ type: SET_ORDER_DETAILS });
 export const setOrderDetailsSuccess = (res) => ({ type: SET_ORDER_DETAILS_SUCCESS, payload: res });
 export const setOrderDetailsLoadingFailed = () => ({ type: SET_ORDER_DETAILS_FAILED });
 export const clearOrderDetails = () => ({ type: CLEAR_ORDER_DETAILS });
 
-export const setOrderData = (dataId) => {
+export const setOrderData = (dataId: string) => {
   return function (dispatch) {
     dispatch(setOrderDetails())
     sendOrderRequest(dataId, getCookie("accessToken"))
