@@ -61,14 +61,14 @@ export const setOrderData = (dataId: Array<IIngredient>) => {
         dispatch(clearOrderDetails())
       })
       .catch((err) => {
-        if (err.message === "jwt expired") {
-          dispatch(setRefreshToken(getCookie("refreshToken")))
-            .then(() => sendOrderRequest(dataId, getCookie("accessToken")) //TODO: исправить ошибку
-              .then(res => {
-                dispatch(setOrderDetailsSuccess(res))
-              })
-            )
-        }
+        // if (err.message === "jwt expired") {
+        //   dispatch(setRefreshToken(getCookie("refreshToken")))
+        //     .then(() => sendOrderRequest(dataId, getCookie("accessToken")) //TODO: исправить ошибку
+        //       .then(res => {
+        //         dispatch(setOrderDetailsSuccess(res))
+        //       })
+        //     )
+        // }
         dispatch(setOrderDetailsLoadingFailed())
         console.log(err)
       })

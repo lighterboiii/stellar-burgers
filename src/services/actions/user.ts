@@ -24,7 +24,7 @@ export interface IUserData {
   refreshTokenRequest: boolean;
   refreshTokenFailed: boolean;
   isPasswordForgot: boolean;
-  user: null | IUser;
+  user: IUser;
   isLogin: boolean;
   accessToken: string;
 }
@@ -175,7 +175,7 @@ export const setRegistration = (email: string, password: string, name: string) =
   }
 };
 
-export const sendUserInfo = (name: string, email: string, password: string, token: string) => {
+export const sendUserInfo = (name: string, email: string, password: string, token: string | undefined) => {
   return function (dispatch: AppDispatch) {
     dispatch(setUserDataLoading());
 
@@ -198,7 +198,7 @@ export const getUserInfo = () => {
     checkUserDataRequest(getCookie("accessToken"))
       .then((res) => {
         if (res) {
-          dispatch(getUserDataLoadingSuccess(res));
+          dispatch(getUserDataLoadingSuccess(res.user));
         }
       })
       .catch((err) => {
@@ -221,7 +221,7 @@ export const setRefreshToken = (refreshToken: string | undefined) => {
   }
 };
 
-export const setLogout = (token: string) => {
+export const setLogout = (token: string | undefined) => {
   return function (dispatch: AppDispatch) {
     dispatch(setLogoutLoading());
 
