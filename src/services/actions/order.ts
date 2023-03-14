@@ -47,7 +47,7 @@ export const setOrderDetailsSuccess = (res: IOrderDetails): ISetOrderDetailsSucc
 export const setOrderDetailsLoadingFailed = (): ISetOrderDetailsFailed => ({ type: SET_ORDER_DETAILS_FAILED });
 export const clearOrderDetails = (): IClearOrderDetails => ({ type: CLEAR_ORDER_DETAILS });
 
-export const setOrderData = (dataId: string) => {
+export const setOrderData = (dataId: Array<string>) => {
   return function (dispatch: AppDispatch) {
     dispatch(setOrderDetails())
     sendOrderRequest(dataId, getCookie("accessToken"))

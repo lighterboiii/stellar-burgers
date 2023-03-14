@@ -23,7 +23,7 @@ const wsActions = {
 }
 
 const enhancer = composeWithDevTools(
-  applyMiddleware(thunk, socketMiddleware(wsUrl ,wsActions))
+  applyMiddleware(thunk, socketMiddleware(wsActions))
 );
 
 export const store = createStore(rootReducer, enhancer);
