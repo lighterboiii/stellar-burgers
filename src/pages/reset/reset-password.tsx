@@ -1,4 +1,4 @@
-import { FC, FormEvent } from 'react';
+import { ChangeEvent, FC, FormEvent } from 'react';
 import { useEffect, useState } from 'react';
 import styles from './reset-password.module.css';
 import {
@@ -9,18 +9,17 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { resetPasswordRequest } from '../../utils/api';
 import { useSelector, useDispatch } from '../../services/hooks';
-import { setForgotPassword } from '../../services/actions/user';
+import { IUserData, setForgotPassword } from '../../services/actions/user';
 
 export const ResetPage: FC = () => {
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isPasswordForgot = useSelector((state) => state.userInfo.isPasswordForgot); 
- //TODO: исправить ошибку с типом never
+  const isPasswordForgot = useSelector((state: { userInfo: IUserData }) => state.userInfo.isPasswordForgot);
 
   const onFormSubmit = (e: FormEvent) => {
-    e.preventDefault();    
+    e.preventDefault();
     resetPasswordRequest(password, token);
     navigate('/login');
     dispatch(setForgotPassword(false));
@@ -36,8 +35,12 @@ export const ResetPage: FC = () => {
     <div className={styles.container}>
       <h2 className='text text_type_main-medium mb-6'>Восстановление пароля</h2>
       <form className={styles.form} onSubmit={onFormSubmit}>
-        <PasswordInput onChange={(e) => setPassword(e.target.value)} value={password} name='password' placeholder='Введите новый пароль' required />
-        <Input onChange={(e) => setToken(e.target.value)} value={token} name='token' type='text' placeholder='Введите код из письма' required />
+        <PasswordInput
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+          value={password} name='password' placeholder='Введите новый пароль' required />
+        <Input
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setToken(e.target.value)}
+          value={token} name='token' type='text' placeholder='Введите код из письма' required />
         <Button htmlType='button' type='primary' size='medium'>Сохранить</Button>
       </form>
       <div className={"mt-20 "}>

@@ -1,13 +1,13 @@
 import styles from './profile-feed.module.css';
 import { FeedList } from '../../components/FeedList/FeedList';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useDispatch, useSelector } from '../../services/hooks';
+import { useEffect, FC } from 'react';
 import { getUserInfo } from '../../services/actions/user';
 import { wsConnectionClosed, wsConnectionStart } from '../../services/actions/wsActions';
 import { wsUrl } from '../../utils/constants';
 import { getCookie } from '../../utils/cookie';
 
-export function ProfileFeedPage() {
+export const ProfileFeedPage: FC = () => {
   const dispatch = useDispatch();
   const accessToken = getCookie("accessToken").split("Bearer ")[1];
   const { orders, error } = useSelector((state) => state.socketReducer);
@@ -34,4 +34,4 @@ export function ProfileFeedPage() {
       <FeedList orders={orders.reverse()} />
     </section>
   )
-}
+};

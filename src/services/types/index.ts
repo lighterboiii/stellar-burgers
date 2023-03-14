@@ -20,4 +20,4 @@ export type AppThunk<TReturn = void> = ActionCreator<
   ThunkAction<TReturn, Action, RootState, TApplicationActions>
 >;
 
-export type AppDispatch = ThunkDispatch<RootState, void, TApplicationActions>;
+export type AppDispatch = ThunkDispatch<RootState, any, TApplicationActions>;
