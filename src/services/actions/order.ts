@@ -6,15 +6,49 @@ import {
   SET_ORDER_DETAILS_FAILED,
   SET_ORDER_DETAILS_SUCCESS,
   CLEAR_ORDER_DETAILS
-} from '../constants/index.js';
+} from '../constants/index';
+import { AppDispatch } from "../types";
 
-export const setOrderDetails = () => ({ type: SET_ORDER_DETAILS });
-export const setOrderDetailsSuccess = (res) => ({ type: SET_ORDER_DETAILS_SUCCESS, payload: res });
-export const setOrderDetailsLoadingFailed = () => ({ type: SET_ORDER_DETAILS_FAILED });
-export const clearOrderDetails = () => ({ type: CLEAR_ORDER_DETAILS });
+export interface IOrderDetails {
+  readonly _id: string;
+  readonly ingredients: Array<string>;
+  readonly status: string;
+  readonly name: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+  readonly number: number;
+}
+
+export interface ISetOrderDetails {
+  readonly type: typeof SET_ORDER_DETAILS;
+}
+
+export interface ISetOrderDetailsFailed {
+  readonly type: typeof SET_ORDER_DETAILS_FAILED;
+}
+
+export interface ISetOrderDetailsSuccess {
+  readonly type: typeof SET_ORDER_DETAILS_SUCCESS;
+  readonly payload: IOrderDetails;
+}
+
+export interface IClearOrderDetails {
+  readonly type: typeof CLEAR_ORDER_DETAILS;
+}
+
+export type TOrderActions =
+  | ISetOrderDetails
+  | ISetOrderDetailsSuccess
+  | ISetOrderDetailsFailed
+  | IClearOrderDetails;
+
+export const setOrderDetails = (): ISetOrderDetails => ({ type: SET_ORDER_DETAILS });
+export const setOrderDetailsSuccess = (res: IOrderDetails): ISetOrderDetailsSuccess => ({ type: SET_ORDER_DETAILS_SUCCESS, payload: res });
+export const setOrderDetailsLoadingFailed = (): ISetOrderDetailsFailed => ({ type: SET_ORDER_DETAILS_FAILED });
+export const clearOrderDetails = (): IClearOrderDetails => ({ type: CLEAR_ORDER_DETAILS });
 
 export const setOrderData = (dataId: string) => {
-  return function (dispatch) {
+  return function (dispatch: AppDispatch) {
     dispatch(setOrderDetails())
     sendOrderRequest(dataId, getCookie("accessToken"))
       .then(res => {
@@ -30,7 +64,7 @@ export const setOrderData = (dataId: string) => {
           dispatch(setRefreshToken(getCookie("refreshToken")))
             .then(() => sendOrderRequest(dataId, getCookie("accessToken"))
               .then(res => {
-                  dispatch(setOrderDetailsSuccess(res))
+                dispatch(setOrderDetailsSuccess(res))
               })
             )
         }

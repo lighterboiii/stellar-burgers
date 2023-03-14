@@ -2,15 +2,22 @@ import {
   OPEN_ORDER_DETAILS_MODAL,
   OPEN_INGREDIENTS_MODAL,
   OPEN_BURGER_DETAILS_MODAL
-} from '../actions/modal';
+} from '../constants/index';
+import { TModalActions } from '../actions/modal';
 
-const initialState = {
+export type TModalState = {
+  isOrderDetailsModalOpen: boolean;
+  isIngredientModalOpen: boolean;
+  isBurgerDetailsModalOpen: boolean;
+};
+
+const initialState: TModalState = {
   isOrderDetailsModalOpen: false,
   isIngredientModalOpen: false,
   isBurgerDetailsModalOpen: false
 };
 
-export const modalReducer = (state = initialState, action) => {
+export const modalReducer = (state = initialState, action: TModalActions) => {
   switch (action.type) {
     case OPEN_ORDER_DETAILS_MODAL: {
       return {

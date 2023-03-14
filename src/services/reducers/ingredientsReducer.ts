@@ -1,24 +1,35 @@
 import {
-GET_INGREDIENTS_REQUEST,
-GET_INGREDIENTS_FAILED,
-GET_INGREDIENTS_SUCCESS,
-SELECT_INGREDIENT,
-DELETE_INGREDIENT,
-SORT_INGREDIENTS,
-OPEN_INGREDIENT_INFO,
-DELETE_ALL_INGREDIENTS
-} from '../actions/ingredients';
+  GET_INGREDIENTS_REQUEST,
+  GET_INGREDIENTS_FAILED,
+  GET_INGREDIENTS_SUCCESS,
+  SELECT_INGREDIENT,
+  DELETE_INGREDIENT,
+  SORT_INGREDIENTS,
+  OPEN_INGREDIENT_INFO,
+  DELETE_ALL_INGREDIENTS
+} from '../constants/index';
+import { IIngredient } from '../actions/ingredients';
+import { TIngredientsActions } from '../actions/ingredients';
 
-const initialState = {
-ingredients: [],
-selectedIngredients: [],
-currentIngredient: null,
-ingredientsRequest: false,
-ingredientsFailed: false,
-isElementDrag: false
+export type TIngredientsState = {
+  ingredients: Array<IIngredient>;
+  selectedIngredients: Array<IIngredient>;
+  currentIngredient: IIngredient | null;
+  ingredientsRequest: boolean;
+  ingredientsFailed: boolean;
+  isElementDrag: boolean;
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+const initialState: TIngredientsState = {
+  ingredients: [],
+  selectedIngredients: [],
+  currentIngredient: null,
+  ingredientsRequest: false,
+  ingredientsFailed: false,
+  isElementDrag: false
+};
+
+export const ingredientsReducer = (state = initialState, action: TIngredientsActions) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {

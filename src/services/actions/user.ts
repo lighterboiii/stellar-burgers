@@ -6,32 +6,142 @@ import {
   SET_USER_DATA, SET_USER_DATA_SUCCESS, SET_USER_DATA_FAILED,
   GET_USER_DATA, GET_USER_DATA_SUCCESS, GET_USER_DATA_FAILED,
   LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILED, SET_FORGOT_PASSWORD
-} from '../constants/index.js';
+} from '../constants/index';
+import { AppDispatch } from "../types";
 
-export const loginLoading = () => ({ type: LOGIN });
-export const loginLoadingSuccess = (token) => ({ type: LOGIN_SUCCESS, payload: token });
-export const loginLoadingFailed = () => ({ type: LOGIN_FAILED });
+export interface IUser {
+  name: string;
+  email: string;
+}
 
-export const register = () => ({ type: REGISTER });
-export const registerSuccess = (token) => ({ type: REGISTER_SUCCESS, payload: token });
-export const registerFailed = () => ({ type: REGISTER_FAILED });
+export interface IUserData {
+  loginRequest: boolean;
+  loginFailed: boolean;
+  getUserDataRequest: boolean;
+  getUserDataRequestFailed: boolean;
+  registrationRequest: boolean;
+  registrationFailed: boolean;
+  refreshTokenRequest: boolean;
+  refreshTokenFailed: boolean;
+  isPasswordForgot: boolean;
+  user: null | IUser;
+  isLogin: boolean;
+  accessToken: string;
+}
 
-export const setUserDataLoading = () => ({ type: SET_USER_DATA });
-export const setUserDataSuccess = (userData) => ({ type: SET_USER_DATA_SUCCESS, payload: userData });
-export const setUserDataFailed = () => ({ type: SET_USER_DATA_FAILED });
+export interface ISetForgotPassword {
+  readonly type: typeof SET_FORGOT_PASSWORD;
+  readonly payload: string;
+}
 
-export const getUserDataLoading = () => ({ type: GET_USER_DATA });
-export const getUserDataLoadingSuccess = (res) => ({ type: GET_USER_DATA_SUCCESS, payload: res });
-export const getUserDataLoadingFailed = () => ({ type: GET_USER_DATA_FAILED });
+export interface ISetUserData {
+  readonly type: typeof SET_USER_DATA;
+}
 
-export const setLogoutLoading = () => ({ type: LOGOUT });
-export const logoutSuccess = (token) => ({ type: LOGOUT_SUCCESS, payload: token });
-export const logoutFailed = () => ({ type: LOGOUT_FAILED });
+export interface ISetUserDataFailed {
+  readonly type: typeof SET_USER_DATA_FAILED;
+}
 
-export const setForgotPassword = (state) => ({ type: SET_FORGOT_PASSWORD, payload: state });
+export interface ISetUserDataSuccess {
+  readonly type: typeof SET_USER_DATA_SUCCESS;
+  readonly payload: IUserData;
+}
 
-export const setLogin = (email, password) => {
-  return function (dispatch) {
+export interface ILogin {
+  readonly type: typeof LOGIN;
+}
+
+export interface ILoginFailed {
+  readonly type: typeof LOGIN_FAILED;
+}
+
+export interface ILoginSuccess {
+  readonly type: typeof LOGIN_SUCCESS;
+  readonly payload: IUserData;
+}
+
+export interface ILogout {
+  readonly type: typeof LOGOUT;
+}
+
+export interface ILogoutFailed {
+  readonly type: typeof LOGOUT_FAILED;
+}
+
+export interface ILogoutSuccess {
+  readonly type: typeof LOGOUT_SUCCESS;
+  readonly payload: string;
+}
+
+export interface IGetUserData {
+  readonly type: typeof GET_USER_DATA;
+}
+
+export interface IGetUserDataFailed {
+  readonly type: typeof GET_USER_DATA_FAILED;
+}
+
+export interface IGetUserDataSuccess {
+  readonly type: typeof GET_USER_DATA_SUCCESS;
+  readonly payload: IUserData;
+}
+
+export interface IRegister {
+  readonly type: typeof REGISTER;
+}
+
+export interface IRegisterFailed {
+  readonly type: typeof REGISTER_FAILED;
+}
+
+export interface IRegisterSuccess {
+  readonly type: typeof REGISTER_SUCCESS;
+  readonly payload: string;
+}
+
+export type TUserActions = 
+  | ISetForgotPassword
+  | ISetUserData
+  | ISetUserDataFailed
+  | ISetUserDataSuccess
+  | IGetUserData
+  | IGetUserDataFailed
+  | IGetUserDataSuccess
+  | ILogin
+  | ILoginFailed
+  | ILoginSuccess
+  | IRegister
+  | IRegisterFailed
+  | IRegisterSuccess
+  | ILogout
+  | ILogoutFailed
+  | ILogoutSuccess;
+
+export const loginLoading = (): ILogin => ({ type: LOGIN });
+// export const loginLoadingSuccess = (token: string): ILoginSuccess => ({ type: LOGIN_SUCCESS, payload: token });
+export const loginLoadingSuccess = (token: IUserData): ILoginSuccess => ({ type: LOGIN_SUCCESS, payload: token });
+export const loginLoadingFailed = (): ILoginFailed => ({ type: LOGIN_FAILED });
+
+export const register = (): IRegister => ({ type: REGISTER });
+export const registerSuccess = (token: string): IRegisterSuccess => ({ type: REGISTER_SUCCESS, payload: token });
+export const registerFailed = (): IRegisterFailed => ({ type: REGISTER_FAILED });
+
+export const setUserDataLoading = (): ISetUserData => ({ type: SET_USER_DATA });
+export const setUserDataSuccess = (userData: IUserData): ISetUserDataSuccess => ({ type: SET_USER_DATA_SUCCESS, payload: userData });
+export const setUserDataFailed = (): ISetUserDataFailed => ({ type: SET_USER_DATA_FAILED });
+
+export const getUserDataLoading = (): IGetUserData => ({ type: GET_USER_DATA });
+export const getUserDataLoadingSuccess = (res: IUserData): IGetUserDataSuccess => ({ type: GET_USER_DATA_SUCCESS, payload: res });
+export const getUserDataLoadingFailed = (): IGetUserDataFailed => ({ type: GET_USER_DATA_FAILED });
+
+export const setLogoutLoading = (): ILogout => ({ type: LOGOUT });
+export const logoutSuccess = (token: string): ILogoutSuccess => ({ type: LOGOUT_SUCCESS, payload: token });
+export const logoutFailed = (): ILogoutFailed => ({ type: LOGOUT_FAILED });
+
+export const setForgotPassword = (state: string): ISetForgotPassword => ({ type: SET_FORGOT_PASSWORD, payload: state });
+
+export const setLogin = (email: string | undefined, password: string | undefined) => {
+  return function (dispatch: AppDispatch) {
     dispatch(loginLoading());
 
     loginRequest(email, password)
@@ -47,8 +157,8 @@ export const setLogin = (email, password) => {
   }
 };
 
-export const setRegistration = (email, password, name) => {
-  return function (dispatch) {
+export const setRegistration = (email: string | undefined, password: string | undefined, name: string | undefined) => {
+  return function (dispatch: AppDispatch) {
     dispatch(register());
 
     registerUserRequest(email, password, name)
@@ -66,8 +176,8 @@ export const setRegistration = (email, password, name) => {
   }
 };
 
-export const sendUserInfo = (name, email, password, token) => {
-  return function (dispatch) {
+export const sendUserInfo = (name: string | undefined, email: string | undefined, password: string | undefined, token: string) => {
+  return function (dispatch: AppDispatch) {
     dispatch(setUserDataLoading());
 
     changeUserDataRequest(name, email, password, token)
@@ -84,7 +194,7 @@ export const sendUserInfo = (name, email, password, token) => {
 }
 
 export const getUserInfo = () => {
-  return function (dispatch) {
+  return function (dispatch: AppDispatch) {
     dispatch(getUserDataLoading());
     checkUserDataRequest(getCookie("accessToken"))
       .then((res) => {
@@ -101,19 +211,19 @@ export const getUserInfo = () => {
   }
 };
 
-export const setRefreshToken = (refreshToken) => {
-  return function (dispatch) {
+export const setRefreshToken = (refreshToken: string | undefined) => {
+  return function (dispatch: AppDispatch) {
     refreshTokenRequest(refreshToken)
       .then((res) => {
         setCookie("accessToken", res.accessToken);
         setCookie("refreshToken", res.refreshToken);
-        dispatch(getUserInfo(getCookie("refreshToken")));
+        dispatch(getUserInfo());
       })
   }
 }
 
-export const setLogout = (token) => {
-  return function (dispatch) {
+export const setLogout = (token: string) => {
+  return function (dispatch: AppDispatch) {
     dispatch(setLogoutLoading());
 
     signOutRequest(token)

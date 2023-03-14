@@ -2,15 +2,23 @@ import {
   SET_ORDER_DETAILS,
   SET_ORDER_DETAILS_SUCCESS,
   SET_ORDER_DETAILS_FAILED,
-} from '../actions/order';
+} from '../constants/index';
+import { IOrderDetails } from '../actions/order';
+import { TOrderActions } from '../actions/order';
 
-const initialState = {
-  orderDetails: null,
-  orderRequest: false,
-  orderFailed: false
+export type TOrderState = {
+  orderDetails: Array<IOrderDetails>;
+  orderRequest: boolean;
+  orderFailed: Boolean;
 };
 
-export const orderReducer = (state = initialState, action) => {
+const initialState: TOrderState = {
+  orderDetails: [],
+  orderRequest: false,
+  orderFailed: false,
+};
+
+export const orderReducer = (state = initialState, action: TOrderActions) => {
   switch (action.type) {
     case SET_ORDER_DETAILS: {
       return {

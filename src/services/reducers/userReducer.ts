@@ -3,9 +3,25 @@ import {
   LOGIN, LOGIN_FAILED, LOGIN_SUCCESS, REGISTER, REGISTER_FAILED, REGISTER_SUCCESS,
   LOGOUT, LOGOUT_FAILED, LOGOUT_SUCCESS,
   SET_USER_DATA, SET_USER_DATA_SUCCESS, SET_USER_DATA_FAILED, SET_FORGOT_PASSWORD
-} from '../actions/user';
+} from '../constants/index';
+import { IUser } from '../actions/user';
+import { TUserActions } from '../actions/user';
 
-const initialState = {
+export type TUserState = {
+  loginRequest: boolean;
+  loginFailed: boolean;
+  getUserDataRequest: boolean;
+  getUserDataRequestFailed: boolean;
+  registrationRequest: boolean;
+  registrationFailed: boolean;
+  refreshTokenRequest: boolean;
+  refreshTokenFailed: boolean;
+  isPasswordForgot: boolean;
+  user: Array<IUser> | null;
+  isLogin: boolean;
+};
+
+const initialState: TUserState = {
   loginRequest: false,
   loginFailed: false,
   getUserDataRequest: false,
@@ -19,7 +35,7 @@ const initialState = {
   isLogin: false
 }
 
-const userReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action: TUserActions) => {
   switch (action.type) {
     case LOGIN: {
       return {
@@ -32,7 +48,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loginRequest: false,
-        accessToken: action.payload.accessToken,
+        accessToken: action.payload.accessToken, // починить
         user: action.payload.user,
         isLogin: true
       };

@@ -1,42 +1,106 @@
 import { getIngredients } from '../../utils/api.js';
 import {
+  GET_INGREDIENTS_REQUEST,
+  GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_SUCCESS,
   OPEN_INGREDIENT_INFO,
   DELETE_ALL_INGREDIENTS,
-  SORT_INGREDIENTS
-} from '../constants/index.js';
+  SORT_INGREDIENTS,
+  SELECT_INGREDIENT,
+  DELETE_INGREDIENT
+} from '../constants/index';
+import { AppDispatch } from '../types/index.js';
 
-export const deleteAllIngredients = () => {
-  return function (dispatch) {
-    dispatch({
-      type: DELETE_ALL_INGREDIENTS,
-      payload: []
-    })
-  }
+export interface IIngredient {
+  _id: string;
+  name: string;
+  type: string;
+  proteins: number;
+  fat: number;
+  carbohydrates: number;
+  calories: number;
+  price: number;
+  image: string;
+  image_mobile: string;
+  image_large: string;
+  __v: number;
+  constructorItemId?: string;
 }
 
-export const sortIngredients = (dragIndex, hoverIndex, selectedIngredients) => {
-  return function (dispatch) {
+export interface IGetIngredientsRequest {
+  readonly type: typeof GET_INGREDIENTS_REQUEST;
+}
+
+export interface IGetIngredientsFailed {
+  readonly type: typeof GET_INGREDIENTS_FAILED;
+}
+
+export interface IGetIngredientsSuccess {
+  readonly type: typeof GET_INGREDIENTS_SUCCESS;
+  readonly payload: Array<{}>;
+}
+
+export interface IOpenIngredientInfo {
+  readonly type: typeof OPEN_INGREDIENT_INFO;
+  readonly payload: IIngredient;
+}
+
+export interface ISortIngredients {
+  readonly type: typeof SORT_INGREDIENTS;
+  readonly payload: Array<IIngredient>;
+}
+
+export interface ISelectIngredient {
+  readonly type: typeof SELECT_INGREDIENT;
+  payload: IIngredient;
+}
+
+export interface IDeleteAllIngredients {
+  readonly type: typeof DELETE_ALL_INGREDIENTS;
+  readonly payload: Array<null>;
+}
+
+export interface IDeleteIngredient {
+  readonly type: typeof DELETE_INGREDIENT;
+  payload: null;
+}
+
+export type TIngredientsActions = 
+  | IGetIngredientsRequest
+  | IGetIngredientsFailed
+  | IGetIngredientsSuccess
+  | IOpenIngredientInfo
+  | ISortIngredients
+  | ISelectIngredient
+  | IDeleteAllIngredients
+  | IDeleteIngredient;
+
+export const setDeleteAllIngredients = (): IDeleteAllIngredients => ({ type: DELETE_ALL_INGREDIENTS, payload: [] });
+export const setSortIngredients = (data: Array<IIngredient>): ISortIngredients => ({ type: SORT_INGREDIENTS, payload: data });
+export const getIngredientsSuccess = (res: Array<IIngredient>): IGetIngredientsSuccess => ({ type: GET_INGREDIENTS_SUCCESS, payload: res });
+
+export const deleteAllIngredients = () => {
+  return function (dispatch: AppDispatch) {
+    dispatch(setDeleteAllIngredients());
+  }
+};
+
+export const sortIngredients = (dragIndex: number, hoverIndex: number, selectedIngredients: Array<IIngredient>) => {
+  return function (dispatch: AppDispatch) {
     const dragItem = selectedIngredients[dragIndex];
     const sortedIngredients = [...selectedIngredients];
     const hoverItem = sortedIngredients.splice(hoverIndex, 1, dragItem);
     sortedIngredients.splice(dragIndex, 1, hoverItem[0]);
-    dispatch({
-      type: SORT_INGREDIENTS,
-      payload: sortedIngredients
-    })
+    dispatch(setSortIngredients(sortedIngredients));
   }
 };
 
 export const getIngredientsData = () => {
-  return function (dispatch) {
+  return function (dispatch: AppDispatch) {
     getIngredients()
       .then((res) => {
         if (res) {
-          dispatch({
-            type: GET_INGREDIENTS_SUCCESS,
-            payload: res.data
-          })
+          dispatch(getIngredientsSuccess(res.data))
         }
       })
       .catch(e => {
@@ -45,4 +109,4 @@ export const getIngredientsData = () => {
   }
 }
 
-export const currentIngredient = (ingredient) => ({ type: OPEN_INGREDIENT_INFO, payload: ingredient });
+export const currentIngredient = (ingredient: IIngredient) => ({ type: OPEN_INGREDIENT_INFO, payload: ingredient });
