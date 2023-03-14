@@ -12,7 +12,7 @@ export async function request(url: string, options?: any) {
   const res = await fetch(url, options);
   return checkRes(res);
 }
-// подумать над избавлением от any
+//TODO: избавиться от any?
 export const requestWithRefresh = async (url: string, options: any) => {
   try {
     const res = await fetch(url, options);

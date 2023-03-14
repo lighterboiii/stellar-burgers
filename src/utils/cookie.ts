@@ -7,7 +7,7 @@ export function getCookie(name: string) {
 
 export function setCookie(
   name: string,
-  value: string,
+  value: string, 
   props: { [key: string]: any } &
   { expires?: number | Date | string } = {}
 ) {

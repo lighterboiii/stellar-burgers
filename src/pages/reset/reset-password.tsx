@@ -1,3 +1,4 @@
+import { FC, FormEvent } from 'react';
 import { useEffect, useState } from 'react';
 import styles from './reset-password.module.css';
 import {
@@ -7,29 +8,29 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
 import { resetPasswordRequest } from '../../utils/api';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import { setForgotPassword } from '../../services/actions/user';
 
-export function ResetPage() {
+export const ResetPage: FC = () => {
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isPasswordForgot = useSelector((state) => state.userInfo.isPasswordForgot); 
+ //TODO: исправить ошибку с типом never
 
-  const onFormSubmit = (e) => {
-    e.preventDefault();
-    
-    resetPasswordRequest(password, token)
+  const onFormSubmit = (e: FormEvent) => {
+    e.preventDefault();    
+    resetPasswordRequest(password, token);
     navigate('/login');
     dispatch(setForgotPassword(false));
   }
 
   useEffect(() => {
     if (!isPasswordForgot) {
-      navigate('/forgot-password')
-    }
-  }, [isPasswordForgot])
+      navigate('/forgot-password');
+    };
+  }, [isPasswordForgot]);
 
   return (
     <div className={styles.container}>
@@ -37,7 +38,7 @@ export function ResetPage() {
       <form className={styles.form} onSubmit={onFormSubmit}>
         <PasswordInput onChange={(e) => setPassword(e.target.value)} value={password} name='password' placeholder='Введите новый пароль' required />
         <Input onChange={(e) => setToken(e.target.value)} value={token} name='token' type='text' placeholder='Введите код из письма' required />
-        <Button type='primary' size='medium'>Сохранить</Button>
+        <Button htmlType='button' type='primary' size='medium'>Сохранить</Button>
       </form>
       <div className={"mt-20 "}>
         <p className={'text text_type_main-default text_color_inactive ' + styles.text}>Вспомнили пароль?

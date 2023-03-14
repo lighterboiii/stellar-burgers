@@ -1,4 +1,4 @@
-import { getIngredients } from '../../utils/api.js';
+import { getIngredients } from '../../utils/api';
 import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_FAILED,

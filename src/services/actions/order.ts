@@ -63,7 +63,7 @@ export const setOrderData = (dataId: Array<IIngredient>) => {
       .catch((err) => {
         if (err.message === "jwt expired") {
           dispatch(setRefreshToken(getCookie("refreshToken")))
-            .then(() => sendOrderRequest(dataId, getCookie("accessToken"))
+            .then(() => sendOrderRequest(dataId, getCookie("accessToken")) //TODO: исправить ошибку
               .then(res => {
                 dispatch(setOrderDetailsSuccess(res))
               })

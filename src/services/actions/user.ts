@@ -31,7 +31,7 @@ export interface IUserData {
 
 export interface ISetForgotPassword {
   readonly type: typeof SET_FORGOT_PASSWORD;
-  readonly payload: string;
+  readonly payload: boolean;
 }
 
 export interface ISetUserData {
@@ -118,7 +118,6 @@ export type TUserActions =
   | ILogoutSuccess;
 
 export const loginLoading = (): ILogin => ({ type: LOGIN });
-// export const loginLoadingSuccess = (token: string): ILoginSuccess => ({ type: LOGIN_SUCCESS, payload: token });
 export const loginLoadingSuccess = (token: IUserData): ILoginSuccess => ({ type: LOGIN_SUCCESS, payload: token });
 export const loginLoadingFailed = (): ILoginFailed => ({ type: LOGIN_FAILED });
 
@@ -138,9 +137,9 @@ export const setLogoutLoading = (): ILogout => ({ type: LOGOUT });
 export const logoutSuccess = (token: string): ILogoutSuccess => ({ type: LOGOUT_SUCCESS, payload: token });
 export const logoutFailed = (): ILogoutFailed => ({ type: LOGOUT_FAILED });
 
-export const setForgotPassword = (state: string): ISetForgotPassword => ({ type: SET_FORGOT_PASSWORD, payload: state });
+export const setForgotPassword = (status: boolean) => ({ type: SET_FORGOT_PASSWORD, payload: status });
 
-export const setLogin = (email: string | undefined, password: string | undefined) => {
+export const setLogin = (email: string, password: string) => {
   return function (dispatch: AppDispatch) {
     dispatch(loginLoading());
 
@@ -157,7 +156,7 @@ export const setLogin = (email: string | undefined, password: string | undefined
   }
 };
 
-export const setRegistration = (email: string | undefined, password: string | undefined, name: string | undefined) => {
+export const setRegistration = (email: string, password: string, name: string) => {
   return function (dispatch: AppDispatch) {
     dispatch(register());
 
@@ -176,7 +175,7 @@ export const setRegistration = (email: string | undefined, password: string | un
   }
 };
 
-export const sendUserInfo = (name: string | undefined, email: string | undefined, password: string | undefined, token: string) => {
+export const sendUserInfo = (name: string, email: string, password: string, token: string) => {
   return function (dispatch: AppDispatch) {
     dispatch(setUserDataLoading());
 
@@ -191,7 +190,7 @@ export const sendUserInfo = (name: string | undefined, email: string | undefined
         console.log(err)
       })
   }
-}
+};
 
 export const getUserInfo = () => {
   return function (dispatch: AppDispatch) {
@@ -220,7 +219,7 @@ export const setRefreshToken = (refreshToken: string | undefined) => {
         dispatch(getUserInfo());
       })
   }
-}
+};
 
 export const setLogout = (token: string) => {
   return function (dispatch: AppDispatch) {
@@ -239,4 +238,4 @@ export const setLogout = (token: string) => {
         console.log(err)
       })
   }
-}
+};
