@@ -8,6 +8,7 @@ import {
   CLEAR_ORDER_DETAILS
 } from '../constants/index';
 import { AppDispatch } from "../types";
+import { IIngredient } from "./ingredients";
 
 export interface IOrderDetails {
   readonly _id: string;
@@ -47,7 +48,7 @@ export const setOrderDetailsSuccess = (res: IOrderDetails): ISetOrderDetailsSucc
 export const setOrderDetailsLoadingFailed = (): ISetOrderDetailsFailed => ({ type: SET_ORDER_DETAILS_FAILED });
 export const clearOrderDetails = (): IClearOrderDetails => ({ type: CLEAR_ORDER_DETAILS });
 
-export const setOrderData = (dataId: Array<string>) => {
+export const setOrderData = (dataId: Array<IIngredient>) => {
   return function (dispatch: AppDispatch) {
     dispatch(setOrderDetails())
     sendOrderRequest(dataId, getCookie("accessToken"))
