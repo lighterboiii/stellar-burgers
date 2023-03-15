@@ -1,9 +1,14 @@
 import styles from './OrderPageItem.module.css';
-import PropTypes from 'prop-types';
-import { IngredientPropTypes } from '../../utils/constants';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC } from 'react';
+import { IIngredient } from '../../services/actions/ingredients';
 
-export default function OrderPageItem({ ingredient, counter }) { 
+interface IOrderPageItem {
+  ingredient: IIngredient;
+  counter: number;
+}
+
+export const OrderPageItem: FC<IOrderPageItem> = ({ ingredient, counter }) => { 
 
   return (
     <li className={styles.wrapper}>
@@ -22,9 +27,4 @@ export default function OrderPageItem({ ingredient, counter }) {
       </div>
     </li>
   )
-}
-
-OrderPageItem.propTypes = {
-  ingredient: IngredientPropTypes,
-  counter: PropTypes.number.isRequired
-}
+};
