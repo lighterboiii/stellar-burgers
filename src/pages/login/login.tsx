@@ -28,7 +28,7 @@ export const LoginPage: FC = () => {
       <form className={styles.form} onSubmit={onFormSubmit}>
         <EmailInput name='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
         <PasswordInput name='password' value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <Button htmlType='button' type='primary' size='medium'>Войти</Button>
+        <Button htmlType='submit' type='primary' size='medium'>Войти</Button>
       </form>
       <div className={"mt-20 " + styles.wrapper}>
         <p className={'text text_type_main-default text_color_inactive ' + styles.text}>Вы новый пользователь?

@@ -21,4 +21,4 @@ export const PageNotfound: FC = () => {
       <Button htmlType='button' type='primary' onClick={onClick}>Вернуться</Button>
     </div>
   );
-}
+};

@@ -34,7 +34,7 @@ export const RegisterPage: FC = () => {
         <Input type='text' name='name' value={name} placeholder='Имя' onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)} />
         <EmailInput name='email' value={email} onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />
         <PasswordInput name='password' value={password} onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} />
-        <Button htmlType='button' type='primary' size='medium'>Зарегистрироваться</Button>
+        <Button htmlType='submit' type='primary' size='medium'>Зарегистрироваться</Button>
       </form>
       <div className={"mt-20 "}>
         <p className={'text text_type_main-default text_color_inactive ' + styles.text}>Уже зарегистрированы?
