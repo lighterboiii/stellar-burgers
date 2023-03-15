@@ -1,13 +1,14 @@
 import styles from './home.module.css';
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { changeIngredientModalStatus, changeOrderModalStatus } from '../../services/actions/modal';
+import { FC } from 'react';
 
-export function HomePage() {
+export const HomePage: FC = () => {
   const dispatch = useDispatch();
 
-  const isOrderModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
+  const isOrderModalOpen = useSelector((state) => state.modalState.isOrderDetailsModalOpen);
 
   const closePopup = () => {
     isOrderModalOpen ? dispatch(changeOrderModalStatus(false)) : dispatch(changeIngredientModalStatus(false));
@@ -19,4 +20,4 @@ export function HomePage() {
       <BurgerConstructor closePopup={closePopup} />
     </main>
   )
-}
+};

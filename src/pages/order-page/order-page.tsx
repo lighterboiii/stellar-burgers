@@ -31,11 +31,11 @@ export const OrderPage: FC<IOrderPage> = ({ isLogin }) => {
 
   return (
     <>
-      order && (
-      <div className={styles.container}>
-        <BurgerOrderDetails />
-      </div>
-      )
+    order && (
+        <div className={styles.container}>
+          <BurgerOrderDetails />
+        </div>
+    )
     </>
   )
 };

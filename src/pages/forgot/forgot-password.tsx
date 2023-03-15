@@ -1,20 +1,20 @@
-import { useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import styles from './forgot-password.module.css';
 import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/hooks';
 import { Link, useNavigate } from "react-router-dom";
 import { forgotPasswordRequest } from '../../utils/api';
 import { setForgotPassword } from '../../services/actions/user';
 
-export function ForgotPage() {
+export const ForgotPage: FC = () => {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onFormSubmit = (e) => {
+  const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     forgotPasswordRequest(email);
     dispatch(setForgotPassword(true));
@@ -25,8 +25,8 @@ export function ForgotPage() {
     <div className={styles.container}>
       <h2 className='text text_type_main-medium mb-6'>Восстановление пароля</h2>
       <form className={styles.form} onSubmit={onFormSubmit}>
-        <EmailInput placeholder='Укажите Email' type='email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <Button type='primary' size='medium'>
+        <EmailInput placeholder='Укажите Email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <Button htmlType='button' type='primary' size='medium'>
           Восстановить
         </Button>
       </form>
@@ -36,4 +36,4 @@ export function ForgotPage() {
       </div>
     </div>
   )
-}
+};

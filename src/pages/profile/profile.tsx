@@ -19,7 +19,7 @@ export const ProfilePage: FC = () => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [isInfoChanged, setIsInfoChanged] = useState(false);
-console.log(userData)
+
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passRef = useRef<HTMLInputElement>(null);
