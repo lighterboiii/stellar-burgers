@@ -3,11 +3,16 @@ import PropTypes from 'prop-types';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router-dom';
 import { OrderImagesList } from '../OrderImagesList/OrderImagesList';
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useState } from 'react';
 import { useOrderData } from '../../hooks/useOrderData';
+import { IOrderDetails } from '../../services/actions/order';
 
-export function OrderFeedElement({ order }) {
+interface IOrderFeedElement {
+  order: IOrderDetails;
+}
+
+export const OrderFeedElement: FC<IOrderFeedElement> = ({ order }) => {
   
   const location = useLocation();
   const [isProfile, setIsProfile] = useState(false);
@@ -36,21 +41,9 @@ export function OrderFeedElement({ order }) {
         }
         <div className={styles.info + ' mt-6'}>
           <OrderImagesList ingredients={orderIngredients} />
-          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{orderPrice}{<CurrencyIcon />}</span>
+          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{orderPrice}{<CurrencyIcon type='primary' />}</span>
         </div>
       </Link>
     </article>
   )
-}
-
-OrderFeedElement.propTypes = {
-  order: PropTypes.shape({
-    createdAt: PropTypes.string.isRequired,
-    ingredients: PropTypes.array.isRequired,
-    name: PropTypes.string.isRequired,
-    number: PropTypes.number.isRequired,
-    status: PropTypes.string.isRequired,
-    updatedAt: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired
-  })
-}
+};

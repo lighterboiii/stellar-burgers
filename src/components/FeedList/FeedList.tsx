@@ -10,7 +10,6 @@ interface IFeedList {
 
 export const FeedList: FC<IFeedList> = ({ orders }) => {
 
-  console.log(orders)
   return (
     <>
       <ul className={styles.list + ' custom-scroll'}>

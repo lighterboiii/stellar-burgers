@@ -1,8 +1,14 @@
 import styles from './OrderImagesList.module.css';
 import PropTypes from 'prop-types';
 import { OrderIngredientImage } from "../OrderIngredientImage/OrderIngredientImage";
+import { FC } from 'react';
+import { IIngredient } from '../../services/actions/ingredients';
 
-export function OrderImagesList({ ingredients }) {
+interface IOrderImagesList {
+  ingredients: Array<IIngredient>;
+}
+
+export const OrderImagesList: FC<IOrderImagesList> = ({ ingredients }) => {
 
   function showMore() {
     if (ingredients.length - 6 === 0) {
@@ -40,9 +46,5 @@ export function OrderImagesList({ ingredients }) {
       }
     </ul>
   )
-}
+};
 {/* eslint-enable */ }
-
-OrderImagesList.propTypes = {
-  ingredients: PropTypes.array.isRequired
-}

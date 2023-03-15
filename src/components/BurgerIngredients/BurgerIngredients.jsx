@@ -5,7 +5,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/
 import { useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
-import Modal from '../Modal/Modal';
+import { Modal } from '../Modal/Modal';
 
 function BurgerIngredients({ closePopup }) {
 	const isIngredientModalOpen = useSelector(state => state.modalState.isIngredientModalOpen);

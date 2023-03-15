@@ -1,7 +1,13 @@
 import styles from './Loader.module.css';
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 
-export default function Loader({ loading, error, text }) {
+interface ILoader {
+  loading: boolean;
+  error: string;
+  text: string;
+}
+
+export const Loader: FC<ILoader> = ({ loading, error, text }) => {
   return (
     <>
       {loading && (
@@ -19,10 +25,4 @@ export default function Loader({ loading, error, text }) {
       )}
     </>
   );
-}
-
-Loader.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  error: PropTypes.bool.isRequired,
-  text: PropTypes.string
-}
+};

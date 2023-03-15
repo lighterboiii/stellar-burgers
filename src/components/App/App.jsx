@@ -24,7 +24,7 @@ import { getUserInfo } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
 import { OrderPage } from '../../pages/order-page/order-page';
 import BurgerOrderDetails from '../BurgerOrderDetails/BurgerOrderDetails';
-import Modal from '../Modal/Modal';
+import { Modal } from '../Modal/Modal';
 
 function App() {
   const dispatch = useDispatch();

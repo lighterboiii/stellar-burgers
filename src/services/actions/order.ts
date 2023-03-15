@@ -17,7 +17,7 @@ export interface IOrderDetails {
   readonly name: string;
   readonly createdAt: string;
   readonly updatedAt: string;
-  number: number;
+  readonly number: number;
 }
 
 export interface ISetOrderDetails {

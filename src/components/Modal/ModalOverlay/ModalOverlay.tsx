@@ -1,14 +1,14 @@
+import { FC } from 'react';
 import styles from './ModalOverlay.module.css';
-import PropTypes from 'prop-types';
 
-function ModalOverlay({closePopup}) {
+interface IOverlay {
+  closePopup: () => void;
+}
+
+const ModalOverlay: FC<IOverlay> = ({ closePopup }) => {
   return(
     <div className={styles.overlay} onClick={closePopup} ></div>
   )
-}
-
-ModalOverlay.propTypes = {
-  closePopup: PropTypes.func.isRequired
-}
+};
 
 export default ModalOverlay;

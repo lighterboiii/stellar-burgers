@@ -1,10 +1,12 @@
 import styles from './OrderDetails.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../../services/hooks';
 import Loader from '../../Loader/Loader';
+import { FC } from 'react';
+import { TOrderState } from '../../../services/reducers/orderReducer';
 
-function OrderDetails() {
-  const orderDetails = useSelector(state => state.orderData.orderDetails);
-  const loading = useSelector(state => state.orderData.orderRequest);
+const OrderDetails: FC = () => {
+  const orderDetails = useSelector((state) => state.orderData.orderDetails);
+  const loading = useSelector((state) => state.orderData.orderRequest);
 
   return (
     <div className={styles.card + ' pt-15 pb-30 pr-25 pl-25'}>
@@ -29,6 +31,6 @@ function OrderDetails() {
       )}
     </div>
   );
-}
+};
 
 export default OrderDetails;
