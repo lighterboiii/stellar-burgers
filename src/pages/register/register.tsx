@@ -20,7 +20,7 @@ export const RegisterPage: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onFormSubmit = (e: FormEvent) => {
+  const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(setRegistration(email, password, name));
     navigate('/profile');
@@ -43,4 +43,4 @@ export const RegisterPage: FC = () => {
       </div>
     </div> 
   )
-}
+};

@@ -3,7 +3,7 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import { NavLink, useNavigate, Outlet, useLocation, useMatch } from "react-router-dom";
 import { FC, useEffect, useRef, useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
-import { setLogout, sendUserInfo, IUser, IUserData } from '../../services/actions/user';
+import { setLogout, sendUserInfo, IUserData } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
 import { getUserInfo } from '../../services/actions/user';
 
@@ -118,4 +118,4 @@ console.log(userData)
         </div>
     </div>
   )
-} 
+};

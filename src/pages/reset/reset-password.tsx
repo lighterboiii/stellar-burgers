@@ -18,7 +18,7 @@ export const ResetPage: FC = () => {
   const navigate = useNavigate();
   const isPasswordForgot = useSelector((state: { userInfo: IUserData }) => state.userInfo.isPasswordForgot);
 
-  const onFormSubmit = (e: FormEvent) => {
+  const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     resetPasswordRequest(password, token);
     navigate('/login');
@@ -50,4 +50,4 @@ export const ResetPage: FC = () => {
       </div>
     </div>
   )
-}
+};

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import styles from './login.module.css';
 import {
   PasswordInput,
@@ -7,16 +7,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
 import { setLogin } from '../../services/actions/user';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/hooks';
 
-export function LoginPage() {
+export const LoginPage: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onFormSubmit = (e) => {
+  const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(setLogin(email, password));
     navigate('/');
@@ -26,9 +26,9 @@ export function LoginPage() {
     <div className={styles.container}>
       <h2 className='text text_type_main-medium mb-6'>Вход</h2>
       <form className={styles.form} onSubmit={onFormSubmit}>
-        <EmailInput type='email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <PasswordInput type='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <Button type='primary' size='medium'>Войти</Button>
+        <EmailInput name='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <PasswordInput name='password' value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <Button htmlType='button' type='primary' size='medium'>Войти</Button>
       </form>
       <div className={"mt-20 " + styles.wrapper}>
         <p className={'text text_type_main-default text_color_inactive ' + styles.text}>Вы новый пользователь?
@@ -40,4 +40,4 @@ export function LoginPage() {
       </div>
     </div>
   )
-}
+};
