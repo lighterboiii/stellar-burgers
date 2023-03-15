@@ -5,8 +5,6 @@ import { FC, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { wsConnectionStart, wsConnectionClosed } from '../../services/actions/wsActions';
 import { wsUrl } from '../../utils/constants';
-import { IOrderDetails } from '../../services/actions/order';
-import { IIngredient } from '../../services/actions/ingredients';
 import { TSocketState } from '../../services/reducers/wsReducer';
 
 interface IOrderStatus {

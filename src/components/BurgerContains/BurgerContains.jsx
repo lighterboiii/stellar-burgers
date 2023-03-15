@@ -1,4 +1,4 @@
-import OrderPageItem from "../OrderPageItem/OrderPageItem";
+import { OrderPageItem } from "../OrderPageItem/OrderPageItem";
 import styles from './BurgerContains.module.css';
 import PropTypes from 'prop-types';
 
