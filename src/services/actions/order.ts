@@ -15,9 +15,14 @@ export interface IOrderDetails {
   readonly ingredients: Array<string>;
   readonly status: string;
   readonly name: string;
-  readonly createdAt: string;
+  readonly createdAt: string | number | Date;
   readonly updatedAt: string;
   readonly number: number;
+}
+
+export interface IOrderData {
+  readonly order: IOrderDetails;
+  readonly orderDetails: IOrderDetails;
 }
 
 export interface ISetOrderDetails {

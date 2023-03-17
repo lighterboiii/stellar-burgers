@@ -1,5 +1,4 @@
-import styles from './OrderFeedElement.module.css';
-import PropTypes from 'prop-types';
+import styles from './OrderFeedElement.module.css'
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router-dom';
 import { OrderImagesList } from '../OrderImagesList/OrderImagesList';

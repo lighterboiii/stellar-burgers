@@ -6,7 +6,7 @@ import { IIngredient } from '../../../services/actions/ingredients';
 import { TIngredientsState } from '../../../services/reducers/ingredientsReducer';
 
 interface IIngredientDetails { 
-  currentIngredient?: IIngredient;
+  currentIngredient?: IIngredient | null;
 }
 
 const IngredientDetails: FC<IIngredientDetails> = ({ currentIngredient }) => {

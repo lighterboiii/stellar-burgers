@@ -6,11 +6,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeIngredientModalStatus } from "../../../services/actions/modal";
 import { currentIngredient } from "../../../services/actions/ingredients";
 import { IngredientPropTypes } from "../../../utils/constants";
+import { ChangeEvent, FC } from "react";
+import { IIngredient } from "../../../services/actions/ingredients";
+import { TIngredientsState } from "../../../services/reducers/ingredientsReducer";
 
-function Ingredient({ ingredient }) {
+interface IIngredientComponent {
+  ingredient: IIngredient;
+}
+
+const Ingredient: FC<IIngredientComponent> = ({ ingredient }) => {
   const { image, name, price, _id } = ingredient;
-  const burgerData = useSelector(state => state.ingredients.ingredients);
-  const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
+  const burgerData = useSelector((state: { ingredients: TIngredientsState}) => state.ingredients.ingredients);
+  const selectedIngredients = useSelector((state: { ingredients: TIngredientsState}) => state.ingredients.selectedIngredients);
   const dispatch = useDispatch();
   // dnd drag hook
   const [{ isDrag }, dragRef] = useDrag({
@@ -21,7 +28,7 @@ function Ingredient({ ingredient }) {
     })
   });
   // ingredient click listener
-  const handleIngClick = (evt) => {
+  const handleIngClick = (evt: MouseEvent<HTMLElement>) => {
     const id = evt.currentTarget.id
     const current = burgerData.find(element => element._id === id)
     dispatch(currentIngredient(current));
@@ -47,10 +54,6 @@ function Ingredient({ ingredient }) {
         </p>
       </li>
   );
-}
-
-Ingredient.propTypes = {
-  ingredient: IngredientPropTypes
-}
+};
 
 export default Ingredient;

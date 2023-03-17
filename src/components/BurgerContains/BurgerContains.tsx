@@ -1,10 +1,15 @@
+import { FC } from "react";
+import { IIngredient } from "../../services/actions/ingredients";
 import { OrderPageItem } from "../OrderPageItem/OrderPageItem";
 import styles from './BurgerContains.module.css';
-import PropTypes from 'prop-types';
 
-export function BurgerContains({ ingredients }) {
+interface IBurgerContains {
+  ingredients: Array<IIngredient>;
+}
 
-  function counter(ingredient) {
+export const BurgerContains: FC<IBurgerContains> = ({ ingredients }) =>  {
+
+  function counter(ingredient: IIngredient) {
     let counter = 0;
     ingredients.forEach((el) => {
       if (el._id === ingredient._id) {
@@ -26,8 +31,4 @@ export function BurgerContains({ ingredients }) {
       </ul>
     </div>
   );
-}
-
-BurgerContains.propTypes = {
-  ingredients: PropTypes.array.isRequired
-}
+};

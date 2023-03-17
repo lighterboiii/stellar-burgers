@@ -1,24 +1,27 @@
 import styles from './BurgerOrderDetails.module.css';
-import { useSelector } from "react-redux";
+import { useSelector } from '../../services/hooks';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useParams } from "react-router-dom";
 import { BurgerContains } from "../BurgerContains/BurgerContains";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useOrderData } from '../../hooks/useOrderData';
+import { FC } from 'react';
+import { IWsMessage } from '../../services/actions/wsActions';
+import { IOrderDetails } from '../../services/actions/order';
 
-export default function BurgerOrderDetails() {
+const BurgerOrderDetails: FC = () => {
 
   const { id } = useParams();
-  const orders = useSelector((state) => state.socketReducer.orders);
-  const order = orders.find((item) => item._id === id);
+  const orders = useSelector((state: { socketReducer: IWsMessage }) => state.socketReducer.orders);
+  const order = orders.find((item) => item?._id === id);
   const { orderIngredients, orderStatus, orderPrice, time } = useOrderData(order);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        <p className={'text text_type_digits-default mb-10 ' + styles.number}>{`#${order.number}`}</p>
-        <p className='text text_type_main-medium mb-2'>{`${order.name}`}</p>
-        {(order.status === 'done') 
+        <p className={'text text_type_digits-default mb-10 ' + styles.number}>{`#${order?.number}`}</p>
+        <p className='text text_type_main-medium mb-2'>{`${order?.name}`}</p>
+        {(order?.status === 'done') 
             ? <p className='text text_type_main-default text_color_success'>{orderStatus}</p>
             : <p className='text text_type_main-default text_color_primary'>{orderStatus}</p>
         }
@@ -35,4 +38,6 @@ export default function BurgerOrderDetails() {
       </div>
     </div>
   );
-}
+};
+
+export default BurgerOrderDetails;

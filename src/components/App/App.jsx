@@ -23,7 +23,7 @@ import { FeedPage } from '../../pages/feed/feed';
 import { getUserInfo } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
 import { OrderPage } from '../../pages/order-page/order-page';
-import BurgerOrderDetails from '../BurgerOrderDetails/BurgerOrderDetails';
+import BurgerOrderDetails from '../BurgerOrderDetails/BurgerOrderDetails.tsx';
 import { Modal } from '../Modal/Modal';
 
 function App() {

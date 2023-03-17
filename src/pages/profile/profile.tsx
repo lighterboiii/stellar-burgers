@@ -70,7 +70,7 @@ export const ProfilePage: FC = () => {
   }
 
   const handleCancel = () => {
-    setNameValue(userData.name); //TODO поправить
+    setNameValue(userData.name);
     setEmailValue(userData.email);
     setPasswordValue('');
   }

@@ -1,8 +1,15 @@
-import PropTypes from 'prop-types';
 import Ingredient from "../Ingredient/Ingredient";
-import { forwardRef } from 'react';
+import { FC, forwardRef } from 'react';
+import { IIngredient } from "../../../services/actions/ingredients";
 
-const IngredientCategory = forwardRef((
+interface IIngredientCategory {
+  category: Array<IIngredient>;
+  heading: string;
+  listStyle: string;
+  textStyle: string;
+}
+
+const IngredientCategory: FC<IIngredientCategory> = forwardRef((
   { category, heading, listStyle, textStyle }, ref) => {
 
   return (
@@ -22,14 +29,6 @@ const IngredientCategory = forwardRef((
       </ul>
     </div>
   )
-})
-
-
-IngredientCategory.propTypes = {
-  category: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  heading: PropTypes.string.isRequired,
-  listStyle: PropTypes.string.isRequired,
-  textStyle: PropTypes.string.isRequired
-}
+});
 
 export default IngredientCategory;

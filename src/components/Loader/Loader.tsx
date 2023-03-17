@@ -3,8 +3,8 @@ import { FC } from 'react';
 
 interface ILoader {
   loading: boolean;
-  error: string;
-  text: string;
+  error?: string;
+  text?: string;
 }
 
 export const Loader: FC<ILoader> = ({ loading, error, text }) => {
