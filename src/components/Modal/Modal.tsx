@@ -5,7 +5,7 @@ import ModalOverlay from "./ModalOverlay/ModalOverlay";
 import styles from './Modal.module.css'
 
 interface IModal {
-  title: string;
+  title?: string;
   children: ReactNode;
   closePopup: () => void;
 }

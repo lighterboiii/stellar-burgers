@@ -1,53 +1,51 @@
 import styles from './BurgerIngredients.module.css';
+import PropTypes from 'prop-types';
 import IngredientCategory from './IngredientCategory/IngredientCategory';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/tab";
 import { FC, useMemo, useRef, useState } from 'react';
 import { useSelector } from '../../services/hooks';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
 import { Modal } from '../Modal/Modal';
-import { IIngredient } from '../../services/actions/ingredients';
-import { TIngredientsState } from '../../services/reducers/ingredientsReducer';
 
 interface IBI {
 	closePopup: () => void;
 }
 
-const BurgerIngredients: FC<IBI> = ({ closePopup }) => {
+const BurgerIngredients: FC<IBI>= ({ closePopup }) => {
 	const isIngredientModalOpen = useSelector(state => state.modalState.isIngredientModalOpen);
-	const burgerData = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients);
+	const burgerData = useSelector(state => state.ingredients.ingredients);
 
-	const buns = useMemo(() => burgerData.filter((item: IIngredient) => item.type === 'bun'), [burgerData]);
-	const mains = useMemo(() => burgerData.filter((item: IIngredient) => item.type === 'main'), [burgerData]);
-	const sauces = useMemo(() => burgerData.filter((item: IIngredient) => item.type === 'sauce'), [burgerData]);
+	const buns = useMemo(() => burgerData.filter((item) => item.type === 'bun'), [burgerData]);
+	const mains = useMemo(() => burgerData.filter((item) => item.type === 'main'), [burgerData]);
+	const sauces = useMemo(() => burgerData.filter((item) => item.type === 'sauce'), [burgerData]);
 
-	const bunRef = useRef<HTMLDivElement>(null);
-	const sauceRef = useRef<HTMLDivElement>(null);
-	const mainRef = useRef<HTMLDivElement>(null);
+	const bunRef = useRef(null);
+	const sauceRef = useRef(null);
+	const mainRef = useRef(null);
 
 	const [current, setCurrent] = useState('buns');
-	const currentIngredient = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.currentIngredient);
-	const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients);
+	const currentIngredient = useSelector(state => state.ingredients.currentIngredient);
+	const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
 
-	const handleClick = (value: string) => {
+	const handleClick = (value) => {
 		switch (value) {
 			case 'buns': {
-				bunRef.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
-				console.log(value)
+				bunRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
 				break;
 			}
 			case 'sauces': {
-				sauceRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+				sauceRef.current.scrollIntoView({ block: 'center', behavior: 'smooth' });
 				break;
 			}
 			case 'mains': {
-				mainRef.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
+				mainRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
 				break;
 			}
 		}
 	};
-	const scrollRef = useRef<HTMLElement>();
+	const scrollRef = useRef();
 	const handleScroll = () => {
-		const lineY = scrollRef.current?.getBoundingClientRect().y;
+		const lineY = scrollRef.current.getBoundingClientRect().y;
 		const bunsOffset = Math.abs(bunRef.current.getBoundingClientRect().y - lineY);
 		const sauceOffset = Math.abs(sauceRef.current.getBoundingClientRect().y - lineY);
 		const mainsOffset = Math.abs(mainRef.current.getBoundingClientRect().y - lineY);
@@ -96,6 +94,11 @@ const BurgerIngredients: FC<IBI> = ({ closePopup }) => {
 		</section>
 	)
 };
+
+BurgerIngredients.propTypes = {
+	closePopup: PropTypes.func.isRequired
+}
+
 
 export default BurgerIngredients;
 

@@ -1,14 +1,13 @@
 import styles from './App.module.css';
-import AppHeader from '../AppHeader/AppHeader.jsx';
+import AppHeader from '../AppHeader/AppHeader';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { getIngredientsData } from '../../services/actions/ingredients';
-// отключил, потому что если уберу импорт Router, рендер сломается
-/* eslint-disable */
+/* eslint-disable*/
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 /* eslint-enable */
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useDispatch, useSelector } from '../../services/hooks';
+import { FC, useEffect } from 'react';
 import { HomePage } from '../../pages/home/home';
 import { LoginPage } from '../../pages/login/login';
 import { RegisterPage } from '../../pages/register/register';
@@ -20,18 +19,18 @@ import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { IngredientPage } from '../../pages/ingredient/IngredientPage';
 import { ProfileFeedPage } from '../../pages/profile-feed/profile-feed';
 import { FeedPage } from '../../pages/feed/feed';
-import { getUserInfo } from '../../services/actions/user';
+import { getUserInfo, IUserData } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
 import { OrderPage } from '../../pages/order-page/order-page';
-import BurgerOrderDetails from '../BurgerOrderDetails/BurgerOrderDetails.tsx';
+import BurgerOrderDetails from '../BurgerOrderDetails/BurgerOrderDetails';
 import { Modal } from '../Modal/Modal';
 
-function App() {
+const App: FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const userData = useSelector((state) => state.userInfo.user);
+  const userData = useSelector((state: { userInfo: IUserData }) => state.userInfo.user);
   const access = getCookie("accessToken")
 
   const closePopup = () => {
@@ -73,7 +72,7 @@ function App() {
           <Routes>
             <Route path="/feed/:id" element={
               <Modal closePopup={closePopup}>
-                <BurgerOrderDetails title='' />
+                <BurgerOrderDetails />
               </Modal>
             } />
           </Routes>
@@ -82,7 +81,7 @@ function App() {
           <Routes>
             <Route path="/profile/orders/:id" element={
               <Modal closePopup={closePopup}>
-                <BurgerOrderDetails title='' />
+                <BurgerOrderDetails />
               </Modal>
             } />
           </Routes>

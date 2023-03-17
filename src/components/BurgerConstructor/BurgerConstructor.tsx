@@ -1,42 +1,46 @@
 import styles from './BurgerConstructor.module.css';
-import PropTypes from 'prop-types';
 import { TopBun } from './TopBun/TopBun';
 import { BottomBun } from './BottomBun/BottomBun';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { setOrderData } from "../../services/actions/order";
-import { sortIngredients } from '../../services/actions/ingredients';
-import { SELECT_INGREDIENT } from '../../services/constants';
-import { useMemo, useCallback } from "react";
+import { IIngredient, selectIngredient, sortIngredients } from '../../services/actions/ingredients';
+import { useMemo, useCallback, FC } from "react";
 import { changeOrderModalStatus } from "../../services/actions/modal";
 import { deleteAllIngredients } from '../../services/actions/ingredients';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import { useDrop } from "react-dnd"
 import { SelectedIngredient } from "./SelectedIngredient/SelectedIngredient";
 import { Modal } from '../Modal/Modal';
 import OrderDetails from '../Modal/OrderDetails/OrderDetails';
 import { useNavigate } from 'react-router-dom';
+import { IUserData } from '../../services/actions/user';
+import { TIngredientsState } from '../../services/reducers/ingredientsReducer';
 
-function BurgerConstructor({ closePopup }) {
+interface IBurgerConstructor {
+  closePopup: () => void;
+};
+
+const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-  const userData = useSelector((state) => state.userInfo.user);
-  const burgerData = useSelector(state => state.ingredients.ingredients);
-  const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
+  const userData = useSelector((state: { userInfo: IUserData }) => state.userInfo.user);
+  const burgerData = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients); // исправить
+  const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients); // исправить
   const isOrderModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
 
-  const notBun = useMemo(() => selectedIngredients.filter((ingredient) => ingredient.type !== 'bun'), [selectedIngredients]);
-  const bun = useMemo(() => selectedIngredients.find((ingredient) => ingredient.type === 'bun'), [selectedIngredients]);
-  //calculating items prices
+  const notBun = useMemo(() => selectedIngredients.filter((ingredient: IIngredient) => ingredient.type !== 'bun'), [selectedIngredients]);
+  const bun = useMemo(() => selectedIngredients.find((ingredient: IIngredient) => ingredient.type === 'bun'), [selectedIngredients]);
+
   const sum = useMemo(() => {
     return selectedIngredients.reduce(
-      (acc, ingredient) =>
+      (acc: any, ingredient: IIngredient) =>
         ingredient === bun ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
   }, [selectedIngredients, bun]);
-  // order button listener
+
   const onOrderClick = () => {
-    const dataId = notBun.map((element) => element._id);
+    const dataId = notBun.map((element: IIngredient) => element._id);
     const buns = new Array(2).fill(bun);
     const bunIds = buns.map((el) => el._id)
     const ingredientsData = dataId.concat(bunIds)
@@ -45,16 +49,14 @@ function BurgerConstructor({ closePopup }) {
     } else {
       dispatch(setOrderData(ingredientsData));
       dispatch(changeOrderModalStatus(true));
-      dispatch(deleteAllIngredients(selectedIngredients));
+      dispatch(deleteAllIngredients());
     }
   };
   // drop listener
-  const handleDrop = (item) => {
-    const selectedIngredient = burgerData.find(ingredient => ingredient._id === item._id);
-    dispatch({
-      type: SELECT_INGREDIENT,
-      payload: [...selectedIngredients, selectedIngredient]
-    })
+  const handleDrop = (item: IIngredient) => {
+    console.log(item)
+    const selectedIngredient = burgerData.find((ingredient: IIngredient) => ingredient._id === item._id);
+    dispatch(selectIngredient(selectedIngredients, selectedIngredient))
   };
   // drop hook
   const [{ isHover }, dropRef] = useDrop({
@@ -62,12 +64,12 @@ function BurgerConstructor({ closePopup }) {
     collect: monitor => ({
       isHover: monitor.isOver()
     }),
-    drop(item) {
+    drop(item: IIngredient) {
       handleDrop(item)
     },
   });
   // not-working as i want to
-  const moveIngredients = useCallback((dragIndex, hoverIndex) => {
+  const moveIngredients = useCallback((dragIndex: number, hoverIndex: number) => {
     dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
   }, [selectedIngredients, dispatch]);
 
@@ -76,7 +78,7 @@ function BurgerConstructor({ closePopup }) {
       <div className={`mb-10 mt-25`}>
         <TopBun />
         <ul className={'text custom-scroll ' + styles.list}>
-          {notBun.map((element, index) => (
+          {notBun.map((element: IIngredient, index: number) => (
             <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} index={index} key={`${element.id}${index}`} />
           ))
           }
@@ -85,11 +87,11 @@ function BurgerConstructor({ closePopup }) {
       </div>
       {selectedIngredients.length > 0 && bun ?
         <div className={'mr-4 ' + styles.total}>
-          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon />}</span>
+          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon type='primary'/>}</span>
           <Button size="large" type="primary" htmlType='button' onClick={onOrderClick}>Оформить заказ</Button>
         </div> :
         <div className={'mr-4 ' + styles.total}>
-          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon />}</span>
+          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon type='primary' />}</span>
           <Button size="large" type="secondary" htmlType='button' disabled onClick={onOrderClick}>Оформить заказ</Button>
         </div>
       }
@@ -102,9 +104,5 @@ function BurgerConstructor({ closePopup }) {
 
   )
 };
-
-BurgerConstructor.propTypes = {
-  closePopup: PropTypes.func.isRequired
-}
 
 export default BurgerConstructor;

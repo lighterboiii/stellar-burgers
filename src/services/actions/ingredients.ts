@@ -37,7 +37,7 @@ export interface IGetIngredientsFailed {
 
 export interface IGetIngredientsSuccess {
   readonly type: typeof GET_INGREDIENTS_SUCCESS;
-  readonly payload: Array<{}>;
+  readonly payload: Array<IIngredient>;
 }
 
 export interface IOpenIngredientInfo {
@@ -52,7 +52,7 @@ export interface ISortIngredients {
 
 export interface ISelectIngredient {
   readonly type: typeof SELECT_INGREDIENT;
-  payload: IIngredient;
+  payload: [...Array<IIngredient>, IIngredient];
 }
 
 export interface IDeleteAllIngredients {
@@ -65,7 +65,7 @@ export interface IDeleteIngredient {
   payload: null;
 }
 
-export type TIngredientsActions = 
+export type TIngredientsActions =
   | IGetIngredientsRequest
   | IGetIngredientsFailed
   | IGetIngredientsSuccess
@@ -78,6 +78,8 @@ export type TIngredientsActions =
 export const setDeleteAllIngredients = (): IDeleteAllIngredients => ({ type: DELETE_ALL_INGREDIENTS, payload: [] });
 export const setSortIngredients = (data: Array<IIngredient>): ISortIngredients => ({ type: SORT_INGREDIENTS, payload: data });
 export const getIngredientsSuccess = (res: Array<IIngredient>): IGetIngredientsSuccess => ({ type: GET_INGREDIENTS_SUCCESS, payload: res });
+export const selectIngredient = (selectedIngredients: Array<IIngredient>, selectedIngredient: IIngredient): ISelectIngredient => 
+  ({ type: SELECT_INGREDIENT, payload: [...selectedIngredients, selectedIngredient]});
 
 export const deleteAllIngredients = () => {
   return function (dispatch: AppDispatch) {

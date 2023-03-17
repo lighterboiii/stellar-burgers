@@ -1,9 +1,8 @@
 import { rootReducer } from './reducers/index';
 import thunk from 'redux-thunk';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { socketMiddleware } from '../services/middleware/socketMiddleware';
-import { wsUrl } from '../utils/constants';
 import {
   WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
