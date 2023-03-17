@@ -1,12 +1,17 @@
-import { useSelector } from "react-redux";
+import { useSelector } from "../services/hooks";
 import { useMatch } from "react-router-dom";
+import { FC } from "react";
+import { IOrderDetails } from "../services/actions/order";
+import Ingredient from "../components/BurgerIngredients/Ingredient/Ingredient";
+import { TIngredientsState } from "../services/reducers/ingredientsReducer";
+import { IIngredient } from "../services/actions/ingredients";
 
-export function useOrderData(order) {
-  const ingredients = useSelector((state) => state.ingredients.ingredients);
+export const useOrderData = (order: IOrderDetails | undefined) => {
+  const ingredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients);
 
   const getOrderList = () => {
-    const elements = [];
-    order.ingredients.forEach((ingredientId) => {
+    const elements: Array<IIngredient> = [];
+    order?.ingredients.forEach((ingredientId) => {
       ingredients.forEach((ingredient) => {
         if (ingredient._id === ingredientId) {
           elements.push(ingredient);
@@ -19,7 +24,7 @@ export function useOrderData(order) {
   const orderIngredients = getOrderList();
 
   const getOrderStatus = () => {
-    if (order.status === "done") {
+    if (order?.status === "done") {
       return "Выполнен";
     } else {
       return "Готовится";
@@ -38,4 +43,4 @@ export function useOrderData(order) {
   const feedMatch = useMatch('/feed');
 
   return { orderIngredients, orderPrice, orderStatus, time, feedMatch, matchProfile };
-}
+};

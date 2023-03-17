@@ -5,8 +5,7 @@ import styles from './Ingredient.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeIngredientModalStatus } from "../../../services/actions/modal";
 import { currentIngredient } from "../../../services/actions/ingredients";
-import { IngredientPropTypes } from "../../../utils/constants";
-import { ChangeEvent, FC } from "react";
+import { MouseEvent, FC } from "react";
 import { IIngredient } from "../../../services/actions/ingredients";
 import { TIngredientsState } from "../../../services/reducers/ingredientsReducer";
 
@@ -28,7 +27,7 @@ const Ingredient: FC<IIngredientComponent> = ({ ingredient }) => {
     })
   });
   // ingredient click listener
-  const handleIngClick = (evt: MouseEvent<HTMLElement>) => {
+  const handleIngClick = (evt: MouseEvent) => {
     const id = evt.currentTarget.id
     const current = burgerData.find(element => element._id === id)
     dispatch(currentIngredient(current));

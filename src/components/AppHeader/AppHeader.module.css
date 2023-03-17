@@ -24,13 +24,12 @@
 }
 
 .link {
-	border-radius: 40px;
-	text-decoration: none;
 	composes: layout;
-	gap: 8px;
-	padding: 16px 20px;
 	color: #8585ad;
 	cursor: pointer;
+	gap: 8px;
+	border-radius: 40px;
+	text-decoration: none;
 }
 
 .link:hover {

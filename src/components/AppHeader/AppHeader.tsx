@@ -9,10 +9,8 @@ import styles from './AppHeader.module.css';
 
 
 function AppHeader() {
-  const linkStyleee = 'text text_type_main-default text_color_primary mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 ';
   const linkStyle = {
     color: "#f2f2f3",
-
   }
 
   const matchHome = useMatch('/');
@@ -26,7 +24,7 @@ function AppHeader() {
           <NavLink
             to="/"
             style={({ isActive }) => (isActive ? linkStyle : undefined)}
-            className={`text text_type_main-default ${styles.link}`}
+            className={`text text_type_main-default mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 ${styles.link}`}
           >
             <BurgerIcon type={Boolean(matchHome) ? 'primary' : 'secondary'} />
             Конструктор
@@ -34,7 +32,7 @@ function AppHeader() {
           <NavLink
             to='/feed'
             style={({ isActive }) => (isActive ? linkStyle : undefined)}
-            className={`text text_type_main-default ${styles.link}`}>
+            className={`text text_type_main-default mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 ${styles.link}`}>
             <ListIcon type={Boolean(matchList) ? 'primary' : 'secondary'} />
             Лента заказов</NavLink>
           <div className={styles.logo}>
@@ -45,7 +43,7 @@ function AppHeader() {
           <NavLink
             to='/profile'
             style={({ isActive }) => (isActive ? linkStyle : undefined)}
-            className={`text text_type_main-default ${styles.link}`}>
+            className={`text text_type_main-default mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 ${styles.link}`}>
             <ProfileIcon type={Boolean(matchProfile) ? 'primary' : 'secondary'} />
             Личный кабинет</NavLink>
         </nav>

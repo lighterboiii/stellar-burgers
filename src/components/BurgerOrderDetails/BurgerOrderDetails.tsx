@@ -7,7 +7,6 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { useOrderData } from '../../hooks/useOrderData';
 import { FC } from 'react';
 import { IWsMessage } from '../../services/actions/wsActions';
-import { IOrderDetails } from '../../services/actions/order';
 
 const BurgerOrderDetails: FC = () => {
 
@@ -29,7 +28,7 @@ const BurgerOrderDetails: FC = () => {
       <BurgerContains ingredients={orderIngredients} />
       <div className={styles.container}>
         <p className="text text_type_main-default text_color_inactive">
-          <FormattedDate date={new Date(order.createdAt)} /> {`${time}`}
+         {order && <FormattedDate date={new Date(order.createdAt)} />} {`${time}`}
         </p>
         <div className={styles.price}>
           <CurrencyIcon type="primary" />

@@ -38,23 +38,8 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
       (acc: any, ingredient: IIngredient) =>
         ingredient === bun ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
   }, [selectedIngredients, bun]);
-
-  const onOrderClick = () => {
-    const dataId = notBun.map((element: IIngredient) => element._id);
-    const buns = new Array(2).fill(bun);
-    const bunIds = buns.map((el) => el._id)
-    const ingredientsData = dataId.concat(bunIds)
-    if (!userData) {
-      navigate('/login');
-    } else {
-      dispatch(setOrderData(ingredientsData));
-      dispatch(changeOrderModalStatus(true));
-      dispatch(deleteAllIngredients());
-    }
-  };
   // drop listener
   const handleDrop = (item: IIngredient) => {
-    console.log(item)
     const selectedIngredient = burgerData.find((ingredient: IIngredient) => ingredient._id === item._id);
     dispatch(selectIngredient(selectedIngredients, selectedIngredient))
   };
@@ -73,13 +58,27 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
     dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
   }, [selectedIngredients, dispatch]);
 
+  const onOrderClick = () => {
+    const dataId = notBun.map((element: IIngredient) => element._id);
+    const buns = new Array(2).fill(bun);
+    const bunIds = buns.map((el) => el._id)
+    const ingredientsData = dataId.concat(bunIds)
+    if (!userData) {
+      navigate('/login');
+    } else {
+      dispatch(setOrderData(ingredientsData));
+      dispatch(changeOrderModalStatus(true));
+      dispatch(deleteAllIngredients());
+    }
+  };
+
   return (
     <section className={`${styles.section} ${isHover && styles.dropping}`} ref={dropRef}>
       <div className={`mb-10 mt-25`}>
         <TopBun />
         <ul className={'text custom-scroll ' + styles.list}>
           {notBun.map((element: IIngredient, index: number) => (
-            <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} index={index} key={`${element.id}${index}`} />
+            <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} index={index} key={`${element._id}${index}`} />
           ))
           }
         </ul>

@@ -8,8 +8,9 @@ interface IIngredientCategory {
   listStyle: string;
   textStyle: string;
 }
+type ref = HTMLDivElement;
 
-const IngredientCategory: FC<IIngredientCategory> = forwardRef((
+const IngredientCategory = forwardRef<ref, IIngredientCategory>((
   { category, heading, listStyle, textStyle }, ref) => {
 
   return (
@@ -19,7 +20,6 @@ const IngredientCategory: FC<IIngredientCategory> = forwardRef((
         {category.map((element) => {
           return (
             <Ingredient
-              count={0}
               ingredient={element}
               key={element._id}
             />
