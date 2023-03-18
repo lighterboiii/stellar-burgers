@@ -20,8 +20,15 @@ export interface IOrderDetails {
 }
 
 export interface IOrderData {
-  readonly order: IOrderDetails;
-  readonly orderDetails: IOrderDetails;
+   readonly order: {
+      readonly _id: string;
+      readonly ingredients: Array<string>;
+      readonly status: string;
+      readonly name: string;
+      readonly createdAt: string | number | Date;
+      readonly updatedAt: string;
+      readonly number: number;
+    }
 }
 
 export interface ISetOrderDetails {
@@ -34,7 +41,7 @@ export interface ISetOrderDetailsFailed {
 
 export interface ISetOrderDetailsSuccess {
   readonly type: typeof SET_ORDER_DETAILS_SUCCESS;
-  readonly payload: IOrderDetails;
+  readonly payload: any; // пока так, не могу разобраться с типизацией OrderDetails.tsx
 }
 
 export interface IClearOrderDetails {
@@ -52,7 +59,7 @@ export const setOrderDetailsSuccess = (res: IOrderDetails): ISetOrderDetailsSucc
 export const setOrderDetailsLoadingFailed = (): ISetOrderDetailsFailed => ({ type: SET_ORDER_DETAILS_FAILED });
 export const clearOrderDetails = (): IClearOrderDetails => ({ type: CLEAR_ORDER_DETAILS });
 
-export const setOrderData = (dataId: Array<IIngredient>) => {
+export const setOrderData = (dataId: Array<string>) => {
   return function (dispatch: AppDispatch) {
     dispatch(setOrderDetails())
     sendOrderRequest(dataId, getCookie("accessToken"))

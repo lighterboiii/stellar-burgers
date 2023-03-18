@@ -35,7 +35,7 @@ const Ingredient: FC<IIngredientComponent> = ({ ingredient }) => {
   };
   // counter func
   let counter = 0;
-  selectedIngredients.forEach(ingredient => {
+  selectedIngredients.forEach((ingredient: IIngredient) => {
     ingredient.name === name && (ingredient.type === 'bun' ? counter += 2 : counter += 1);
   });
 

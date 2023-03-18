@@ -36,7 +36,7 @@ export function getIngredients() {
   return request(`${BURGER_API_URL}${INGREDIENTS_KEY}`)
 }
 
-export function sendOrderRequest(data: Array<IIngredient>, accessToken: string | undefined) {
+export function sendOrderRequest(data: Array<string>, accessToken: string | undefined) {
   return requestWithRefresh(`${BURGER_API_URL}${ORDERS_KEY}`, {
     method: 'POST',
     headers: {

@@ -3,13 +3,13 @@ import {
   SET_ORDER_DETAILS_SUCCESS,
   SET_ORDER_DETAILS_FAILED,
 } from '../constants/index';
-import { IOrderDetails } from '../actions/order';
+import { IOrderData, IOrderDetails } from '../actions/order';
 import { TOrderActions } from '../actions/order';
 
 export type TOrderState = {
   orderDetails: Array<IOrderDetails>;
   orderRequest: boolean;
-  orderFailed: Boolean;
+  orderFailed: boolean;
 };
 
 const initialState: TOrderState = {

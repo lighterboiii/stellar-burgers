@@ -5,7 +5,7 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { setOrderData } from "../../services/actions/order";
 import { IIngredient, selectIngredient, sortIngredients } from '../../services/actions/ingredients';
-import { useMemo, useCallback, FC } from "react";
+import { useMemo, useCallback, FC, ReactElement } from "react";
 import { changeOrderModalStatus } from "../../services/actions/modal";
 import { deleteAllIngredients } from '../../services/actions/ingredients';
 import { useSelector, useDispatch } from '../../services/hooks';
@@ -39,7 +39,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
         ingredient === bun ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
   }, [selectedIngredients, bun]);
   // drop listener
-  const handleDrop = (item: IIngredient) => {
+  const handleDrop = (item: any) => { {/* any так как TS ругается на { isHover } & drop метод */}
     const selectedIngredient = burgerData.find((ingredient: IIngredient) => ingredient._id === item._id);
     dispatch(selectIngredient(selectedIngredients, selectedIngredient))
   };
@@ -49,7 +49,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
     collect: monitor => ({
       isHover: monitor.isOver()
     }),
-    drop(item: IIngredient) {
+    drop(item) {
       handleDrop(item)
     },
   });
