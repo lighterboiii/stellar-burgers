@@ -15,19 +15,22 @@ export const ProfileFeedPage: FC = () => {
   
   useEffect(() => {
     dispatch(wsConnectionStart(`${wsUrl}?token=${accessToken}`))
+    return () => {
+      dispatch(wsConnectionClosed());
+    };
   }, [])
 
   useEffect(() => {
     if (error) {
       dispatch(wsConnectionClosed());
       dispatch(getUserInfo())
-        .then(() => dispatch(wsConnectionStart(`${wsUrl}?token=${accessToken}`))) //TODO: починить
+        .then(() => dispatch(wsConnectionStart(`${wsUrl}?token=${accessToken}`)))
         .catch(() => dispatch(wsConnectionClosed()));
     }
     return () => {
       dispatch(wsConnectionClosed());
     };
-  }, []);
+  }, [error]);
 
   return (
     orders && 

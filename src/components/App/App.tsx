@@ -24,13 +24,14 @@ import { getCookie } from '../../utils/cookie';
 import { OrderPage } from '../../pages/order-page/order-page';
 import BurgerOrderDetails from '../BurgerOrderDetails/BurgerOrderDetails';
 import { Modal } from '../Modal/Modal';
+import { TUserState } from '../../services/reducers/userReducer';
 
 const App: FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const userData = useSelector((state: { userInfo: IUserData }) => state.userInfo.user);
+  const userData = useSelector((state: { userInfo: TUserState }) => state.userInfo.user);
   const access = getCookie("accessToken")
 
   const closePopup = () => {

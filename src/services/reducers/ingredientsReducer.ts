@@ -13,7 +13,7 @@ import { TIngredientsActions } from '../actions/ingredients';
 
 export type TIngredientsState = {
   ingredients: Array<IIngredient>;
-  selectedIngredients: Array<IIngredient> | any; // ошибка компиллятора в BurgerIngredients (60) ??
+  selectedIngredients: Array<IIngredient>; // ошибка компиллятора в BurgerIngredients (60) ??
   currentIngredient: IIngredient | null;
   ingredientsRequest: boolean;
   ingredientsFailed: boolean;

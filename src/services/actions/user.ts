@@ -10,8 +10,10 @@ import {
 import { AppDispatch } from "../types";
 
 export interface IUser {
-  name: string;
-  email: string;
+  user: {
+    name: string;
+    email: string;
+  };
 }
 
 export interface IUserData {
@@ -99,7 +101,7 @@ export interface IRegisterSuccess {
   readonly payload: string;
 }
 
-export type TUserActions = 
+export type TUserActions =
   | ISetForgotPassword
   | ISetUserData
   | ISetUserDataFailed
@@ -195,10 +197,10 @@ export const sendUserInfo = (name: string, email: string, password: string, toke
 export const getUserInfo = () => {
   return function (dispatch: AppDispatch) {
     dispatch(getUserDataLoading());
-    checkUserDataRequest(getCookie("accessToken"))
+    return checkUserDataRequest(getCookie("accessToken"))
       .then((res) => {
         if (res) {
-          dispatch(getUserDataLoadingSuccess(res.user));
+          dispatch(getUserDataLoadingSuccess(res));
         }
       })
       .catch((err) => {

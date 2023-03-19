@@ -3,7 +3,7 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import { NavLink, useNavigate, Outlet, useLocation, useMatch } from "react-router-dom";
 import { FC, useEffect, useRef, useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
-import { setLogout, sendUserInfo, IUserData } from '../../services/actions/user';
+import { setLogout, sendUserInfo, IUserData, IUser } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
 import { getUserInfo } from '../../services/actions/user';
 
@@ -31,14 +31,14 @@ export const ProfilePage: FC = () => {
     const value = e.target.value;
     setTimeout(() => nameRef.current?.focus(), 0);
     setNameValue(value);
-    value === userData?.name ? setIsInfoChanged(false) : setIsInfoChanged(true);
+    value === userData.user.name ? setIsInfoChanged(false) : setIsInfoChanged(true);
   }
 
   const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setTimeout(() => emailRef.current?.focus(), 0);
     setEmailValue(value);
-    value === userData?.email ? setIsInfoChanged(false) : setIsInfoChanged(true);
+    value === userData.user.email ? setIsInfoChanged(false) : setIsInfoChanged(true);
   }
 
   const onPassChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,8 +50,8 @@ export const ProfilePage: FC = () => {
 
   useEffect(() => {
     if (userData) {
-      setNameValue(userData.name);
-      setEmailValue(userData.email);
+      setNameValue(userData.user.name);
+      setEmailValue(userData.user.email);
       setPasswordValue(passwordValue);
     } else {
       dispatch(getUserInfo());
@@ -70,8 +70,8 @@ export const ProfilePage: FC = () => {
   }
 
   const handleCancel = () => {
-    setNameValue(userData.name);
-    setEmailValue(userData.email);
+    setNameValue(userData.user.name);
+    setEmailValue(userData.user.email);
     setPasswordValue('');
   }
 

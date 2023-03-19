@@ -6,6 +6,7 @@ import { useSelector } from '../../services/hooks';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
 import { Modal } from '../Modal/Modal';
 import { IIngredient } from '../../services/actions/ingredients';
+import { TIngredientsState } from '../../services/reducers/ingredientsReducer';
 
 interface IBI {
 	closePopup: () => void;
@@ -13,18 +14,44 @@ interface IBI {
 
 const BurgerIngredients: FC<IBI>= ({ closePopup }) => {
 	const isIngredientModalOpen = useSelector(state => state.modalState.isIngredientModalOpen);
-	const { ingredients } = useSelector((state) => state.ingredients);
+	const ingredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients);
 
-	const buns = useMemo(() => ingredients.filter((item: IIngredient) => item.type === 'bun'), [ingredients]);
-	const mains = useMemo(() => ingredients.filter((item: IIngredient) => item.type === 'main'), [ingredients]);
-	const sauces = useMemo(() => ingredients.filter((item: IIngredient) => item.type === 'sauce'), [ingredients]);
+	// const buns = useMemo(() => ingredients.filter((item: IIngredient) => item.type === 'bun'), [ingredients]);
+	// const mains = useMemo(() => ingredients.filter((item: IIngredient) => item.type === 'main'), [ingredients]);
+	// const sauces = useMemo(() => ingredients.filter((item: IIngredient) => item.type === 'sauce'), [ingredients]);
+	interface ISortIngredients {
+    buns: Array<IIngredient>;
+    mains: Array<IIngredient>;
+    sauces: Array<IIngredient>;
+  };
+
+  const { buns, mains, sauces } = useMemo(() => {
+    return ingredients.reduce<ISortIngredients>(
+      (el: any, item: IIngredient) => {
+        switch (item.type) {
+          case "bun":
+            el.buns.push(item);
+            break;
+          case "sauce":
+            el.sauces.push(item);
+            break;
+          case "main":
+            el.mains.push(item);
+            break;
+        }
+        return el;
+      },
+      { buns: [], mains: [], sauces: [] }
+    );
+  }, [ingredients]);
 
 	const bunRef = useRef<HTMLDivElement>(null);
 	const sauceRef = useRef<HTMLDivElement>(null);
 	const mainRef = useRef<HTMLDivElement>(null);
 
-	const [current, setCurrent] = useState<string>('buns');
-	const { currentIngredient, selectedIngredients } = useSelector(state => state.ingredients);
+	const [current, setCurrent] = useState('buns');
+	const { currentIngredient } = useSelector(state => state.ingredients);
+	const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients);
 
 	const handleClick = (value: string) => {
 		switch (value) {
@@ -47,7 +74,7 @@ const BurgerIngredients: FC<IBI>= ({ closePopup }) => {
 	const handleScroll = () => {
 		const lineY = scrollRef.current?.getBoundingClientRect().y;
 		const bunsOffset = Math.abs(bunRef.current!.getBoundingClientRect().y - (lineY as number));
-		const sauceOffset = Math.abs(sauceRef.current!.getBoundingClientRect().y - (lineY as number));
+		const sauceOffset = Math.abs(sauceRef.current!.getBoundingClientRect().y - (lineY as number)); 
 		const mainsOffset = Math.abs(mainRef.current!.getBoundingClientRect().y - (lineY as number));
 
 		if (bunsOffset < sauceOffset && bunsOffset < mainsOffset) setCurrent("buns");
@@ -56,7 +83,7 @@ const BurgerIngredients: FC<IBI>= ({ closePopup }) => {
 	}
 
 	const textStyle = 'text text_type_main-medium text_color_primary pb-6';
-	const listStyle = `pl-4 pr-4  ${styles.list} ${selectedIngredients.length === 0 && styles.disabled}`;
+	const listStyle = `pl-4 pr-4  ${styles.list} ${selectedIngredients?.length === 0 && styles.disabled}`;
 
 	return (
 		<section className={styles.ingredients}>
@@ -82,7 +109,7 @@ const BurgerIngredients: FC<IBI>= ({ closePopup }) => {
 						textStyle={textStyle + ' pt-10'}
 					/>
 					<IngredientCategory ref={mainRef} category={mains} heading={'Начинки'}
-						listStyle={listStyle}
+						listStyle={'pl-4 pr-4 ' + styles.list}
 						textStyle={textStyle + ' pt-10'}
 					/>
 				</div>

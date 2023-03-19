@@ -7,6 +7,7 @@ import {
   CLEAR_ORDER_DETAILS
 } from '../constants/index';
 import { AppDispatch } from "../types";
+import { setRefreshToken } from "./user";
 import { IIngredient } from "./ingredients";
 
 export interface IOrderDetails {
