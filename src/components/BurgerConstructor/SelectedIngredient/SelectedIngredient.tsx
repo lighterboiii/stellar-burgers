@@ -1,25 +1,30 @@
 import styles from './SelectedIngredient.module.css';
-import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../../services/hooks';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from "react-dnd";
-import { useRef } from 'react';
-import { DELETE_INGREDIENT } from '../../../services/constants';
-import { IngredientPropTypes } from '../../../utils/constants';
+import { FC, useRef } from 'react';
+import { deleteIngredient, IIngredient } from '../../../services/actions/ingredients';
+import { TIngredientsState } from '../../../services/reducers/ingredientsReducer';
 
-function SelectedIngredient({ ingredient, index, moveIngredient }) {
+interface ISelectedIngredient {
+  ingredient: IIngredient;
+  index: number;
+  moveIngredient:
+  (dragIndex: number,
+   hoverIndex: number,
+   selectedIngredients: Array<IIngredient>) => void;
+}
+
+const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index, moveIngredient }) => {
   const dispatch = useDispatch();
   const { image, name, price } = ingredient;
-  const selectedIngredients = useSelector(state => state.ingredients.selectedIngredients);
-
-  const handleDeleteIngredient = (item) => {
+  const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients);
+  console.log(moveIngredient)
+  const handleDeleteIngredient = (item: IIngredient) => {
     const selectedIndex = selectedIngredients.indexOf(item)
     const newIngredientsArray = selectedIngredients.slice();
     newIngredientsArray.splice(selectedIndex, 1);
-    dispatch({
-      type: DELETE_INGREDIENT,
-      payload: newIngredientsArray
-    });
+    dispatch(deleteIngredient(newIngredientsArray));
   };
 
   const [{ isDragging }, dragRef] = useDrag({
@@ -37,7 +42,7 @@ function SelectedIngredient({ ingredient, index, moveIngredient }) {
         handlerId: monitor.getHandlerId(),
       }
     },
-    hover: (item, monitor) => {
+    hover: (item: any, monitor) => {
       if (!ref.current) {
         return
       }
@@ -46,10 +51,10 @@ function SelectedIngredient({ ingredient, index, moveIngredient }) {
       if (dragIndex === hoverIndex) {
         return
       }
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const hoverBoundingRect = ref.current.getBoundingClientRect();
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
@@ -62,28 +67,22 @@ function SelectedIngredient({ ingredient, index, moveIngredient }) {
     }
   });
 
-  const ref = useRef(null);
-  const dragDropRef = dragRef(dropRef(ref));
+  const ref = useRef<HTMLLIElement>(null);
+  const dragDropRef: any = dragRef(dropRef(ref)); //TODO убрать any?
   const opacity = isDragging ? 0 : 1;
 
   return (
     <li className={'mb-4 ml-4 mr-1 ' + styles.element} ref={dragDropRef} style={{ opacity }} data-handler-id={handlerId}>
       <DragIcon type="primary" />
-      <ConstructorElement 
+      <ConstructorElement
         text={name}
         thumbnail={image}
         price={price}
         handleClose={handleDeleteIngredient}
-        index={index}
+      // index={index}
       />
     </li>
   )
 };
-
-SelectedIngredient.propTypes = {
-  ingredient: IngredientPropTypes,
-  index: PropTypes.number.isRequired,
-  moveIngredient: PropTypes.func.isRequired
-}
 
 export { SelectedIngredient };

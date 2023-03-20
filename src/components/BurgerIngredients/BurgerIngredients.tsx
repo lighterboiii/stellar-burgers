@@ -12,18 +12,15 @@ interface IBI {
 	closePopup: () => void;
 }
 
+interface ISortIngredients {
+	buns: Array<IIngredient>;
+	mains: Array<IIngredient>;
+	sauces: Array<IIngredient>;
+};
+
 const BurgerIngredients: FC<IBI>= ({ closePopup }) => {
 	const isIngredientModalOpen = useSelector(state => state.modalState.isIngredientModalOpen);
 	const ingredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients);
-
-	// const buns = useMemo(() => ingredients.filter((item: IIngredient) => item.type === 'bun'), [ingredients]);
-	// const mains = useMemo(() => ingredients.filter((item: IIngredient) => item.type === 'main'), [ingredients]);
-	// const sauces = useMemo(() => ingredients.filter((item: IIngredient) => item.type === 'sauce'), [ingredients]);
-	interface ISortIngredients {
-    buns: Array<IIngredient>;
-    mains: Array<IIngredient>;
-    sauces: Array<IIngredient>;
-  };
 
   const { buns, mains, sauces } = useMemo(() => {
     return ingredients.reduce<ISortIngredients>(

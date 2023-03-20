@@ -5,7 +5,7 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { setOrderData } from "../../services/actions/order";
 import { IIngredient, selectIngredient, sortIngredients } from '../../services/actions/ingredients';
-import { useMemo, useCallback, FC, ReactElement } from "react";
+import { useMemo, useCallback, FC } from "react";
 import { changeOrderModalStatus } from "../../services/actions/modal";
 import { deleteAllIngredients } from '../../services/actions/ingredients';
 import { useSelector, useDispatch } from '../../services/hooks';
@@ -54,7 +54,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
     },
   });
   // not-working as i want to
-  const moveIngredients = useCallback((dragIndex: number, hoverIndex: number) => {
+  const moveIngredients = useCallback((dragIndex: number, hoverIndex: number, selectedIngredients: Array<IIngredient>) => {
     dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
   }, [selectedIngredients, dispatch]);
 

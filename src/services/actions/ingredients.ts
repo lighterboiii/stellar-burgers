@@ -62,7 +62,7 @@ export interface IDeleteAllIngredients {
 
 export interface IDeleteIngredient {
   readonly type: typeof DELETE_INGREDIENT;
-  payload: null;
+  readonly payload: Array<IIngredient>;
 }
 
 export type TIngredientsActions =
@@ -80,6 +80,7 @@ export const setSortIngredients = (data: Array<IIngredient>): ISortIngredients =
 export const getIngredientsSuccess = (res: Array<IIngredient>): IGetIngredientsSuccess => ({ type: GET_INGREDIENTS_SUCCESS, payload: res });
 export const selectIngredient = (selectedIngredients: Array<IIngredient>, selectedIngredient: IIngredient | undefined): ISelectIngredient => 
   ({ type: SELECT_INGREDIENT, payload: [...selectedIngredients, selectedIngredient]});
+export const deleteIngredient = (array: Array<IIngredient>): IDeleteIngredient => ({ type: DELETE_INGREDIENT, payload: array });
 
 export const deleteAllIngredients = () => {
   return function (dispatch: AppDispatch) {
