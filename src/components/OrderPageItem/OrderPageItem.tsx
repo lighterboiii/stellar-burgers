@@ -14,8 +14,7 @@ export const OrderPageItem: FC<IOrderPageItem> = ({ ingredient, counter }) => {
     <li className={styles.wrapper}>
       <div className={styles.container}>
         <div className={styles.imgContainer}>
-          <img className={styles.image} src={ingredient.image_mobile} alt={ingredient.name}
-          />
+          <img className={styles.image} src={ingredient.image_mobile} alt={ingredient.name} />
         </div>
         <p className={'text text_type_main-default ' + styles.name}>
           {ingredient.name}

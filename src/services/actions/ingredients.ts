@@ -79,7 +79,10 @@ export const setDeleteAllIngredients = (): IDeleteAllIngredients => ({ type: DEL
 export const setSortIngredients = (data: Array<IIngredient>): ISortIngredients => ({ type: SORT_INGREDIENTS, payload: data });
 export const getIngredientsSuccess = (res: Array<IIngredient>): IGetIngredientsSuccess => ({ type: GET_INGREDIENTS_SUCCESS, payload: res });
 export const selectIngredient = (selectedIngredients: Array<IIngredient>, selectedIngredient: IIngredient | undefined): ISelectIngredient => 
-  ({ type: SELECT_INGREDIENT, payload: [...selectedIngredients, selectedIngredient]});
+  ({ type: SELECT_INGREDIENT, 
+    payload: [...selectedIngredients, selectedIngredient]
+  });
+  
 export const deleteIngredient = (array: Array<IIngredient>): IDeleteIngredient => ({ type: DELETE_INGREDIENT, payload: array });
 
 export const deleteAllIngredients = () => {

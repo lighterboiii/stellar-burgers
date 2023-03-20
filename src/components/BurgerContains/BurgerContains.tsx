@@ -19,13 +19,15 @@ export const BurgerContains: FC<IBurgerContains> = ({ ingredients }) =>  {
     return counter;
   }
 
+  const ingredientsList = Array.from(new Set(ingredients));
+
   return (
     <div className={styles.container}>
       <p className="text text_type_main-medium mb-6">Состав:</p>
       <ul className={styles.list + ' custom-scroll'}>
-        {ingredients.map((ingredient, index) => {
+        {ingredientsList.map((ingredient) => {
           return (
-            <OrderPageItem counter={counter(ingredient)} ingredient={ingredient} key={index} />
+            <OrderPageItem counter={counter(ingredient)} ingredient={ingredient} key={`${ingredient._id}`} />
           )
         })}
       </ul>

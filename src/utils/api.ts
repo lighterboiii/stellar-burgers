@@ -1,4 +1,3 @@
-import { IIngredient } from "../services/actions/ingredients";
 import {
   BURGER_API_URL, FORGOT_PASS_KEY, RESET_PASS_KEY, INGREDIENTS_KEY, ORDERS_KEY, REGISTER_USER_KEY, LOGIN_KEY, USER_KEY, TOKEN_KEY, LOGOUT_KEY
 } from "./constants";
