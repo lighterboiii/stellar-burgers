@@ -1,4 +1,5 @@
 import styles from './BurgerConstructor.module.css';
+import { v4 } from 'uuid';
 import { TopBun } from './TopBun/TopBun';
 import { BottomBun } from './BottomBun/BottomBun';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
@@ -24,7 +25,7 @@ interface IBurgerConstructor {
 const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const userData = useSelector((state: { userInfo: IUserData }) => state.userInfo.user);
   const burgerData = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients); // исправить
   const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients); // исправить
@@ -49,8 +50,9 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
     collect: monitor => ({
       isHover: monitor.isOver()
     }),
-    drop(item) {
-      handleDrop(item)
+    drop(item: any) {
+      item.uniqueId = v4();
+      handleDrop(item);
     },
   });
   // not-working as i want to
@@ -78,7 +80,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
         <TopBun />
         <ul className={'text custom-scroll ' + styles.list}>
           {notBun.map((element: IIngredient, index: number) => (
-            <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} index={index} key={`${element._id}${index}`} />
+            <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} index={index} key={element.uniqueId} />
           ))
           }
         </ul>

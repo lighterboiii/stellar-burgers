@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from '../../../services/hooks';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from "react-dnd";
 import { FC, useRef } from 'react';
+import { v4 } from 'uuid';
 import { deleteIngredient, IIngredient } from '../../../services/actions/ingredients';
 import { TIngredientsState } from '../../../services/reducers/ingredientsReducer';
 
@@ -16,10 +17,11 @@ interface ISelectedIngredient {
 }
 
 const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index, moveIngredient }) => {
+
   const dispatch = useDispatch();
   const { image, name, price } = ingredient;
   const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients);
-  console.log(moveIngredient)
+
   const handleDeleteIngredient = (item: IIngredient) => {
     const selectedIndex = selectedIngredients.indexOf(item)
     const newIngredientsArray = selectedIngredients.slice();
@@ -79,7 +81,6 @@ const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index, moveIn
         thumbnail={image}
         price={price}
         handleClose={handleDeleteIngredient}
-      // index={index}
       />
     </li>
   )

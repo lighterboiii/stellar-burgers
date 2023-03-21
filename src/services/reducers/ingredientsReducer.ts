@@ -13,7 +13,8 @@ import { TIngredientsActions } from '../actions/ingredients';
 
 export type TIngredientsState = {
   ingredients: Array<IIngredient>;
-  selectedIngredients: Array<IIngredient>; // ошибка компиллятора в BurgerIngredients (60) ??
+  bunElement: undefined,
+  selectedIngredients: Array<IIngredient>;
   currentIngredient: IIngredient | null;
   ingredientsRequest: boolean;
   ingredientsFailed: boolean;
@@ -22,6 +23,7 @@ export type TIngredientsState = {
 
 const initialState: TIngredientsState = {
   ingredients: [],
+  bunElement: undefined,
   selectedIngredients: [],
   currentIngredient: null,
   ingredientsRequest: false,

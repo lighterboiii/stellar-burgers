@@ -25,6 +25,7 @@ import { OrderPage } from '../../pages/order-page/order-page';
 import BurgerOrderDetails from '../BurgerOrderDetails/BurgerOrderDetails';
 import { Modal } from '../Modal/Modal';
 import { TUserState } from '../../services/reducers/userReducer';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ const App: FC = () => {
   const background =
     location.state?.locationFeedList ||
     location.state?.locationProfileFeed ||
+    location.state?.locationIngredientPage ||
     location;
 
   return (
@@ -69,6 +71,15 @@ const App: FC = () => {
           <Route path="/ingredients/:id" element={<IngredientPage />} />
           <Route path="*" element={<PageNotfound />} />
         </Routes>
+        {location.state?.locationIngredientPage && (
+        <Routes>
+          <Route path="/ingredients/:id" element={
+              <Modal closePopup={closePopup}>
+                <IngredientDetails />
+              </Modal>
+            } />
+        </Routes>
+      )}
         {location.state?.locationFeedList && (
           <Routes>
             <Route path="/feed/:id" element={

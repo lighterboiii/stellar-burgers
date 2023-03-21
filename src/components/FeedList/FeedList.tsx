@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { FC } from 'react';
 import { IOrderDetails } from '../../services/actions/order';
 import { OrderFeedElement } from "../OrderFeedElement/OrderFeedElement"

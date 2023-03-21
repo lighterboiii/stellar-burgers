@@ -3,14 +3,14 @@ import IngredientCategory from './IngredientCategory/IngredientCategory';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/tab";
 import { FC, useMemo, useRef, useState } from 'react';
 import { useSelector } from '../../services/hooks';
-import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { Modal } from '../Modal/Modal';
 import { IIngredient } from '../../services/actions/ingredients';
 import { TIngredientsState } from '../../services/reducers/ingredientsReducer';
 
 interface IBI {
 	closePopup: () => void;
-}
+};
 
 interface ISortIngredients {
 	buns: Array<IIngredient>;
@@ -106,16 +106,16 @@ const BurgerIngredients: FC<IBI>= ({ closePopup }) => {
 						textStyle={textStyle + ' pt-10'}
 					/>
 					<IngredientCategory ref={mainRef} category={mains} heading={'Начинки'}
-						listStyle={'pl-4 pr-4 ' + styles.list}
+						listStyle={listStyle}
 						textStyle={textStyle + ' pt-10'}
 					/>
 				</div>
 			</div>
-			{isIngredientModalOpen && (
+			{/* {isIngredientModalOpen && (
 				<Modal title={'Детали ингредиента'} closePopup={closePopup}>
 					<IngredientDetails currentIngredient={currentIngredient}/>
 				</Modal>
-			)}
+			)} */}
 		</section>
 	)
 };

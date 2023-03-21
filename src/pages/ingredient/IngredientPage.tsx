@@ -1,25 +1,31 @@
 import styles from './ingredientPage.module.css';
-import IngredientDetails from "../../components/Modal/IngredientDetails/IngredientDetails";
+import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
 import { useSelector } from '../../services/hooks';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { FC } from 'react';
 import { IIngredient } from '../../services/actions/ingredients';
 import { TIngredientsState } from '../../services/reducers/ingredientsReducer';
+import { HomePage } from '../home/home';
 
 export const IngredientPage: FC = () => {
+
   const ingredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients);
-
   let { id } = useParams();
-
-  const currentIngredient = ingredients.find((el: IIngredient) => el._id === id);
+  const currentIngredient = ingredients.find((item: IIngredient) => item._id === id);
+  const location = useLocation();
 
   return (
     <>
-      currentIngredient && (
-      <div className={styles.wrapper}>
-        <IngredientDetails currentIngredient={currentIngredient} />
-      </div>
-      )
+      {location.state?.from === "/"
+        ?
+        (<HomePage />)
+        : (
+          currentIngredient && (
+            <div className={styles.wrapper}>
+              <IngredientDetails />
+            </div>
+          )
+        )}
     </>
   )
 };

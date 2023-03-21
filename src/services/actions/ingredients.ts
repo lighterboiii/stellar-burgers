@@ -12,6 +12,7 @@ import {
 import { AppDispatch } from '../types/index.js';
 
 export interface IIngredient {
+  uniqueId: string;
   _id: string;
   name: string;
   type: string;
@@ -78,11 +79,19 @@ export type TIngredientsActions =
 export const setDeleteAllIngredients = (): IDeleteAllIngredients => ({ type: DELETE_ALL_INGREDIENTS, payload: [] });
 export const setSortIngredients = (data: Array<IIngredient>): ISortIngredients => ({ type: SORT_INGREDIENTS, payload: data });
 export const getIngredientsSuccess = (res: Array<IIngredient>): IGetIngredientsSuccess => ({ type: GET_INGREDIENTS_SUCCESS, payload: res });
-export const selectIngredient = (selectedIngredients: Array<IIngredient>, selectedIngredient: IIngredient | undefined): ISelectIngredient => 
-  ({ type: SELECT_INGREDIENT, 
+export const selectIngredient =
+  (selectedIngredients: Array<IIngredient>, selectedIngredient: IIngredient | undefined)
+    : ISelectIngredient =>
+  ({
+    type: SELECT_INGREDIENT,
     payload: [...selectedIngredients, selectedIngredient]
   });
-  
+// export const selectIngredient = (uniqueId: string, selectedIngredient: IIngredient): ISelectIngredient => 
+//   ({ type: SELECT_INGREDIENT, 
+//      id: uniqueId,
+//      payload: selectedIngredient
+//   });
+
 export const deleteIngredient = (array: Array<IIngredient>): IDeleteIngredient => ({ type: DELETE_INGREDIENT, payload: array });
 
 export const deleteAllIngredients = () => {
