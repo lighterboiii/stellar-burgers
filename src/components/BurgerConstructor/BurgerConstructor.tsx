@@ -63,12 +63,12 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
   const onOrderClick = () => {
     const dataId = notBun.map((element: IIngredient) => element._id);
     const buns = new Array(2).fill(bun);
-    const bunIds = buns.map((el) => el._id)
-    const ingredientsData = dataId.concat(bunIds)
+    const dataIds = buns.map((el) => el._id)
+    dataIds.splice(1, 0, ...dataId)
     if (!userData) {
       navigate('/login');
     } else {
-      dispatch(setOrderData(ingredientsData));
+      dispatch(setOrderData(dataIds));
       dispatch(changeOrderModalStatus(true));
       dispatch(deleteAllIngredients());
     }
@@ -83,7 +83,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
             <SelectedIngredient 
             ingredient={element}
              moveIngredient={moveIngredients} 
-             index={index} key={element.uniqueId} 
+             index={index} key={element.uniqueId}
              />
           ))
           }
