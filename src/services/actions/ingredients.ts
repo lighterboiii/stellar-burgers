@@ -86,11 +86,6 @@ export const selectIngredient =
     type: SELECT_INGREDIENT,
     payload: [...selectedIngredients, selectedIngredient]
   });
-// export const selectIngredient = (uniqueId: string, selectedIngredient: IIngredient): ISelectIngredient => 
-//   ({ type: SELECT_INGREDIENT, 
-//      id: uniqueId,
-//      payload: selectedIngredient
-//   });
 
 export const deleteIngredient = (array: Array<IIngredient>): IDeleteIngredient => ({ type: DELETE_INGREDIENT, payload: array });
 

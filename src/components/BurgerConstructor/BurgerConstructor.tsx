@@ -39,12 +39,12 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
       (acc: any, ingredient: IIngredient) =>
         ingredient === bun ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
   }, [selectedIngredients, bun]);
-  // drop listener
-  const handleDrop = (item: any) => { {/* any так как TS ругается на { isHover } & drop метод */}
+
+  const handleDrop = (item: IIngredient) => {
     const selectedIngredient = burgerData.find((ingredient: IIngredient) => ingredient._id === item._id);
     dispatch(selectIngredient(selectedIngredients, selectedIngredient))
   };
-  // drop hook
+
   const [{ isHover }, dropRef] = useDrop({
     accept: 'ingredient',
     collect: monitor => ({
@@ -55,7 +55,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
       handleDrop(item);
     },
   });
-  // not-working as i want to
+
   const moveIngredients = useCallback((dragIndex: number, hoverIndex: number, selectedIngredients: Array<IIngredient>) => {
     dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
   }, [selectedIngredients, dispatch]);
@@ -80,7 +80,11 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
         <TopBun />
         <ul className={'text custom-scroll ' + styles.list}>
           {notBun.map((element: IIngredient, index: number) => (
-            <SelectedIngredient ingredient={element} moveIngredient={moveIngredients} index={index} key={element.uniqueId} />
+            <SelectedIngredient 
+            ingredient={element}
+             moveIngredient={moveIngredients} 
+             index={index} key={element.uniqueId} 
+             />
           ))
           }
         </ul>

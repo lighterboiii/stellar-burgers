@@ -13,7 +13,6 @@ import { TIngredientsActions } from '../actions/ingredients';
 
 export type TIngredientsState = {
   ingredients: Array<IIngredient>;
-  bunElement: undefined,
   selectedIngredients: Array<IIngredient>;
   currentIngredient: IIngredient | null;
   ingredientsRequest: boolean;
@@ -23,7 +22,6 @@ export type TIngredientsState = {
 
 const initialState: TIngredientsState = {
   ingredients: [],
-  bunElement: undefined,
   selectedIngredients: [],
   currentIngredient: null,
   ingredientsRequest: false,

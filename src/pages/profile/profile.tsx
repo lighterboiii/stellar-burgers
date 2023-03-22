@@ -1,5 +1,5 @@
 import styles from './profile.module.css';
-import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Input, Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, useNavigate, Outlet, useLocation, useMatch } from "react-router-dom";
 import { FC, useEffect, useRef, useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
@@ -103,8 +103,7 @@ export const ProfilePage: FC = () => {
               value={nameValue} ref={nameRef} onChange={onNameChange} />
             <Input type='email' name='login' placeholder='Логин' icon={'EditIcon'}
               value={emailValue} ref={emailRef} onChange={onEmailChange} />
-            <Input type='password' name='password' placeholder='Пароль' icon={'EditIcon'}
-              value={passwordValue} ref={passRef} onChange={onPassChange} />
+            <PasswordInput name='password' placeholder='Пароль' value={passwordValue} onChange={onPassChange} />
             {
               isInfoChanged && (
                 <div className={styles.buttons}>
