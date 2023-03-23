@@ -5,8 +5,8 @@ import { BottomBun } from './BottomBun/BottomBun';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { setOrderData } from "../../services/actions/order";
-import { IIngredient, selectIngredient, sortIngredients } from '../../services/actions/ingredients';
-import { useMemo, useCallback, FC } from "react";
+import { IIngredient, selectBunIngredient, selectIngredient, sortIngredients } from '../../services/actions/ingredients';
+import { useMemo, FC } from "react";
 import { changeOrderModalStatus } from "../../services/actions/modal";
 import { deleteAllIngredients } from '../../services/actions/ingredients';
 import { useSelector, useDispatch } from '../../services/hooks';
@@ -42,7 +42,11 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
 
   const handleDrop = (item: IIngredient) => {
     const selectedIngredient = burgerData.find((ingredient: IIngredient) => ingredient._id === item._id);
-    dispatch(selectIngredient(selectedIngredients, selectedIngredient))
+    if (selectedIngredient?.type !== "bun") {
+      dispatch(selectIngredient(selectedIngredients, selectedIngredient))
+    } else {
+      dispatch(selectBunIngredient(selectedIngredient))
+    }
   };
 
   const [{ isHover }, dropRef] = useDrop({
@@ -55,10 +59,6 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
       handleDrop(item);
     },
   });
-
-  // const moveIngredients = useCallback((dragIndex: number, hoverIndex: number, selectedIngredients: Array<IIngredient>) => {
-  //   dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
-  // }, [selectedIngredients, dispatch]);
 
   const onOrderClick = () => {
     const dataId = notBun.map((element: IIngredient) => element._id);
@@ -79,12 +79,11 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
       <div className={`mb-10 mt-25`}>
         <TopBun />
         <ul className={'text custom-scroll ' + styles.list}>
-          {notBun.map((element: IIngredient, index: number) => (
-            <SelectedIngredient 
-            ingredient={element}
-            //  moveIngredient={moveIngredients} 
-             index={index} key={element.uniqueId}
-             />
+          {selectedIngredients.map((element: IIngredient, index: number) => (
+            <SelectedIngredient
+              ingredient={element}
+              index={index} key={element.uniqueId}
+            />
           ))
           }
         </ul>
@@ -92,7 +91,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
       </div>
       {selectedIngredients.length > 0 && bun ?
         <div className={'mr-4 ' + styles.total}>
-          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon type='primary'/>}</span>
+          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon type='primary' />}</span>
           <Button size="large" type="primary" htmlType='button' onClick={onOrderClick}>Оформить заказ</Button>
         </div> :
         <div className={'mr-4 ' + styles.total}>

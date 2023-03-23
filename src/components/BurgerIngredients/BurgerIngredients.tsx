@@ -47,8 +47,7 @@ const BurgerIngredients: FC<IBI>= ({ closePopup }) => {
 	const mainRef = useRef<HTMLDivElement>(null);
 
 	const [current, setCurrent] = useState('buns');
-	const { currentIngredient } = useSelector(state => state.ingredients);
-	const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients);
+	const bunElement = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.bunElement)
 
 	const handleClick = (value: string) => {
 		switch (value) {
@@ -80,7 +79,7 @@ const BurgerIngredients: FC<IBI>= ({ closePopup }) => {
 	}
 
 	const textStyle = 'text text_type_main-medium text_color_primary pb-6';
-	const listStyle = `pl-4 pr-4  ${styles.list} ${selectedIngredients?.length === 0 && styles.disabled}`;
+	const listStyle = `pl-4 pr-4  ${styles.list} ${!bunElement && styles.disabled}`;
 
 	return (
 		<section className={styles.ingredients}>
@@ -111,11 +110,6 @@ const BurgerIngredients: FC<IBI>= ({ closePopup }) => {
 					/>
 				</div>
 			</div>
-			{/* {isIngredientModalOpen && (
-				<Modal title={'Детали ингредиента'} closePopup={closePopup}>
-					<IngredientDetails currentIngredient={currentIngredient}/>
-				</Modal>
-			)} */}
 		</section>
 	)
 };

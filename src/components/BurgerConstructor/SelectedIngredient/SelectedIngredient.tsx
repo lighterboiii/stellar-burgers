@@ -9,10 +9,6 @@ import { TIngredientsState } from '../../../services/reducers/ingredientsReducer
 interface ISelectedIngredient {
   ingredient: IIngredient;
   index: number;
-  // moveIngredient:
-  // (dragIndex: number,
-  //   hoverIndex: number,
-  //   selectedIngredients: Array<IIngredient>) => void;
 }
 
 const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index }) => {
@@ -20,7 +16,6 @@ const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index }) => {
   const dispatch = useDispatch();
   const { image, name, price } = ingredient;
   const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients);
-  const notBun = useMemo(() => selectedIngredients.filter((ingredient: IIngredient) => ingredient.type !== 'bun'), [selectedIngredients]);
 
   const handleDeleteIngredient = (item: IIngredient) => {
     const selectedIndex = selectedIngredients.indexOf(item)
@@ -64,7 +59,7 @@ const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index }) => {
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
-      dispatch(sortIngredients(dragIndex, hoverIndex, notBun));
+      dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
       item.uniqueId = hoverIndex;
     }
   });

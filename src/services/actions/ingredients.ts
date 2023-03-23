@@ -7,6 +7,7 @@ import {
   DELETE_ALL_INGREDIENTS,
   SORT_INGREDIENTS,
   SELECT_INGREDIENT,
+  SELECT_BUN_INGREDIENT,
   DELETE_INGREDIENT
 } from '../constants/index';
 import { AppDispatch } from '../types/index.js';
@@ -56,6 +57,11 @@ export interface ISelectIngredient {
   payload: [...Array<IIngredient>, IIngredient | undefined];
 }
 
+export interface ISelectBunIngredient {
+  readonly type: typeof SELECT_BUN_INGREDIENT;
+  readonly payload: IIngredient | undefined;
+}
+
 export interface IDeleteAllIngredients {
   readonly type: typeof DELETE_ALL_INGREDIENTS;
   readonly payload: Array<null>;
@@ -73,19 +79,25 @@ export type TIngredientsActions =
   | IOpenIngredientInfo
   | ISortIngredients
   | ISelectIngredient
+  | ISelectBunIngredient
   | IDeleteAllIngredients
   | IDeleteIngredient;
 
 export const setDeleteAllIngredients = (): IDeleteAllIngredients => ({ type: DELETE_ALL_INGREDIENTS, payload: [] });
 export const setSortIngredients = (data: Array<IIngredient>): ISortIngredients => ({ type: SORT_INGREDIENTS, payload: data });
 export const getIngredientsSuccess = (res: Array<IIngredient>): IGetIngredientsSuccess => ({ type: GET_INGREDIENTS_SUCCESS, payload: res });
-export const selectIngredient =
-  (selectedIngredients: Array<IIngredient>, selectedIngredient: IIngredient | undefined)
-    : ISelectIngredient =>
-  ({
-    type: SELECT_INGREDIENT,
-    payload: [...selectedIngredients, selectedIngredient]
-  });
+export const selectIngredient = (selectedIngredients: Array<IIngredient>, selectedIngredient: IIngredient | undefined)
+  : ISelectIngredient =>
+({
+  type: SELECT_INGREDIENT,
+  payload: [...selectedIngredients, selectedIngredient]
+});
+
+export const selectBunIngredient = (selectedIngredient: IIngredient | undefined): ISelectBunIngredient =>
+({
+  type: SELECT_BUN_INGREDIENT,
+  payload: selectedIngredient
+});
 
 export const deleteIngredient = (array: Array<IIngredient>): IDeleteIngredient => ({ type: DELETE_INGREDIENT, payload: array });
 
