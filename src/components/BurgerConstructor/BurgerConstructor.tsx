@@ -56,9 +56,9 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
     },
   });
 
-  const moveIngredients = useCallback((dragIndex: number, hoverIndex: number, selectedIngredients: Array<IIngredient>) => {
-    dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
-  }, [selectedIngredients, dispatch]);
+  // const moveIngredients = useCallback((dragIndex: number, hoverIndex: number, selectedIngredients: Array<IIngredient>) => {
+  //   dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
+  // }, [selectedIngredients, dispatch]);
 
   const onOrderClick = () => {
     const dataId = notBun.map((element: IIngredient) => element._id);
@@ -82,7 +82,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
           {notBun.map((element: IIngredient, index: number) => (
             <SelectedIngredient 
             ingredient={element}
-             moveIngredient={moveIngredients} 
+            //  moveIngredient={moveIngredients} 
              index={index} key={element.uniqueId}
              />
           ))

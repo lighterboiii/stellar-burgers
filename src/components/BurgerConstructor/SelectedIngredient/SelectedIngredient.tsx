@@ -2,25 +2,25 @@ import styles from './SelectedIngredient.module.css';
 import { useSelector, useDispatch } from '../../../services/hooks';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from "react-dnd";
-import { FC, useRef } from 'react';
-import { v4 } from 'uuid';
-import { deleteIngredient, IIngredient } from '../../../services/actions/ingredients';
+import { FC, useRef, useMemo } from 'react';
+import { deleteIngredient, IIngredient, sortIngredients } from '../../../services/actions/ingredients';
 import { TIngredientsState } from '../../../services/reducers/ingredientsReducer';
 
 interface ISelectedIngredient {
   ingredient: IIngredient;
   index: number;
-  moveIngredient:
-  (dragIndex: number,
-   hoverIndex: number,
-   selectedIngredients: Array<IIngredient>) => void;
+  // moveIngredient:
+  // (dragIndex: number,
+  //   hoverIndex: number,
+  //   selectedIngredients: Array<IIngredient>) => void;
 }
 
-const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index, moveIngredient }) => {
+const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index }) => {
 
   const dispatch = useDispatch();
   const { image, name, price } = ingredient;
   const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients);
+  const notBun = useMemo(() => selectedIngredients.filter((ingredient: IIngredient) => ingredient.type !== 'bun'), [selectedIngredients]);
 
   const handleDeleteIngredient = (item: IIngredient) => {
     const selectedIndex = selectedIngredients.indexOf(item)
@@ -48,7 +48,7 @@ const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index, moveIn
       if (!ref.current) {
         return
       }
-      const dragIndex = item.index;
+      const dragIndex = item.uniqueId;
       const hoverIndex = index;
       if (dragIndex === hoverIndex) {
         return
@@ -57,15 +57,15 @@ const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index, moveIn
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
       const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
-      }
+
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-
-      moveIngredient(dragIndex, hoverIndex, selectedIngredients);
-      item.index = hoverIndex;
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      }
+      dispatch(sortIngredients(dragIndex, hoverIndex, notBun));
+      item.uniqueId = hoverIndex;
     }
   });
 
