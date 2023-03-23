@@ -2,7 +2,7 @@ import styles from './profile-feed.module.css';
 import { FeedList } from '../../components/FeedList/FeedList';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { useEffect, FC } from 'react';
-import { getUserInfo } from '../../services/actions/user';
+import { getUserInfo } from '../../services/actions/userActions';
 import { IWsMessage, wsConnectionClosed, wsConnectionStart } from '../../services/actions/wsActions';
 import { wsUrl } from '../../utils/constants';
 import { getCookie } from '../../utils/cookie';
@@ -18,7 +18,7 @@ export const ProfileFeedPage: FC = () => {
     return () => {
       dispatch(wsConnectionClosed());
     };
-  }, [])
+  }, [accessToken, dispatch])
 
   useEffect(() => {
     if (error) {

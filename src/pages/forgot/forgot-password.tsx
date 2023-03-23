@@ -7,7 +7,7 @@ import {
 import { useDispatch } from '../../services/hooks';
 import { Link, useNavigate } from "react-router-dom";
 import { forgotPasswordRequest } from '../../utils/api';
-import { setForgotPassword } from '../../services/actions/user';
+import { setForgotPassword } from '../../services/actions/userActions';
 
 export const ForgotPage: FC = () => {
   const [email, setEmail] = useState('');

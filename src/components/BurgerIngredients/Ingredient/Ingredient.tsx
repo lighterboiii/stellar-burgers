@@ -4,10 +4,10 @@ import { useDrag } from "react-dnd";
 import styles from './Ingredient.module.css';
 import { v4 } from "uuid";
 import { useDispatch, useSelector } from 'react-redux';
-import { changeIngredientModalStatus } from "../../../services/actions/modal";
-import { currentIngredient } from "../../../services/actions/ingredients";
+import { changeIngredientModalStatus } from "../../../services/actions/modalActions";
+import { currentIngredient } from "../../../services/actions/ingredientsActions";
 import { MouseEvent, FC } from "react";
-import { IIngredient } from "../../../services/actions/ingredients";
+import { IIngredient } from "../../../services/actions/ingredientsActions";
 import { TIngredientsState } from "../../../services/reducers/ingredientsReducer";
 import { Link, useLocation } from "react-router-dom";
 

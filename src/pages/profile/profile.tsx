@@ -1,11 +1,11 @@
 import styles from './profile.module.css';
-import { Input, Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, useNavigate, Outlet, useLocation, useMatch } from "react-router-dom";
 import { FC, useEffect, useRef, useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
-import { setLogout, sendUserInfo, IUserData } from '../../services/actions/user';
+import { setLogout, sendUserInfo, IUserData } from '../../services/actions/userActions';
 import { getCookie } from '../../utils/cookie';
-import { getUserInfo } from '../../services/actions/user';
+import { getUserInfo } from '../../services/actions/userActions';
 
 export const ProfilePage: FC = () => {
   const dispatch = useDispatch();

@@ -6,7 +6,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import { setLogin } from '../../services/actions/user';
+import { setLogin } from '../../services/actions/userActions';
 import { useDispatch } from '../../services/hooks';
 
 export const LoginPage: FC = () => {

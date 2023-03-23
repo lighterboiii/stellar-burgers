@@ -1,7 +1,7 @@
 import styles from './OrderPageItem.module.css';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FC } from 'react';
-import { IIngredient } from '../../services/actions/ingredients';
+import { IIngredient } from '../../services/actions/ingredientsActions';
 
 interface IOrderPageItem {
   ingredient: IIngredient;

@@ -3,7 +3,7 @@ import {
   OPEN_INGREDIENTS_MODAL,
   OPEN_BURGER_DETAILS_MODAL
 } from '../constants/index';
-import { TModalActions } from '../actions/modal';
+import { TModalActions } from '../actions/modalActions';
 
 export type TModalState = {
   isOrderDetailsModalOpen: boolean;

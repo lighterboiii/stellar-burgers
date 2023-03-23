@@ -2,7 +2,7 @@ import styles from './home.module.css';
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
 import { useDispatch, useSelector } from '../../services/hooks';
-import { changeIngredientModalStatus, changeOrderModalStatus } from '../../services/actions/modal';
+import { changeIngredientModalStatus, changeOrderModalStatus } from '../../services/actions/modalActions';
 import { FC } from 'react';
 
 export const HomePage: FC = () => {
@@ -16,7 +16,7 @@ export const HomePage: FC = () => {
 
   return (
     <main className={styles.main}>
-      <BurgerIngredients closePopup={closePopup} />
+      <BurgerIngredients />
       <BurgerConstructor closePopup={closePopup} />
     </main>
   )

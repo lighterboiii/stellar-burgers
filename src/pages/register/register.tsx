@@ -1,6 +1,6 @@
 import { useState, FormEvent, FC, ChangeEvent } from 'react';
 import styles from './register.module.css';
-import { IUserData } from '../../services/actions/user';
+import { IUserData } from '../../services/actions/userActions';
 import {
   Input,
   PasswordInput,
@@ -9,7 +9,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from '../../services/hooks';
-import { setRegistration } from '../../services/actions/user';
+import { setRegistration } from '../../services/actions/userActions';
 
 export const RegisterPage: FC = () => {
   const [name, setName] = useState('');

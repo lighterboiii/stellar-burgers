@@ -4,18 +4,18 @@ import { TopBun } from './TopBun/TopBun';
 import { BottomBun } from './BottomBun/BottomBun';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
-import { setOrderData } from "../../services/actions/order";
-import { IIngredient, selectBunIngredient, selectIngredient, sortIngredients } from '../../services/actions/ingredients';
+import { setOrderData } from "../../services/actions/orderActions";
+import { IIngredient, selectBunIngredient, selectIngredient } from '../../services/actions/ingredientsActions';
 import { useMemo, FC } from "react";
-import { changeOrderModalStatus } from "../../services/actions/modal";
-import { deleteAllIngredients } from '../../services/actions/ingredients';
+import { changeOrderModalStatus } from "../../services/actions/modalActions";
+import { deleteAllIngredients } from '../../services/actions/ingredientsActions';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { useDrop } from "react-dnd"
 import { SelectedIngredient } from "./SelectedIngredient/SelectedIngredient";
 import { Modal } from '../Modal/Modal';
 import OrderDetails from '../Modal/OrderDetails/OrderDetails';
 import { useNavigate } from 'react-router-dom';
-import { IUserData } from '../../services/actions/user';
+import { IUserData } from '../../services/actions/userActions';
 import { TIngredientsState } from '../../services/reducers/ingredientsReducer';
 
 interface IBurgerConstructor {
@@ -33,6 +33,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
 
   const notBun = useMemo(() => selectedIngredients.filter((ingredient: IIngredient) => ingredient.type !== 'bun'), [selectedIngredients]);
   const bun = useMemo(() => selectedIngredients.find((ingredient: IIngredient) => ingredient.type === 'bun'), [selectedIngredients]);
+  const bunElement = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.bunElement);
 
   const sum = useMemo(() => {
     return selectedIngredients.reduce(
@@ -62,7 +63,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
 
   const onOrderClick = () => {
     const dataId = notBun.map((element: IIngredient) => element._id);
-    const buns = new Array(2).fill(bun);
+    const buns = new Array(2).fill(bunElement);
     const dataIds = buns.map((el) => el._id)
     dataIds.splice(1, 0, ...dataId)
     if (!userData) {
@@ -89,7 +90,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
         </ul>
         <BottomBun />
       </div>
-      {selectedIngredients.length > 0 && bun ?
+      {selectedIngredients.length > 0 && bunElement ?
         <div className={'mr-4 ' + styles.total}>
           <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon type='primary' />}</span>
           <Button size="large" type="primary" htmlType='button' onClick={onOrderClick}>Оформить заказ</Button>

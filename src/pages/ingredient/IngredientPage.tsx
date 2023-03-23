@@ -3,7 +3,7 @@ import IngredientDetails from "../../components/IngredientDetails/IngredientDeta
 import { useSelector } from '../../services/hooks';
 import { useParams, useLocation } from 'react-router-dom';
 import { FC } from 'react';
-import { IIngredient } from '../../services/actions/ingredients';
+import { IIngredient } from '../../services/actions/ingredientsActions';
 import { TIngredientsState } from '../../services/reducers/ingredientsReducer';
 import { HomePage } from '../home/home';
 

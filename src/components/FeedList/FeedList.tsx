@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { IOrderDetails } from '../../services/actions/order';
+import { IOrderDetails } from '../../services/actions/orderActions';
 import { OrderFeedElement } from "../OrderFeedElement/OrderFeedElement"
 import styles from './FeedList.module.css';
 

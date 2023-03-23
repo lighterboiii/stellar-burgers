@@ -1,10 +1,8 @@
 import { useSelector } from "../services/hooks";
 import { useMatch } from "react-router-dom";
-import { FC } from "react";
-import { IOrderDetails } from "../services/actions/order";
-import Ingredient from "../components/BurgerIngredients/Ingredient/Ingredient";
+import { IOrderDetails } from "../services/actions/orderActions";
 import { TIngredientsState } from "../services/reducers/ingredientsReducer";
-import { IIngredient } from "../services/actions/ingredients";
+import { IIngredient } from "../services/actions/ingredientsActions";
 
 export const useOrderData = (order: IOrderDetails | undefined) => {
   const ingredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients);

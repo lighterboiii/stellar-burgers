@@ -9,8 +9,8 @@ import {
   OPEN_INGREDIENT_INFO,
   DELETE_ALL_INGREDIENTS
 } from '../constants/index';
-import { IIngredient } from '../actions/ingredients';
-import { TIngredientsActions } from '../actions/ingredients';
+import { IIngredient } from '../actions/ingredientsActions';
+import { TIngredientsActions } from '../actions/ingredientsActions';
 
 export type TIngredientsState = {
   ingredients: Array<IIngredient>;
@@ -72,7 +72,7 @@ export const ingredientsReducer = (state = initialState, action: TIngredientsAct
         ...state,
         bunElement: action.payload,
       }
-    }; 
+    }
     case DELETE_INGREDIENT: {
       return {
         ...state,

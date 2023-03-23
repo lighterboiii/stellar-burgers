@@ -4,8 +4,8 @@ import {
   LOGOUT, LOGOUT_FAILED, LOGOUT_SUCCESS,
   SET_USER_DATA, SET_USER_DATA_SUCCESS, SET_USER_DATA_FAILED, SET_FORGOT_PASSWORD
 } from '../constants/index';
-import { IUser } from '../actions/user';
-import { TUserActions } from '../actions/user';
+import { IUser } from '../actions/userActions';
+import { TUserActions } from '../actions/userActions';
 
 export type TUserState = {
   loginRequest: boolean;

@@ -1,8 +1,7 @@
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { useSelector } from "../../../services/hooks";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TIngredientsState } from "../../../services/reducers/ingredientsReducer";
-import { IIngredient } from "../../../services/actions/ingredients";
 
 export const BottomBun: FC = () => {
 

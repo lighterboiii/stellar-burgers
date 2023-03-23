@@ -1,8 +1,7 @@
 import styles from './OrderImagesList.module.css';
-import PropTypes from 'prop-types';
 import { OrderIngredientImage } from "../OrderIngredientImage/OrderIngredientImage";
 import { FC } from 'react';
-import { IIngredient } from '../../services/actions/ingredients';
+import { IIngredient } from '../../services/actions/ingredientsActions';
 
 interface IOrderImagesList {
   ingredients: Array<IIngredient>;

@@ -9,7 +9,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { resetPasswordRequest } from '../../utils/api';
 import { useSelector, useDispatch } from '../../services/hooks';
-import { IUserData, setForgotPassword } from '../../services/actions/user';
+import { IUserData, setForgotPassword } from '../../services/actions/userActions';
 
 export const ResetPage: FC = () => {
   const [password, setPassword] = useState('');

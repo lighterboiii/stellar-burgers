@@ -5,7 +5,7 @@ import {
   WS_GET_MESSAGE
 } from '../constants/index';
 import { TWSActions } from '../actions/wsActions';
-import { IOrderDetails } from '../actions/order';
+import { IOrderDetails } from '../actions/orderActions';
 
 export type TSocketState = {
   wsConnected: boolean;

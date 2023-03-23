@@ -1,6 +1,6 @@
 import Ingredient from "../Ingredient/Ingredient";
-import { FC, forwardRef } from 'react';
-import { IIngredient } from "../../../services/actions/ingredients";
+import { forwardRef } from 'react';
+import { IIngredient } from "../../../services/actions/ingredientsActions";
 
 interface IIngredientCategory {
   category: Array<IIngredient>;

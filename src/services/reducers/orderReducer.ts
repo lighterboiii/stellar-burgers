@@ -3,8 +3,8 @@ import {
   SET_ORDER_DETAILS_SUCCESS,
   SET_ORDER_DETAILS_FAILED,
 } from '../constants/index';
-import { IOrderDetails } from '../actions/order';
-import { TOrderActions } from '../actions/order';
+import { IOrderDetails } from '../actions/orderActions';
+import { TOrderActions } from '../actions/orderActions';
 
 export type TOrderState = {
   orderDetails: Array<IOrderDetails>;

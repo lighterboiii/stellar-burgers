@@ -2,8 +2,8 @@ import styles from './SelectedIngredient.module.css';
 import { useSelector, useDispatch } from '../../../services/hooks';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from "react-dnd";
-import { FC, useRef, useMemo } from 'react';
-import { deleteIngredient, IIngredient, sortIngredients } from '../../../services/actions/ingredients';
+import { FC, useRef } from 'react';
+import { deleteIngredient, IIngredient, sortIngredients } from '../../../services/actions/ingredientsActions';
 import { TIngredientsState } from '../../../services/reducers/ingredientsReducer';
 
 interface ISelectedIngredient {

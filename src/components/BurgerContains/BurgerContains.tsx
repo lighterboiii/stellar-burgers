@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IIngredient } from "../../services/actions/ingredients";
+import { IIngredient } from "../../services/actions/ingredientsActions";
 import { OrderPageItem } from "../OrderPageItem/OrderPageItem";
 import styles from './BurgerContains.module.css';
 

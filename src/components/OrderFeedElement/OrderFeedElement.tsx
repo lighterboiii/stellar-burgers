@@ -5,7 +5,7 @@ import { OrderImagesList } from '../OrderImagesList/OrderImagesList';
 import { FC, useEffect } from 'react';
 import { useState } from 'react';
 import { useOrderData } from '../../hooks/useOrderData';
-import { IOrderDetails } from '../../services/actions/order';
+import { IOrderDetails } from '../../services/actions/orderActions';
 
 interface IOrderFeedElement {
   order: IOrderDetails;

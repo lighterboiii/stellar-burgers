@@ -3,14 +3,8 @@ import IngredientCategory from './IngredientCategory/IngredientCategory';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/tab";
 import { FC, useMemo, useRef, useState } from 'react';
 import { useSelector } from '../../services/hooks';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import { Modal } from '../Modal/Modal';
-import { IIngredient } from '../../services/actions/ingredients';
+import { IIngredient } from '../../services/actions/ingredientsActions';
 import { TIngredientsState } from '../../services/reducers/ingredientsReducer';
-
-interface IBI {
-	closePopup: () => void;
-};
 
 interface ISortIngredients {
 	buns: Array<IIngredient>;
@@ -18,8 +12,7 @@ interface ISortIngredients {
 	sauces: Array<IIngredient>;
 };
 
-const BurgerIngredients: FC<IBI>= ({ closePopup }) => {
-	const isIngredientModalOpen = useSelector(state => state.modalState.isIngredientModalOpen);
+const BurgerIngredients: FC = () => {
 	const ingredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients);
 
   const { buns, mains, sauces } = useMemo(() => {

@@ -2,7 +2,7 @@ import styles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { getIngredientsData } from '../../services/actions/ingredients';
+import { getIngredientsData } from '../../services/actions/ingredientsActions';
 /* eslint-disable*/
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 /* eslint-enable */
@@ -19,7 +19,7 @@ import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { IngredientPage } from '../../pages/ingredient/IngredientPage';
 import { ProfileFeedPage } from '../../pages/profile-feed/profile-feed';
 import { FeedPage } from '../../pages/feed/feed';
-import { getUserInfo, IUserData } from '../../services/actions/user';
+import { getUserInfo } from '../../services/actions/userActions';
 import { getCookie } from '../../utils/cookie';
 import { OrderPage } from '../../pages/order-page/order-page';
 import BurgerOrderDetails from '../BurgerOrderDetails/BurgerOrderDetails';

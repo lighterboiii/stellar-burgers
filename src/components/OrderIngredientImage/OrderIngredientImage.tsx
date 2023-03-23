@@ -1,6 +1,6 @@
 import styles from './OrderIngredientImage.module.css';
 import { FC } from 'react';
-import { IIngredient } from '../../services/actions/ingredients';
+import { IIngredient } from '../../services/actions/ingredientsActions';
 
 interface IOrderIngredientImage {
   showMore: boolean;
