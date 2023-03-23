@@ -1,17 +1,15 @@
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { useSelector } from "../../../services/hooks";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IIngredient } from "../../../services/actions/ingredients";
 import { TIngredientsState } from "../../../services/reducers/ingredientsReducer";
 
 export const TopBun: FC = () => {
-  const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients);
-  const bun = useMemo(() => selectedIngredients.find((ingredient: IIngredient) => ingredient.type === 'bun'), [selectedIngredients]);
-
+  const bun = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.bunElement);
+  
   return (
     <div className={'mb-4 ml-4 mr-4 pl-8'}>
-      {bun &&
-        selectedIngredients.length > 0 ? <ConstructorElement
+      {bun ?
+        <ConstructorElement
         type="top"
         isLocked={true}
         text={bun.name + ' (верх)'}

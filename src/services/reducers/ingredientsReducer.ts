@@ -3,6 +3,7 @@ import {
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_SUCCESS,
   SELECT_INGREDIENT,
+  SELECT_BUN_INGREDIENT,
   DELETE_INGREDIENT,
   SORT_INGREDIENTS,
   OPEN_INGREDIENT_INFO,
@@ -14,6 +15,7 @@ import { TIngredientsActions } from '../actions/ingredients';
 export type TIngredientsState = {
   ingredients: Array<IIngredient>;
   selectedIngredients: Array<IIngredient>;
+  bunElement: IIngredient | undefined,
   currentIngredient: IIngredient | null;
   ingredientsRequest: boolean;
   ingredientsFailed: boolean;
@@ -23,6 +25,7 @@ export type TIngredientsState = {
 const initialState: TIngredientsState = {
   ingredients: [],
   selectedIngredients: [],
+  bunElement: undefined,
   currentIngredient: null,
   ingredientsRequest: false,
   ingredientsFailed: false,
@@ -61,7 +64,13 @@ export const ingredientsReducer = (state = initialState, action: TIngredientsAct
     case SELECT_INGREDIENT: {
       return {
         ...state,
-        selectedIngredients: action.payload
+        selectedIngredients: action.payload,
+      }
+    }
+    case SELECT_BUN_INGREDIENT: {
+      return {
+        ...state,
+        bunElement: action.payload,
       }
     }
     case DELETE_INGREDIENT: {
