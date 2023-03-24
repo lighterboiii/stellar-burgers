@@ -57,7 +57,7 @@ export const ProfilePage: FC = () => {
       dispatch(getUserInfo());
       navigate('/profile', { replace: true })
     }
-  }, [])
+  }, [userData])
 
   const handleLogout = () => {
     const refreshToken = getCookie("refreshToken");

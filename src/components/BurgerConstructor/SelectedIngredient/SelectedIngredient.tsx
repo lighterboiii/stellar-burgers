@@ -45,6 +45,7 @@ const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index }) => {
       }
       const dragIndex = item.uniqueId;
       const hoverIndex = index;
+      console.log(hoverIndex)
       if (dragIndex === hoverIndex) {
         return
       }

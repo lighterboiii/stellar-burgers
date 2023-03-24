@@ -27,19 +27,22 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
   const navigate = useNavigate();
 
   const userData = useSelector((state: { userInfo: IUserData }) => state.userInfo.user);
-  const burgerData = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients); // исправить
-  const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients); // исправить
+  const burgerData = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients);
+  const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients);
   const isOrderModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
 
-  const notBun = useMemo(() => selectedIngredients.filter((ingredient: IIngredient) => ingredient.type !== 'bun'), [selectedIngredients]);
-  const bun = useMemo(() => selectedIngredients.find((ingredient: IIngredient) => ingredient.type === 'bun'), [selectedIngredients]);
   const bunElement = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.bunElement);
+  
+  const bunPrice = useMemo(() => {
+    return bunElement === undefined ? 0 : bunElement.price * 2;
+  }, [bunElement]);
+  const ingredientsPrice = useMemo(() => {
+    return selectedIngredients.reduce((acc: any, ingredient: IIngredient) => acc + ingredient.price, 0);
+  }, [selectedIngredients])
+  const totalPrice = useMemo(() => {
+    return bunElement === undefined ? ingredientsPrice : bunPrice + ingredientsPrice;
+  }, [bunPrice, ingredientsPrice, bunElement])
 
-  const sum = useMemo(() => {
-    return selectedIngredients.reduce(
-      (acc: any, ingredient: IIngredient) =>
-        ingredient === bun ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
-  }, [selectedIngredients, bun]);
 
   const handleDrop = (item: IIngredient) => {
     const selectedIngredient = burgerData.find((ingredient: IIngredient) => ingredient._id === item._id);
@@ -62,7 +65,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
   });
 
   const onOrderClick = () => {
-    const dataId = notBun.map((element: IIngredient) => element._id);
+    const dataId = selectedIngredients.map((element: IIngredient) => element._id);
     const buns = new Array(2).fill(bunElement);
     const dataIds = buns.map((el) => el._id)
     dataIds.splice(1, 0, ...dataId)
@@ -90,13 +93,13 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
         </ul>
         <BottomBun />
       </div>
-      {selectedIngredients.length > 0 && bunElement ?
+      {bunElement ?
         <div className={'mr-4 ' + styles.total}>
-          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon type='primary' />}</span>
+          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{totalPrice}{<CurrencyIcon type='primary' />}</span>
           <Button size="large" type="primary" htmlType='button' onClick={onOrderClick}>Оформить заказ</Button>
         </div> :
         <div className={'mr-4 ' + styles.total}>
-          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon type='primary' />}</span>
+          <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{totalPrice}{<CurrencyIcon type='primary' />}</span>
           <Button size="large" type="secondary" htmlType='button' disabled onClick={onOrderClick}>Оформить заказ</Button>
         </div>
       }
