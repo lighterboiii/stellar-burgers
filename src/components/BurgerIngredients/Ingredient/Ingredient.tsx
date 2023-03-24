@@ -17,6 +17,8 @@ interface IIngredientComponent {
 
 const Ingredient: FC<IIngredientComponent> = ({ ingredient }) => {
   const { image, name, price, _id } = ingredient;
+  
+  const bunElement = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.bunElement);
   const burgerData = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients);
   const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients);
   const dispatch = useDispatch();
@@ -36,8 +38,11 @@ const Ingredient: FC<IIngredientComponent> = ({ ingredient }) => {
     dispatch(currentIngredient(current));
     dispatch(changeIngredientModalStatus(true));
   };
-
+ 
   let counter = 0;
+  if (bunElement) {
+    counter += 2
+  }
   selectedIngredients.forEach((ingredient: IIngredient) => {
     ingredient.name === name && (ingredient.type === 'bun' ? counter += 2 : counter += 1);
   });

@@ -27,11 +27,10 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
   const navigate = useNavigate();
 
   const userData = useSelector((state: { userInfo: IUserData }) => state.userInfo.user);
+  const bunElement = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.bunElement);
   const burgerData = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients);
   const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients);
   const isOrderModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
-
-  const bunElement = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.bunElement);
   
   const bunPrice = useMemo(() => {
     return bunElement === undefined ? 0 : bunElement.price * 2;
