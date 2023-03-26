@@ -1,5 +1,5 @@
 import styles from './BurgerConstructor.module.css';
-import { v4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { TopBun } from './TopBun/TopBun';
 import { BottomBun } from './BottomBun/BottomBun';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
@@ -58,7 +58,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
       isHover: monitor.isOver()
     }),
     drop(item: any) {
-      item.uniqueId = v4();
+      item.uniqueId = uuidv4();
       handleDrop(item);
     },
   });

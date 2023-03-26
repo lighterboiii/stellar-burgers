@@ -2,7 +2,6 @@ import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { useDrag } from "react-dnd";
 import styles from './Ingredient.module.css';
-import { v4 } from "uuid";
 import { useDispatch, useSelector } from 'react-redux';
 import { changeIngredientModalStatus } from "../../../services/actions/modalActions";
 import { currentIngredient } from "../../../services/actions/ingredientsActions";
@@ -57,8 +56,8 @@ const Ingredient: FC<IIngredientComponent> = ({ ingredient }) => {
   const addCounter = (ingredientId: string) => counter[ingredientId];
 
   return (
-    <li id={_id} key={v4()} className={`${styles.listItem} ${isDrag && styles.dragging}`} onClick={handleIngClick} ref={dragRef} >
-      {<Counter count={addCounter(ingredient._id)} size={'default'} />}
+    <li id={_id} className={`${styles.listItem} ${isDrag && styles.dragging}`} onClick={handleIngClick} ref={dragRef} >
+      {addCounter(ingredient._id) !== 0 && <Counter count={addCounter(ingredient._id)} size={'default'} />}
       <Link to={`/ingredients/${ingredient._id}`} state={{ locationIngredientPage: location }} className={styles.link}>
         <img src={image} alt={name} className={'mr-4 ml-4'} />
         <p className={'mt-1 mb-1 text text_type_digits-default text_color_primary ' + styles.paragraph}>
