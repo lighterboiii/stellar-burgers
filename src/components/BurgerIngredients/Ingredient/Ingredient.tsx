@@ -52,7 +52,7 @@ const Ingredient: FC<IIngredientComponent> = ({ ingredient }) => {
       getCounter[bunElement._id] = 2;
     }
     return getCounter;
-  }, [burgerData, selectedIngredients]);
+  }, [burgerData, selectedIngredients, bunElement]);
   const addCounter = (ingredientId: string) => counter[ingredientId];
 
   return (
