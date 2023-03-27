@@ -10,15 +10,16 @@ import { getCookie } from '../../utils/cookie';
 export const ProfileFeedPage: FC = () => {
   const dispatch = useDispatch();
   const accessToken = getCookie("accessToken")?.split("Bearer ")[1];
-  const { error } = useSelector((state) => state.socketReducer);
-  const orders = useSelector((state: { socketReducer: IWsMessage } ) => state.socketReducer.orders);
+  const { orders, error } = useSelector((store) => store.socketReducer);
+  // const { error } = useSelector((state) => state.socketReducer);
+  // const orders = useSelector((state: { socketReducer: IWsMessage } ) => state.socketReducer.orders);
   
   useEffect(() => {
     dispatch(wsConnectionStart(`${wsUrl}?token=${accessToken}`))
     return () => {
       dispatch(wsConnectionClosed());
     };
-  }, [accessToken, dispatch])
+  }, [dispatch])
 
   useEffect(() => {
     if (error) {
@@ -30,12 +31,12 @@ export const ProfileFeedPage: FC = () => {
     return () => {
       dispatch(wsConnectionClosed());
     };
-  }, [error]);
+  }, [dispatch, error]);
 
   return (
     orders && 
     <section className={styles.feed}>
-      <FeedList orders={orders.reverse()} />
+      <FeedList orders={orders} />
     </section>
   )
 };

@@ -49,7 +49,7 @@ const userReducer = (state = initialState, action: TUserActions) => {
         ...state,
         loginRequest: false,
         accessToken: action.payload.accessToken, // починить
-        user: action.payload.user,
+        user: action.payload,
         isLogin: true
       };
     }
