@@ -7,13 +7,13 @@ import { IOrderDetails } from '../actions/orderActions';
 import { TOrderActions } from '../actions/orderActions';
 
 export type TOrderState = {
-  orderDetails: Array<IOrderDetails>;
+  orderDetails: IOrderDetails | null;
   orderRequest: boolean;
   orderFailed: boolean;
 };
 
 const initialState: TOrderState = {
-  orderDetails: [],
+  orderDetails: null,
   orderRequest: false,
   orderFailed: false,
 };
@@ -38,7 +38,7 @@ export const orderReducer = (state = initialState, action: TOrderActions) => {
       return {
         ...state,
         orderRequest: false,
-        orderDetails: action.payload
+        orderDetails: action.payload.order
       }
     }
     default: {
