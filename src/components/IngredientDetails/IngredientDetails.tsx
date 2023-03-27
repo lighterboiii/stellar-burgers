@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from '../../services/hooks';
 import { FC } from 'react';
 import { IIngredient } from '../../services/actions/ingredientsActions';
-import { TIngredientsState } from '../../services/reducers/ingredientsReducer';
 
 const IngredientDetails: FC = () => {
 

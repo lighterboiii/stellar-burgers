@@ -23,6 +23,7 @@ export const OrderPage: FC<IOrderPage> = ({ isLogin }) => {
     return () => {
       dispatch(wsConnectionClosed());
     };
+  // eslint-disable-next-line
   }, []);
 
   const orders = useSelector((store) => store.socketReducer.orders);

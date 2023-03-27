@@ -5,7 +5,6 @@ import { FC, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { wsConnectionStart, wsConnectionClosed } from '../../services/actions/wsActions';
 import { wsUrl } from '../../utils/constants';
-import { TSocketState } from '../../services/reducers/wsReducer';
 
 interface IOrderStatus {
   doneList: Array<number>;
@@ -21,7 +20,7 @@ export const FeedPage: FC = () => {
     return () => {
       dispatch(wsConnectionClosed())
     }
-  }, []);
+  }, [dispatch]);
 
   const { doneList, preparingList } = useMemo(() => {
     return orders.reduce<IOrderStatus>(

@@ -72,7 +72,7 @@ export const ingredientsReducer = (state = initialState, action: TIngredientsAct
         ...state,
         bunElement: action.payload,
       }
-    }; 
+    }
     case DELETE_INGREDIENT: {
       return {
         ...state,

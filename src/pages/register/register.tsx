@@ -1,6 +1,5 @@
 import { useState, FormEvent, FC, ChangeEvent } from 'react';
 import styles from './register.module.css';
-import { IUserData } from '../../services/actions/userActions';
 import {
   Input,
   PasswordInput,

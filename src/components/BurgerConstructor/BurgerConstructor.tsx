@@ -15,8 +15,6 @@ import { SelectedIngredient } from "./SelectedIngredient/SelectedIngredient";
 import { Modal } from '../Modal/Modal';
 import OrderDetails from '../Modal/OrderDetails/OrderDetails';
 import { useNavigate } from 'react-router-dom';
-import { IUserData } from '../../services/actions/userActions';
-import { TIngredientsState } from '../../services/reducers/ingredientsReducer';
 
 interface IBurgerConstructor {
   closePopup: () => void;

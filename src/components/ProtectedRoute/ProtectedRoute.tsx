@@ -3,7 +3,6 @@ import { useSelector } from "../../services/hooks";
 import { getCookie } from "../../utils/cookie";
 import { FC } from "react";
 import { ReactNode } from "react";
-import { TUserState } from "../../services/reducers/userReducer";
 
 interface IProtectedRoute {
   element: ReactNode;

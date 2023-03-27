@@ -4,7 +4,6 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/
 import { FC, useMemo, useRef, useState } from 'react';
 import { useSelector } from '../../services/hooks';
 import { IIngredient } from '../../services/actions/ingredientsActions';
-import { TIngredientsState } from '../../services/reducers/ingredientsReducer';
 
 interface ISortIngredients {
 	buns: Array<IIngredient>;

@@ -1,7 +1,7 @@
 import styles from './profile.module.css';
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, Outlet, useLocation, useMatch } from "react-router-dom";
-import { FC, useEffect, useRef, useState, ChangeEvent, FormEvent } from 'react';
+import { FC, useRef, useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { setLogout, sendUserInfo, IUser } from '../../services/actions/userActions';
 import { getCookie } from '../../utils/cookie';

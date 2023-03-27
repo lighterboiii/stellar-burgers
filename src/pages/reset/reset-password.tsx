@@ -29,6 +29,7 @@ export const ResetPage: FC = () => {
     if (!isPasswordForgot) {
       navigate('/forgot-password');
     };
+  // eslint-disable-next-line
   }, [isPasswordForgot]);
 
   return (

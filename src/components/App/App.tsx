@@ -24,7 +24,6 @@ import { getCookie } from '../../utils/cookie';
 import { OrderPage } from '../../pages/order-page/order-page';
 import BurgerOrderDetails from '../BurgerOrderDetails/BurgerOrderDetails';
 import { Modal } from '../Modal/Modal';
-import { TUserState } from '../../services/reducers/userReducer';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 const App: FC = () => {

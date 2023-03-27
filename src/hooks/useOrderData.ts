@@ -1,7 +1,6 @@
 import { useSelector } from "../services/hooks";
 import { useMatch } from "react-router-dom";
 import { IOrderDetails } from "../services/actions/orderActions";
-import { TIngredientsState } from "../services/reducers/ingredientsReducer";
 import { IIngredient } from "../services/actions/ingredientsActions";
 
 export const useOrderData = (order: IOrderDetails | undefined) => {

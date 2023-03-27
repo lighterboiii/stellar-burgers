@@ -17,19 +17,19 @@ export const ProfileFeedPage: FC = () => {
     return () => {
       dispatch(wsConnectionClosed());
     };
-  }, [dispatch])
+  }, [dispatch, accessToken])
 
-  useEffect(() => {
-    if (error) {
-      dispatch(wsConnectionClosed());
-      dispatch(getUserInfo())
-        .then(() => dispatch(wsConnectionStart(`${wsUrl}?token=${accessToken}`)))
-        .catch(() => dispatch(wsConnectionClosed()));
-    }
-    return () => {
-      dispatch(wsConnectionClosed());
-    };
-  }, [dispatch, error]);
+  // useEffect(() => {
+  //   if (error) {
+  //     dispatch(wsConnectionClosed());
+  //     dispatch(getUserInfo())
+  //       .then(() => dispatch(wsConnectionStart(`${wsUrl}?token=${accessToken}`)))
+  //       .catch(() => dispatch(wsConnectionClosed()));
+  //   }
+  //   return () => {
+  //     dispatch(wsConnectionClosed());
+  //   };
+  // }, [error]);
 
   return (
     orders && 
