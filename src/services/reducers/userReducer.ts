@@ -17,8 +17,9 @@ export type TUserState = {
   refreshTokenRequest: boolean;
   refreshTokenFailed: boolean;
   isPasswordForgot: boolean;
-  user: Array<IUser> | null;
+  user: IUser | null;
   isLogin: boolean;
+  accessToken?: string;
 };
 
 const initialState: TUserState = {
@@ -32,7 +33,8 @@ const initialState: TUserState = {
   refreshTokenFailed: false,
   isPasswordForgot: false,
   user: null,
-  isLogin: false
+  isLogin: false,
+  accessToken: undefined
 }
 
 const userReducer = (state = initialState, action: TUserActions) => {
@@ -49,7 +51,7 @@ const userReducer = (state = initialState, action: TUserActions) => {
         ...state,
         loginRequest: false,
         accessToken: action.payload.accessToken, // починить
-        user: action.payload,
+        user: action.payload.user,
         isLogin: true
       };
     }
@@ -113,7 +115,7 @@ const userReducer = (state = initialState, action: TUserActions) => {
       return {
         ...state,
         getUserDataRequest: false,
-        user: action.payload
+        user: action.payload.user
       };
     }
     case GET_USER_DATA_FAILED: {

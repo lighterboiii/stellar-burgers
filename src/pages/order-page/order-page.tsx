@@ -5,7 +5,8 @@ import { useParams } from "react-router-dom";
 import BurgerOrderDetails from "../../components/BurgerOrderDetails/BurgerOrderDetails";
 import { wsUrl } from '../../utils/constants';
 import { getCookie } from '../../utils/cookie';
-import { IWsMessage, wsConnectionClosed, wsConnectionStart } from '../../services/actions/wsActions';
+import { wsConnectionClosed, wsConnectionStart } from '../../services/actions/wsActions';
+import { IOrderDetails } from '../../services/actions/orderActions';
 
 interface IOrderPage {
   isLogin: boolean;
@@ -14,9 +15,6 @@ interface IOrderPage {
 export const OrderPage: FC<IOrderPage> = ({ isLogin }) => {
 
   const dispatch = useDispatch();
-  const orders = useSelector((state: { socketReducer: IWsMessage }) => state.socketReducer.orders);
-  const { id } = useParams();
-  const order = orders.find((item) => item._id === id);
 
   useEffect(() => {
     isLogin
@@ -26,6 +24,11 @@ export const OrderPage: FC<IOrderPage> = ({ isLogin }) => {
       dispatch(wsConnectionClosed());
     };
   }, []);
+
+  const orders = useSelector((store) => store.socketReducer.orders);
+  console.log(orders);
+  const { id } = useParams();
+  const order = orders.find((item: IOrderDetails) => item._id === id);
 
   return (
     <>

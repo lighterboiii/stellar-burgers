@@ -6,9 +6,9 @@ import { userReducer } from './userReducer';
 import { wsReducer } from './wsReducer'
 
 export const rootReducer = combineReducers({
- ingredients: ingredientsReducer,
- orderData: orderReducer,
- modalState: modalReducer,
- userInfo: userReducer,
+ ingredientsReducer: ingredientsReducer,
+ orderReducer: orderReducer,
+ modalReducer: modalReducer,
+ userReducer: userReducer,
  socketReducer: wsReducer
 });

@@ -5,12 +5,12 @@ import { TIngredientsState } from "../services/reducers/ingredientsReducer";
 import { IIngredient } from "../services/actions/ingredientsActions";
 
 export const useOrderData = (order: IOrderDetails | undefined) => {
-  const ingredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients);
+  const ingredients = useSelector((state) => state.ingredientsReducer.ingredients);
 
   const getOrderList = () => {
     const elements: Array<IIngredient> = [];
     order?.ingredients.forEach((ingredientId) => {
-      ingredients.forEach((ingredient) => {
+      ingredients.forEach((ingredient: IIngredient) => {
         if (ingredient._id === ingredientId) {
           elements.push(ingredient);
         }

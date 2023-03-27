@@ -40,7 +40,7 @@ export interface ISetOrderDetailsFailed {
 
 export interface ISetOrderDetailsSuccess {
   readonly type: typeof SET_ORDER_DETAILS_SUCCESS;
-  readonly payload: any; // пока так, не могу разобраться с типизацией OrderDetails.tsx
+  readonly payload: any; 
 }
 
 export interface IClearOrderDetails {

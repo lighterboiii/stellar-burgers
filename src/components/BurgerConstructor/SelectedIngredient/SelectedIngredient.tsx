@@ -4,7 +4,6 @@ import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burg
 import { useDrag, useDrop } from "react-dnd";
 import { FC, useRef } from 'react';
 import { deleteIngredient, IIngredient, sortIngredients } from '../../../services/actions/ingredientsActions';
-import { TIngredientsState } from '../../../services/reducers/ingredientsReducer';
 
 interface ISelectedIngredient {
   ingredient: IIngredient;
@@ -15,7 +14,7 @@ const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index }) => {
 
   const dispatch = useDispatch();
   const { image, name, price } = ingredient;
-  const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients);
+  const selectedIngredients = useSelector((store) => store.ingredientsReducer.selectedIngredients);
 
   const handleDeleteIngredient = (item: IIngredient) => {
     const selectedIndex = selectedIngredients.indexOf(item)

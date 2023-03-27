@@ -4,16 +4,16 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { TIngredientsState } from "../../../services/reducers/ingredientsReducer";
 
 export const TopBun: FC = () => {
-  const bun = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.bunElement);
+  const { bunElement } = useSelector((store) => store.ingredientsReducer);
 
   return (
     <div className={'mb-4 ml-4 mr-4 pl-8'}>
-      {bun ? <ConstructorElement
+      {bunElement ? <ConstructorElement
         type="top"
         isLocked={true}
-        text={bun.name + ' (верх)'}
-        thumbnail={bun.image}
-        price={bun.price}
+        text={bunElement.name + ' (верх)'}
+        thumbnail={bunElement.image}
+        price={bunElement.price}
       /> : <ConstructorElement
         type="top"
         isLocked={true}

@@ -15,7 +15,7 @@ import { TIngredientsActions } from '../actions/ingredientsActions';
 export type TIngredientsState = {
   ingredients: Array<IIngredient>;
   selectedIngredients: Array<IIngredient>;
-  bunElement: IIngredient | undefined;
+  bunElement?: IIngredient | undefined;
   currentIngredient: IIngredient | null;
   ingredientsRequest: boolean;
   ingredientsFailed: boolean;

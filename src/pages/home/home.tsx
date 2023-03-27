@@ -8,7 +8,7 @@ import { FC } from 'react';
 export const HomePage: FC = () => {
   const dispatch = useDispatch();
 
-  const isOrderModalOpen = useSelector((state) => state.modalState.isOrderDetailsModalOpen);
+  const isOrderModalOpen = useSelector((store) => store.modalReducer.isOrderDetailsModalOpen);
 
   const closePopup = () => {
     isOrderModalOpen ? dispatch(changeOrderModalStatus(false)) : dispatch(changeIngredientModalStatus(false));

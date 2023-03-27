@@ -13,7 +13,7 @@ interface ISortIngredients {
 };
 
 const BurgerIngredients: FC = () => {
-	const ingredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients);
+	const ingredients = useSelector((state) => state.ingredientsReducer.ingredients);
 
   const { buns, mains, sauces } = useMemo(() => {
     return ingredients.reduce<ISortIngredients>(
@@ -40,7 +40,7 @@ const BurgerIngredients: FC = () => {
 	const mainRef = useRef<HTMLDivElement>(null);
 
 	const [current, setCurrent] = useState('buns');
-	const bunElement = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.bunElement)
+	const bunElement = useSelector((state) => state.ingredientsReducer.bunElement)
 
 	const handleClick = (value: string) => {
 		switch (value) {

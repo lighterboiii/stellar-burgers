@@ -4,7 +4,7 @@ import { Loader } from '../../Loader/Loader';
 import { FC } from 'react';
 
 const OrderDetails: FC = () => {
-  const { orderRequest, orderDetails } = useSelector((state) => state.orderData);
+  const { orderRequest, orderDetails } = useSelector((store) => store.orderReducer);
 
   return (
     <div className={styles.card + ' pt-15 pb-30 pr-25 pl-25'}>

@@ -5,16 +5,16 @@ import { TIngredientsState } from "../../../services/reducers/ingredientsReducer
 
 export const BottomBun: FC = () => {
 
-  const bun = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.bunElement);
+  const bunElement = useSelector((store) => store.ingredientsReducer.bunElement);
 
   return (
     <div className={' ml-4 mr-4 pl-8'}>
-      {bun ? <ConstructorElement
+      {bunElement ? <ConstructorElement
         type="bottom"
         isLocked={true}
-        text={bun.name + ' (низ)'}
-        thumbnail={bun.image}
-        price={bun.price}
+        text={bunElement.name + ' (низ)'}
+        thumbnail={bunElement.image}
+        price={bunElement.price}
       /> : <ConstructorElement
         type="bottom"
         isLocked={true}

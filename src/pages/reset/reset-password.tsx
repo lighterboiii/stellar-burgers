@@ -9,14 +9,14 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { resetPasswordRequest } from '../../utils/api';
 import { useSelector, useDispatch } from '../../services/hooks';
-import { IUserData, setForgotPassword } from '../../services/actions/userActions';
+import { setForgotPassword } from '../../services/actions/userActions';
 
 export const ResetPage: FC = () => {
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isPasswordForgot = useSelector((state: { userInfo: IUserData }) => state.userInfo.isPasswordForgot);
+  const { isPasswordForgot } = useSelector((store) => store.userReducer);
 
   const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

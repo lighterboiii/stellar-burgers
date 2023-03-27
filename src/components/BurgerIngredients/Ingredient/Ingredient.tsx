@@ -2,12 +2,11 @@ import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { useDrag } from "react-dnd";
 import styles from './Ingredient.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "../../../services/hooks";
 import { changeIngredientModalStatus } from "../../../services/actions/modalActions";
 import { currentIngredient } from "../../../services/actions/ingredientsActions";
 import { MouseEvent, FC, useMemo } from "react";
 import { IIngredient } from "../../../services/actions/ingredientsActions";
-import { TIngredientsState } from "../../../services/reducers/ingredientsReducer";
 import { Link, useLocation } from "react-router-dom";
 
 interface IIngredientComponent {
@@ -15,13 +14,12 @@ interface IIngredientComponent {
 }
 
 const Ingredient: FC<IIngredientComponent> = ({ ingredient }) => {
-  const { image, name, price, _id } = ingredient;
 
-  const bunElement = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.bunElement);
-  const burgerData = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients);
-  const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients);
   const dispatch = useDispatch();
   const location = useLocation();
+
+  const { image, name, price, _id } = ingredient;
+  const { bunElement, ingredients, selectedIngredients } = useSelector((store) => store.ingredientsReducer);
 
   const [{ isDrag }, dragRef] = useDrag({
     type: 'ingredient',
@@ -33,7 +31,7 @@ const Ingredient: FC<IIngredientComponent> = ({ ingredient }) => {
 
   const handleIngClick = (evt: MouseEvent) => {
     const id = evt.currentTarget.id
-    const current = burgerData.find(element => element._id === id)
+    const current = ingredients.find((element: IIngredient) => element._id === id)
     dispatch(currentIngredient(current));
     dispatch(changeIngredientModalStatus(true));
   };
@@ -44,15 +42,15 @@ const Ingredient: FC<IIngredientComponent> = ({ ingredient }) => {
 
   const counter = useMemo(() => {
     const getCounter: IGetCounter = {};
-    burgerData.forEach((ingredient) => {
+    ingredients.forEach((ingredient: IIngredient) => {
       getCounter[ingredient._id] =
-        selectedIngredients.filter((item) => item._id === ingredient._id).length;
+        selectedIngredients.filter((item: IIngredient) => item._id === ingredient._id).length;
     })
     if (bunElement) {
       getCounter[bunElement._id] = 2;
     }
     return getCounter;
-  }, [burgerData, selectedIngredients, bunElement]);
+  }, [ingredients, selectedIngredients, bunElement]);
   const addCounter = (ingredientId: string) => counter[ingredientId];
 
   return (

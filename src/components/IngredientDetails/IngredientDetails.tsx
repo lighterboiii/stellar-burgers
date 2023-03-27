@@ -7,7 +7,7 @@ import { TIngredientsState } from '../../services/reducers/ingredientsReducer';
 
 const IngredientDetails: FC = () => {
 
-  const ingredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients);
+  const ingredients = useSelector((store) => store.ingredientsReducer.ingredients);
   const { id } = useParams();
   const currentIngredient = ingredients.find((item: IIngredient) => item._id === id);
 

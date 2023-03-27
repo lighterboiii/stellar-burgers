@@ -26,11 +26,9 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const userData = useSelector((state: { userInfo: IUserData }) => state.userInfo.user);
-  const bunElement = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.bunElement);
-  const burgerData = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.ingredients);
-  const selectedIngredients = useSelector((state: { ingredients: TIngredientsState }) => state.ingredients.selectedIngredients);
-  const isOrderModalOpen = useSelector(state => state.modalState.isOrderDetailsModalOpen);
+  const userData = useSelector((store) => store.userReducer.user);
+  const { bunElement, ingredients, selectedIngredients } = useSelector((store) => store.ingredientsReducer);
+  const isOrderModalOpen = useSelector((store) => store.modalReducer.isOrderDetailsModalOpen);
   
   const bunPrice = useMemo(() => {
     return bunElement === undefined ? 0 : bunElement.price * 2;
@@ -44,7 +42,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
 
 
   const handleDrop = (item: IIngredient) => {
-    const selectedIngredient = burgerData.find((ingredient: IIngredient) => ingredient._id === item._id);
+    const selectedIngredient = ingredients.find((ingredient: IIngredient) => ingredient._id === item._id);
     if (selectedIngredient?.type !== "bun") {
       dispatch(selectIngredient(selectedIngredients, selectedIngredient))
     } else {

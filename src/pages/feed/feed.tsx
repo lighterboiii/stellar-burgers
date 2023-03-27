@@ -14,7 +14,7 @@ interface IOrderStatus {
 
 export const FeedPage: FC = () => {
   const dispatch = useDispatch();
-  const { orders, total, totalToday } = useSelector((state: { socketReducer: TSocketState }) => state.socketReducer);
+  const { orders, total, totalToday } = useSelector((state) => state.socketReducer);
 
   useEffect(() => {
     dispatch(wsConnectionStart(`${wsUrl}/all`))

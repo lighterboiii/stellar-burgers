@@ -6,12 +6,11 @@ import { BurgerContains } from "../BurgerContains/BurgerContains";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useOrderData } from '../../hooks/useOrderData';
 import { FC } from 'react';
-import { IWsMessage } from '../../services/actions/wsActions';
 
 const BurgerOrderDetails: FC = () => {
 
   const { id } = useParams();
-  const orders = useSelector((state: { socketReducer: IWsMessage }) => state.socketReducer.orders);
+  const orders = useSelector((state) => state.socketReducer.orders);
   const order = orders.find((item) => item?._id === id);
   const { orderIngredients, orderStatus, orderPrice, time } = useOrderData(order);
 

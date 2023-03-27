@@ -32,7 +32,7 @@ const App: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const userData = useSelector((state: { userInfo: TUserState }) => state.userInfo.user);
+  const userData = useSelector((store) => store.userReducer.user);
   const access = getCookie("accessToken")
 
   const closePopup = () => {

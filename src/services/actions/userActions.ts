@@ -10,10 +10,8 @@ import {
 import { AppDispatch } from "../types";
 
 export interface IUser {
-  user: {
-    name: string;
-    email: string;
-  };
+  name: string;
+  email: string;
 }
 
 export interface IUserData {

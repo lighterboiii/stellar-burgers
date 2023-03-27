@@ -13,7 +13,7 @@ interface IProtectedRoute {
 export const ProtectedRoute: FC<IProtectedRoute> = ({ element, to }) => {
 
   const token = getCookie("accessToken");
-  const userData  = useSelector((state: { userInfo: TUserState }) => state.userInfo.user);
+  const userData  = useSelector((state) => state.userReducer.user);
 
   return (
     <>

@@ -15,8 +15,7 @@ export const RegisterPage: FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const userData = useSelector((state: { userInfo: IUserData }) => state.userInfo.user);
-  const token = useSelector((state: { userInfo: IUserData }) => state.userInfo.accessToken);
+  const { user, accessToken } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,7 +26,7 @@ export const RegisterPage: FC = () => {
   };
  
   return (
-    (userData && token) ? <Navigate to='/' /> :
+    (user && accessToken) ? <Navigate to='/' /> :
     <div className={styles.container}>
       <h2 className='text text_type_main-medium mb-6'>Регистрация</h2>
       <form className={styles.form} onSubmit={onFormSubmit} >
