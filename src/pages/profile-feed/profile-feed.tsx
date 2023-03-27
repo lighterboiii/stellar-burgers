@@ -3,7 +3,7 @@ import { FeedList } from '../../components/FeedList/FeedList';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { useEffect, FC } from 'react';
 import { getUserInfo } from '../../services/actions/userActions';
-import { IWsMessage, wsConnectionClosed, wsConnectionStart } from '../../services/actions/wsActions';
+import { wsConnectionClosed, wsConnectionStart } from '../../services/actions/wsActions';
 import { wsUrl } from '../../utils/constants';
 import { getCookie } from '../../utils/cookie';
 
@@ -11,8 +11,6 @@ export const ProfileFeedPage: FC = () => {
   const dispatch = useDispatch();
   const accessToken = getCookie("accessToken")?.split("Bearer ")[1];
   const { orders, error } = useSelector((store) => store.socketReducer);
-  // const { error } = useSelector((state) => state.socketReducer);
-  // const orders = useSelector((state: { socketReducer: IWsMessage } ) => state.socketReducer.orders);
   
   useEffect(() => {
     dispatch(wsConnectionStart(`${wsUrl}?token=${accessToken}`))

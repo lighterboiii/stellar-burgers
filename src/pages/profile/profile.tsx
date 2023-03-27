@@ -10,7 +10,6 @@ import { getUserInfo } from '../../services/actions/userActions';
 export const ProfilePage: FC = () => {
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
 
   const accessToken = getCookie("accessToken");

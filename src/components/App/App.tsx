@@ -74,7 +74,7 @@ const App: FC = () => {
         {location.state?.locationIngredientPage && (
         <Routes>
           <Route path="/ingredients/:id" element={
-              <Modal closePopup={closePopup}>
+              <Modal closePopup={closePopup} title="Детали ингредиента">
                 <IngredientDetails />
               </Modal>
             } />
