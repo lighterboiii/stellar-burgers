@@ -44,7 +44,7 @@ const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index }) => {
       }
       const dragIndex = item.uniqueId;
       const hoverIndex = index;
-      console.log(hoverIndex)
+    
       if (dragIndex === hoverIndex) {
         return
       }
@@ -59,8 +59,8 @@ const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index }) => {
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
-      dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
       item.uniqueId = hoverIndex;
+      dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
     }
   });
 

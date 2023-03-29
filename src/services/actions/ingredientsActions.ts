@@ -54,7 +54,8 @@ export interface ISortIngredients {
 
 export interface ISelectIngredient {
   readonly type: typeof SELECT_INGREDIENT;
-  payload: [...Array<IIngredient>, IIngredient | undefined];
+  readonly uniqueId: string;
+  readonly payload: IIngredient | undefined;
 }
 
 export interface ISelectBunIngredient {
@@ -86,11 +87,12 @@ export type TIngredientsActions =
 export const setDeleteAllIngredients = (): IDeleteAllIngredients => ({ type: DELETE_ALL_INGREDIENTS, payload: [] });
 export const setSortIngredients = (data: Array<IIngredient>): ISortIngredients => ({ type: SORT_INGREDIENTS, payload: data });
 export const getIngredientsSuccess = (res: Array<IIngredient>): IGetIngredientsSuccess => ({ type: GET_INGREDIENTS_SUCCESS, payload: res });
-export const selectIngredient = (selectedIngredients: Array<IIngredient>, selectedIngredient: IIngredient | undefined)
+export const selectIngredient = (id: string, selectedIngredient: IIngredient | undefined)
   : ISelectIngredient =>
 ({
   type: SELECT_INGREDIENT,
-  payload: [...selectedIngredients, selectedIngredient]
+  uniqueId: id,
+  payload: selectedIngredient
 });
 
 export const selectBunIngredient = (selectedIngredient: IIngredient | undefined): ISelectBunIngredient =>

@@ -61,10 +61,22 @@ export const ingredientsReducer = (state = initialState, action: TIngredientsAct
         currentIngredient: action.payload
       }
     }
+    // case SELECT_INGREDIENT: {
+    //   return {
+    //     ...state,
+    //     selectedIngredients: action.payload
+    //   }
+    // }
     case SELECT_INGREDIENT: {
       return {
         ...state,
-        selectedIngredients: action.payload
+        selectedIngredients: [
+          ...state.selectedIngredients,
+          {
+            uniqueId: action.uniqueId,
+            ...action.payload
+          }
+        ]
       }
     }
     case SELECT_BUN_INGREDIENT: {
@@ -88,7 +100,7 @@ export const ingredientsReducer = (state = initialState, action: TIngredientsAct
     case DELETE_ALL_INGREDIENTS: {
       return {
         ...state,
-        bunElement : undefined,
+        bunElement: undefined,
         selectedIngredients: action.payload
       }
     }

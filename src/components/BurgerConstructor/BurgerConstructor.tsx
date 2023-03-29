@@ -42,7 +42,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
   const handleDrop = (item: IIngredient) => {
     const selectedIngredient = ingredients.find((ingredient: IIngredient) => ingredient._id === item._id);
     if (selectedIngredient?.type !== "bun") {
-      dispatch(selectIngredient(selectedIngredients, selectedIngredient))
+      dispatch(selectIngredient(uuidv4(), selectedIngredient))
     } else {
       dispatch(selectBunIngredient(selectedIngredient))
     }
@@ -54,7 +54,6 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
       isHover: monitor.isOver()
     }),
     drop(item: any) {
-      item.uniqueId = uuidv4();
       handleDrop(item);
     },
   });
