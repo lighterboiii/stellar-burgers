@@ -20,7 +20,7 @@ export const FeedPage: FC = () => {
     return () => {
       dispatch(wsConnectionClosed())
     }
-  }, [dispatch]);
+  }, []);
 
   const { doneList, preparingList } = useMemo(() => {
     return orders.reduce<IOrderStatus>(
