@@ -11,8 +11,10 @@ import { TUserState } from '../reducers/userReducer';
 import { TOrderState } from '../reducers/orderReducer';
 import { TSocketState } from '../reducers/wsReducer';
 import { TModalState } from '../reducers/modalReducer';
+import { rootReducer } from '../reducers/rootReducer';
 
 // export type RootState = ReturnType<typeof store.getState>;
+// export type RootState = ReturnType<typeof rootReducer>;
 
 export type RootState = {
   ingredientsReducer: TIngredientsState;
@@ -29,6 +31,6 @@ type TApplicationActions =
   | TUserActions
   | TWSActions;
 
-export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TApplicationActions>>;
-
-export type AppDispatch = ThunkDispatch<RootState, AnyAction, TApplicationActions>;
+export type AppThunk<ReturnType = void> = ActionCreator<ThunkAction<ReturnType, RootState, unknown, TApplicationActions>>;
+// export type AppThunk<ReturnType = void> = ActionCreator<ThunkAction<ReturnType, Action, RootState, TApplicationActions>>;
+export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;

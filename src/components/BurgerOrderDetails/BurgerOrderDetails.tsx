@@ -10,7 +10,7 @@ import { FC } from 'react';
 const BurgerOrderDetails: FC = () => {
 
   const { id } = useParams();
-  const orders = useSelector((state) => state.socketReducer.orders);
+  const orders = useSelector((store) => store.socketReducer.orders);
   const order = orders.find((item) => item?._id === id);
   const { orderIngredients, orderStatus, orderPrice, time } = useOrderData(order);
 

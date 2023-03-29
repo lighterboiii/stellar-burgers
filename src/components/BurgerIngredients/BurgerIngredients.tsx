@@ -12,7 +12,7 @@ interface ISortIngredients {
 };
 
 const BurgerIngredients: FC = () => {
-	const ingredients = useSelector((state) => state.ingredientsReducer.ingredients);
+	const ingredients = useSelector((store) => store.ingredientsReducer.ingredients);
 
   const { buns, mains, sauces } = useMemo(() => {
     return ingredients.reduce<ISortIngredients>(

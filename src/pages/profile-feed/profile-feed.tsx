@@ -29,7 +29,7 @@ export const ProfileFeedPage: FC = () => {
   //   return () => {
   //     dispatch(wsConnectionClosed());
   //   };
-  // }, [error]);
+  // }, [error, accessToken]);
 
   return (
     orders && 

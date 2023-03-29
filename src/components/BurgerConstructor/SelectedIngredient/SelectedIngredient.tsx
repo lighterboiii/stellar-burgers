@@ -65,7 +65,7 @@ const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index }) => {
   });
 
   const ref = useRef<HTMLLIElement>(null);
-  const dragDropRef: any = dragRef(dropRef(ref)); //TODO убрать any?
+  const dragDropRef: any = dragRef(dropRef(ref));
   const opacity = isDragging ? 0 : 1;
 
   return (
@@ -75,7 +75,7 @@ const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index }) => {
         text={name}
         thumbnail={image}
         price={price}
-        handleClose={handleDeleteIngredient}
+        handleClose={() => handleDeleteIngredient(ingredient)}
       />
     </li>
   )

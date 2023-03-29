@@ -3,7 +3,7 @@ import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burg
 import { NavLink, Outlet, useLocation, useMatch } from "react-router-dom";
 import { FC, useRef, useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
-import { setLogout, sendUserInfo, IUser } from '../../services/actions/userActions';
+import { setLogout, sendUserInfo } from '../../services/actions/userActions';
 import { getCookie } from '../../utils/cookie';
 
 export const ProfilePage: FC = () => {
@@ -13,7 +13,7 @@ export const ProfilePage: FC = () => {
 
   const accessToken = getCookie("accessToken");
   const { user } = useSelector((store) => store.userReducer);
-  const [userData, setUserData] = useState<IUser>(user!);
+  const [userData, setUserData] = useState(user!);
   const [passwordValue, setPasswordValue] = useState('');
 
   const passRef = useRef<HTMLInputElement>(null);

@@ -4,7 +4,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 
 export const BottomBun: FC = () => {
 
-  const bunElement = useSelector((store) => store.ingredientsReducer.bunElement);
+  const { bunElement } = useSelector((store) => store.ingredientsReducer);
 
   return (
     <div className={' ml-4 mr-4 pl-8'}>

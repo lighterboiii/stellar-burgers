@@ -33,10 +33,10 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
   }, [bunElement]);
   const ingredientsPrice = useMemo(() => {
     return selectedIngredients.reduce((acc: any, ingredient: IIngredient) => acc + ingredient.price, 0);
-  }, [selectedIngredients])
+  }, [selectedIngredients]);
   const totalPrice = useMemo(() => {
     return bunElement === undefined ? ingredientsPrice : bunPrice + ingredientsPrice;
-  }, [bunPrice, ingredientsPrice, bunElement])
+  }, [bunPrice, ingredientsPrice, bunElement]);
 
 
   const handleDrop = (item: IIngredient) => {

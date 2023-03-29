@@ -4,7 +4,7 @@ import { IOrderDetails } from "../services/actions/orderActions";
 import { IIngredient } from "../services/actions/ingredientsActions";
 
 export const useOrderData = (order: IOrderDetails | undefined) => {
-  const ingredients = useSelector((state) => state.ingredientsReducer.ingredients);
+  const ingredients = useSelector((store) => store.ingredientsReducer.ingredients);
 
   const getOrderList = () => {
     const elements: Array<IIngredient> = [];

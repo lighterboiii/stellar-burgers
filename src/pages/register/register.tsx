@@ -14,7 +14,7 @@ export const RegisterPage: FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { user, accessToken } = useSelector((state) => state.userReducer);
+  const { user, accessToken } = useSelector((store) => store.userReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

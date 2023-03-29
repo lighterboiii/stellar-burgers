@@ -29,7 +29,7 @@ const Ingredient: FC<IIngredientComponent> = ({ ingredient }) => {
     })
   });
 
-  const handleIngClick = (evt: MouseEvent) => {
+  const handleIngClick = (evt: MouseEvent<HTMLLIElement>) => {
     const id = evt.currentTarget.id
     const current = ingredients.find((element: IIngredient) => element._id === id)
     dispatch(currentIngredient(current));
