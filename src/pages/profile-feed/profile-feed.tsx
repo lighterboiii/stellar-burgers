@@ -11,7 +11,7 @@ export const ProfileFeedPage: FC = () => {
   const dispatch = useDispatch();
   const accessToken = getCookie("accessToken")?.split("Bearer ")[1];
   const { orders, error } = useSelector((store) => store.socketReducer);
-  
+
   useEffect(() => {
     dispatch(wsConnectionStart(`${wsUrl}?token=${accessToken}`))
     return () => {
@@ -30,10 +30,10 @@ export const ProfileFeedPage: FC = () => {
     return () => {
       dispatch(wsConnectionClosed());
     };
-  }, []);
+  }, [error]);
 
   return (
-    orders && 
+    orders &&
     <section className={styles.feed}>
       <FeedList orders={orders} />
     </section>

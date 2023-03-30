@@ -16,7 +16,7 @@ export type TIngredientsState = {
   ingredients: Array<IIngredient>;
   selectedIngredients: Array<IIngredient>;
   bunElement?: IIngredient | undefined;
-  currentIngredient: IIngredient | null;
+  currentIngredient: IIngredient | undefined;
   ingredientsRequest: boolean;
   ingredientsFailed: boolean;
   isElementDrag: boolean;
@@ -26,13 +26,13 @@ const initialState: TIngredientsState = {
   ingredients: [],
   selectedIngredients: [],
   bunElement: undefined,
-  currentIngredient: null,
+  currentIngredient: undefined,
   ingredientsRequest: false,
   ingredientsFailed: false,
   isElementDrag: false
 };
 
-export const ingredientsReducer = (state = initialState, action: TIngredientsActions) => {
+export const ingredientsReducer = (state = initialState, action: TIngredientsActions): TIngredientsState => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
@@ -61,12 +61,6 @@ export const ingredientsReducer = (state = initialState, action: TIngredientsAct
         currentIngredient: action.payload
       }
     }
-    // case SELECT_INGREDIENT: {
-    //   return {
-    //     ...state,
-    //     selectedIngredients: action.payload
-    //   }
-    // }
     case SELECT_INGREDIENT: {
       return {
         ...state,
@@ -74,7 +68,7 @@ export const ingredientsReducer = (state = initialState, action: TIngredientsAct
           ...state.selectedIngredients,
           {
             uniqueId: action.uniqueId,
-            ...action.payload
+            ...action.payload as any
           }
         ]
       }

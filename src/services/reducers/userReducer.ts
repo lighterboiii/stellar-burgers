@@ -10,12 +10,16 @@ import { TUserActions } from '../actions/userActions';
 export type TUserState = {
   loginRequest: boolean;
   loginFailed: boolean;
+  setUserDataRequest: boolean;
+  setUserDataFailed: boolean;
   getUserDataRequest: boolean;
   getUserDataRequestFailed: boolean;
   registrationRequest: boolean;
   registrationFailed: boolean;
   refreshTokenRequest: boolean;
   refreshTokenFailed: boolean;
+  logoutRequest: boolean;
+  logoutFailed: boolean;
   isPasswordForgot: boolean;
   user: IUser | null;
   isLogin: boolean;
@@ -25,19 +29,23 @@ export type TUserState = {
 const initialState: TUserState = {
   loginRequest: false,
   loginFailed: false,
+  setUserDataRequest: false,
+  setUserDataFailed: false,
   getUserDataRequest: false,
   getUserDataRequestFailed: false,
   registrationRequest: false,
   registrationFailed: false,
   refreshTokenRequest: false,
   refreshTokenFailed: false,
+  logoutRequest: false,
+  logoutFailed: false,
   isPasswordForgot: false,
   user: null,
   isLogin: false,
   accessToken: undefined
 }
 
-const userReducer = (state = initialState, action: TUserActions) => {
+const userReducer = (state = initialState, action: TUserActions): TUserState => {
   switch (action.type) {
     case LOGIN: {
       return {
@@ -115,7 +123,8 @@ const userReducer = (state = initialState, action: TUserActions) => {
       return {
         ...state,
         getUserDataRequest: false,
-        user: action.payload.user
+        user: action.payload.user,
+        isLogin: true,
       };
     }
     case GET_USER_DATA_FAILED: {
@@ -137,7 +146,7 @@ const userReducer = (state = initialState, action: TUserActions) => {
         ...state,
         logoutRequest: false,
         user: null,
-        accessToken: null,
+        accessToken: undefined,
       }
     }
     case LOGOUT_FAILED: {

@@ -13,7 +13,7 @@ export type TSocketState = {
   total: number;
   totalToday: number;
   error: boolean;
-  errMessage: null;
+  errMessage: string | null;
 };
 
 const initialState: TSocketState = {
@@ -25,12 +25,12 @@ const initialState: TSocketState = {
   errMessage: null
 };
 
-export const wsReducer = (state = initialState, action: TWSActions) => {
+export const wsReducer = (state = initialState, action: TWSActions): TSocketState => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS: 
       return {
         ...state,
-        error: undefined,
+        error: false,
         wsConnected: true
       };
     case WS_CONNECTION_ERROR:
@@ -43,13 +43,13 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
     case WS_CONNECTION_CLOSED:
       return {
         ...state,
-        error: undefined,
+        error: false,
         wsConnected: false
       };
     case WS_GET_MESSAGE:
       return {
         ...state,
-        error: undefined,
+        error: false,
         orders: action.payload.orders,
         total: action.payload.total,
         totalToday: action.payload.totalToday

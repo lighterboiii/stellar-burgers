@@ -45,9 +45,6 @@ const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index }) => {
       const dragIndex = item.uniqueId;
       const hoverIndex = index;
     
-      if (dragIndex === hoverIndex) {
-        return
-      }
       const hoverBoundingRect = ref.current.getBoundingClientRect();
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
@@ -59,8 +56,11 @@ const SelectedIngredient: FC<ISelectedIngredient> = ({ ingredient, index }) => {
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
-      item.uniqueId = hoverIndex;
+      if (dragIndex === hoverIndex) {
+        return
+      }
       dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
+      item.uniqueId = hoverIndex;
     }
   });
 

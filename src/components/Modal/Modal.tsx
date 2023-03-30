@@ -13,7 +13,7 @@ interface IModal {
 export const Modal: FC<IModal> = ({ title, children, closePopup }) => {
 
   useEffect(() => {
-    const handleEscClose = (evt: { key: string }) => {
+    const handleEscClose = (evt: KeyboardEvent) => {
       if (evt.key === 'Escape') {
         closePopup()
       }

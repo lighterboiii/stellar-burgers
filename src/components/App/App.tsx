@@ -15,7 +15,7 @@ import { ForgotPage } from '../../pages/forgot/forgot-password';
 import { ResetPage } from '../../pages/reset/reset-password';
 import { PageNotfound } from '../../pages/404/404';
 import { ProfilePage } from '../../pages/profile/profile';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { IngredientPage } from '../../pages/ingredient/IngredientPage';
 import { ProfileFeedPage } from '../../pages/profile-feed/profile-feed';
 import { FeedPage } from '../../pages/feed/feed';
@@ -31,7 +31,8 @@ const App: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  const access = getCookie("accessToken")
+  const { user } = useSelector((store) => store.userReducer);
+  const access = getCookie("accessToken");
 
   const closePopup = () => {
     return navigate(-1);
@@ -56,19 +57,16 @@ const App: FC = () => {
         <AppHeader />
         <Routes location={background}>
           <Route path='/' element={<HomePage />} />
-          <Route path="/login" 
-          element={<ProtectedRoute element={<LoginPage />} />} />
-          <Route path="/register" 
-          element={<ProtectedRoute element={<RegisterPage />}  />} />
-          <Route path="/forgot-password" 
-          element={<ProtectedRoute element={<ForgotPage />} />} />
+          <Route path="/login" element={(!user && !access) ? <LoginPage /> : <Navigate to={'/'} />} />
+          <Route path="/register" element={(!user && !access) ? <RegisterPage /> : <Navigate to={'/'} />} />
+          <Route path="/forgot-password" element={(!user && !access) ? <ForgotPage /> : <Navigate to={'/'} />} />
           <Route path="/reset-password" element={<ResetPage />} />
-          <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} />} >
+          <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} to={'/login'} />} >
             <Route path='orders' element={<ProfileFeedPage />} />
           </Route>
-          <Route path='/profile/orders/:id' element={<ProtectedRoute element={<OrderPage/>} />} />
+          <Route path='/profile/orders/:id' element={(!user && !access) ? <LoginPage /> : <OrderPage isLogin={true} />} />
           <Route path='/feed' element={<FeedPage />} />
-          <Route path='/feed/:id' element={<OrderPage />} />
+          <Route path='/feed/:id' element={<OrderPage isLogin={false} />} />
           <Route path="/ingredients/:id" element={<IngredientPage />} />
           <Route path="*" element={<PageNotfound />} />
         </Routes>

@@ -14,6 +14,12 @@ export interface IUser {
   email: string;
 }
 
+export interface IRegisterUser {
+  name: string;
+  email: string;
+  password: string;
+}
+
 export interface IUserData {
   loginRequest: boolean;
   loginFailed: boolean;
@@ -44,7 +50,7 @@ export interface ISetUserDataFailed {
 
 export interface ISetUserDataSuccess {
   readonly type: typeof SET_USER_DATA_SUCCESS;
-  readonly payload: IUserData;
+  readonly payload: IUser;
 }
 
 export interface ILogin {
@@ -96,7 +102,7 @@ export interface IRegisterFailed {
 
 export interface IRegisterSuccess {
   readonly type: typeof REGISTER_SUCCESS;
-  readonly payload: string;
+  readonly payload: IRegisterUser;
 }
 
 export type TUserActions =
@@ -122,11 +128,11 @@ export const loginLoadingSuccess = (token: IUserData): ILoginSuccess => ({ type:
 export const loginLoadingFailed = (): ILoginFailed => ({ type: LOGIN_FAILED });
 
 export const register = (): IRegister => ({ type: REGISTER });
-export const registerSuccess = (token: string): IRegisterSuccess => ({ type: REGISTER_SUCCESS, payload: token });
+export const registerSuccess = (token: IRegisterUser): IRegisterSuccess => ({ type: REGISTER_SUCCESS, payload: token });
 export const registerFailed = (): IRegisterFailed => ({ type: REGISTER_FAILED });
 
 export const setUserDataLoading = (): ISetUserData => ({ type: SET_USER_DATA });
-export const setUserDataSuccess = (userData: IUserData): ISetUserDataSuccess => ({ type: SET_USER_DATA_SUCCESS, payload: userData });
+export const setUserDataSuccess = (userData: IUser): ISetUserDataSuccess => ({ type: SET_USER_DATA_SUCCESS, payload: userData });
 export const setUserDataFailed = (): ISetUserDataFailed => ({ type: SET_USER_DATA_FAILED });
 
 export const getUserDataLoading = (): IGetUserData => ({ type: GET_USER_DATA });

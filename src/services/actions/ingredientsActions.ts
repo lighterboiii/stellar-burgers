@@ -13,7 +13,6 @@ import {
 import { AppDispatch } from '../types/index.js';
 
 export interface IIngredient {
-  uniqueId: string;
   _id: string;
   name: string;
   type: string;
@@ -26,7 +25,7 @@ export interface IIngredient {
   image_mobile: string;
   image_large: string;
   __v: number;
-  constructorItemId?: string;
+  uniqueId?: string;
 }
 
 export interface IGetIngredientsRequest {
@@ -65,7 +64,7 @@ export interface ISelectBunIngredient {
 
 export interface IDeleteAllIngredients {
   readonly type: typeof DELETE_ALL_INGREDIENTS;
-  readonly payload: Array<null>;
+  readonly payload: never[];
 }
 
 export interface IDeleteIngredient {
@@ -86,7 +85,13 @@ export type TIngredientsActions =
 
 export const setDeleteAllIngredients = (): IDeleteAllIngredients => ({ type: DELETE_ALL_INGREDIENTS, payload: [] });
 export const setSortIngredients = (data: Array<IIngredient>): ISortIngredients => ({ type: SORT_INGREDIENTS, payload: data });
+
+export const getIngredientsRequest = (): IGetIngredientsRequest => ({ type: GET_INGREDIENTS_REQUEST });
+export const getIngredientsFailed = (): IGetIngredientsFailed => ({ type: GET_INGREDIENTS_FAILED });
 export const getIngredientsSuccess = (res: Array<IIngredient>): IGetIngredientsSuccess => ({ type: GET_INGREDIENTS_SUCCESS, payload: res });
+
+export const currentIngredient = (ingredient: IIngredient | undefined): IOpenIngredientInfo => ({ type: OPEN_INGREDIENT_INFO, payload: ingredient });
+
 export const selectIngredient = (id: string, selectedIngredient: IIngredient | undefined)
   : ISelectIngredient =>
 ({
@@ -131,6 +136,4 @@ export const getIngredientsData = () => {
         console.log(`Ошибка ${e.message}`)
       })
   }
-}
-
-export const currentIngredient = (ingredient: IIngredient | undefined): IOpenIngredientInfo => ({ type: OPEN_INGREDIENT_INFO, payload: ingredient });
+};

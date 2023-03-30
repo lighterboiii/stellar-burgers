@@ -17,7 +17,7 @@ const initialState: TModalState = {
   isBurgerDetailsModalOpen: false
 };
 
-export const modalReducer = (state = initialState, action: TModalActions) => {
+export const modalReducer = (state = initialState, action: TModalActions): TModalState => {
   switch (action.type) {
     case OPEN_ORDER_DETAILS_MODAL: {
       return {

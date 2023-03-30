@@ -14,15 +14,15 @@ import { TModalState } from '../reducers/modalReducer';
 import { rootReducer } from '../reducers/rootReducer';
 
 // export type RootState = ReturnType<typeof store.getState>;
-// export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof rootReducer>;
 
-export type RootState = {
-  ingredientsReducer: TIngredientsState;
-  userReducer: TUserState;
-  orderReducer: TOrderState;
-  socketReducer: TSocketState;
-  modalReducer: TModalState;
-};
+// export type RootState = {
+//   ingredientsReducer: TIngredientsState;
+//   userReducer: TUserState;
+//   orderReducer: TOrderState;
+//   socketReducer: TSocketState;
+//   modalReducer: TModalState;
+// };
 
 type TApplicationActions =
   | TIngredientsActions
