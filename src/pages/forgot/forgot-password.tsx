@@ -26,7 +26,7 @@ export const ForgotPage: FC = () => {
       <h2 className='text text_type_main-medium mb-6'>Восстановление пароля</h2>
       <form className={styles.form} onSubmit={onFormSubmit}>
         <EmailInput placeholder='Укажите Email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <Button htmlType='button' type='primary' size='medium'>
+        <Button htmlType='submit' type='primary' size='medium'>
           Восстановить
         </Button>
       </form>

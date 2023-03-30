@@ -21,6 +21,7 @@ export const ProfileFeedPage: FC = () => {
 
   useEffect(() => {
     if (error) {
+      const accessToken = getCookie("accessToken")?.split("Bearer ")[1];
       dispatch(wsConnectionClosed());
       dispatch(getUserInfo())
         .then(() => dispatch(wsConnectionStart(`${wsUrl}?token=${accessToken}`)))
@@ -29,7 +30,7 @@ export const ProfileFeedPage: FC = () => {
     return () => {
       dispatch(wsConnectionClosed());
     };
-  }, [error]);
+  }, []);
 
   return (
     orders && 

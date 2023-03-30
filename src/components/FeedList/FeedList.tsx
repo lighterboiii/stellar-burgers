@@ -8,12 +8,12 @@ interface IFeedList {
 }
 
 export const FeedList: FC<IFeedList> = ({ orders }) => {
-  const reversedOrders = orders.reverse();
+  // const reversedOrders = orders.reverse();
 
   return (
     <>
       <ul className={styles.list + ' custom-scroll'}>
-        {reversedOrders.map((order) => {
+        {orders.map((order) => {
           return (
             <OrderFeedElement key={order._id} order={order} />
           )

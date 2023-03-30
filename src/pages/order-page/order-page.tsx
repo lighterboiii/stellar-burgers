@@ -8,13 +8,10 @@ import { getCookie } from '../../utils/cookie';
 import { wsConnectionClosed, wsConnectionStart } from '../../services/actions/wsActions';
 import { IOrderDetails } from '../../services/actions/orderActions';
 
-interface IOrderPage {
-  isLogin: boolean;
-}
-
-export const OrderPage: FC<IOrderPage> = ({ isLogin }) => {
+export const OrderPage: FC = () => {
 
   const dispatch = useDispatch();
+  const isLogin = useSelector((store) => store.userReducer.isLogin);
 
   useEffect(() => {
     isLogin
@@ -27,7 +24,6 @@ export const OrderPage: FC<IOrderPage> = ({ isLogin }) => {
   }, []);
 
   const orders = useSelector((store) => store.socketReducer.orders);
-  console.log(orders);
   const { id } = useParams();
   const order = orders.find((item: IOrderDetails) => item._id === id);
 

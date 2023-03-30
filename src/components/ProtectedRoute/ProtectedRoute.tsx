@@ -1,22 +1,29 @@
-import { Navigate } from "react-router-dom"
+import { Navigate, useLocation } from "react-router-dom"
 import { useSelector } from "../../services/hooks";
-import { getCookie } from "../../utils/cookie";
 import { FC } from "react";
 import { ReactNode } from "react";
 
 interface IProtectedRoute {
   element: ReactNode;
-  to: string;
+  anonymous?: boolean;
 }
 
-export const ProtectedRoute: FC<IProtectedRoute> = ({ element, to }) => {
+const ProtectedRoute: FC<IProtectedRoute> = ({ element, anonymous = false }) => {
 
-  const token = getCookie("accessToken");
-  const userData  = useSelector((store) => store.userReducer.user);
+  const location = useLocation();
+  const from = location.state?.from || '/';
+  const isLogin = useSelector((store) => store.userReducer.isLogin);
+  // Если разрешен неавторизованный доступ, а пользователь авторизован,
+  // то отправляем его на предыдущую страницу
+  if (anonymous && isLogin) {
+    return  <><Navigate to={from} /></>;
+  }
 
-  return (
-    <>
-      {(userData && token) ? element : <Navigate to={to} replace />}
-    </>
-  )
+  if (!anonymous && !isLogin) {
+    return <><Navigate to="/login" state={{ from: location }} /></>;
+  }
+
+  return <>element</>;
 };
+
+export default ProtectedRoute;
