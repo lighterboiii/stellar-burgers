@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { IOrderDetails } from '../../services/actions/orderActions';
 import { OrderFeedElement } from "../OrderFeedElement/OrderFeedElement"
 import styles from './FeedList.module.css';
@@ -8,6 +8,10 @@ interface IFeedList {
 }
 
 export const FeedList: FC<IFeedList> = ({ orders }) => {
+  // const reversed = orders.reverse();
+  useEffect(() => {
+    orders.reverse()
+  }, [])
 
   return (
     <>

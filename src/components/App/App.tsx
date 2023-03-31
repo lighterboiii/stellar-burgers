@@ -61,7 +61,7 @@ const App: FC = () => {
           <Route path="/register" element={(!user && !access) ? <RegisterPage /> : <Navigate to={'/'} />} />
           <Route path="/forgot-password" element={(!user && !access) ? <ForgotPage /> : <Navigate to={'/'} />} />
           <Route path="/reset-password" element={<ResetPage />} />
-          <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} to={'/login'} />} >
+          <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} />} >
             <Route path='orders' element={<ProfileFeedPage />} />
           </Route>
           <Route path='/profile/orders/:id' element={(!user && !access) ? <LoginPage /> : <OrderPage isLogin={true} />} />

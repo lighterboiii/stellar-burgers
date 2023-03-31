@@ -45,7 +45,7 @@ export const FeedPage: FC = () => {
     <div className={styles.wrapper}>
       <h2 className={'text text_type_main-large mb-5 ' + styles.title}>Лента заказов</h2>
       <div className={styles.content}>
-        <FeedList orders={orders.reverse()} />
+        <FeedList orders={orders} />
         <OrdersCounter doneList={doneList} preparingList={preparingList} total={total} totalToday={totalToday} />
       </div>
     </div>

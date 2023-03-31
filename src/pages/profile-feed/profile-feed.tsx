@@ -9,10 +9,10 @@ import { getCookie } from '../../utils/cookie';
 
 export const ProfileFeedPage: FC = () => {
   const dispatch = useDispatch();
-  const accessToken = getCookie("accessToken")?.split("Bearer ")[1];
   const { orders, error } = useSelector((store) => store.socketReducer);
 
   useEffect(() => {
+    const accessToken = getCookie("accessToken")?.split("Bearer ")[1];
     dispatch(wsConnectionStart(`${wsUrl}?token=${accessToken}`))
     return () => {
       dispatch(wsConnectionClosed());
@@ -20,8 +20,8 @@ export const ProfileFeedPage: FC = () => {
   }, [])
 
   useEffect(() => {
+    const accessToken = getCookie("accessToken")?.split("Bearer ")[1];
     if (error) {
-      const accessToken = getCookie("accessToken")?.split("Bearer ")[1];
       dispatch(wsConnectionClosed());
       dispatch(getUserInfo())
         .then(() => dispatch(wsConnectionStart(`${wsUrl}?token=${accessToken}`)))
