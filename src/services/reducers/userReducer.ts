@@ -124,7 +124,7 @@ const userReducer = (state = initialState, action: TUserActions): TUserState => 
         ...state,
         getUserDataRequest: false,
         user: action.payload.user,
-        isLogin: true,
+        isLogin: true
       };
     }
     case GET_USER_DATA_FAILED: {

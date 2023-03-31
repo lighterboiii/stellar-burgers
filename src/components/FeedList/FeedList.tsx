@@ -8,7 +8,6 @@ interface IFeedList {
 }
 
 export const FeedList: FC<IFeedList> = ({ orders }) => {
-  // const reversedOrders = orders.reverse();
 
   return (
     <>

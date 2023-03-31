@@ -43,7 +43,7 @@ const App: FC = () => {
     if (access) {
       dispatch(getUserInfo());
     }
-  }, [dispatch, access]);
+  }, [dispatch]);
 
   const background =
     location.state?.locationFeedList ||

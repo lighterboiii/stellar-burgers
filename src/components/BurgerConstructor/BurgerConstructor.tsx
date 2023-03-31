@@ -15,6 +15,8 @@ import { SelectedIngredient } from "./SelectedIngredient/SelectedIngredient";
 import { Modal } from '../Modal/Modal';
 import OrderDetails from '../Modal/OrderDetails/OrderDetails';
 import { useNavigate } from 'react-router-dom';
+import { Reorder } from "framer-motion";
+import { setSortIngredients } from '../../services/actions/ingredientsActions';
 
 interface IBurgerConstructor {
   closePopup: () => void;
@@ -27,7 +29,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
   const userData = useSelector((store) => store.userReducer.user);
   const { bunElement, ingredients, selectedIngredients } = useSelector((store) => store.ingredientsReducer);
   const isOrderModalOpen = useSelector((store) => store.modalReducer.isOrderDetailsModalOpen);
-  
+
   const bunPrice = useMemo(() => {
     return bunElement === undefined ? 0 : bunElement.price * 2;
   }, [bunElement]);
@@ -76,15 +78,18 @@ const BurgerConstructor: FC<IBurgerConstructor> = ({ closePopup }) => {
     <section className={`${styles.section} ${isHover && styles.dropping}`} ref={dropRef}>
       <div className={`mb-10 mt-25`}>
         <TopBun />
-        <ul className={'text custom-scroll ' + styles.list}>
+        <Reorder.Group
+          className={'text custom-scroll ' + styles.list}
+          axis="y"
+          values={selectedIngredients}
+          onReorder={(sortedIngredients) =>
+            dispatch(setSortIngredients(sortedIngredients))
+          }>
           {selectedIngredients.map((element: IIngredient, index: number) => (
-            <SelectedIngredient
-              ingredient={element}
-              index={index} key={element.uniqueId}
-            />
+            <SelectedIngredient ingredient={element} key={element.uniqueId} />
           ))
           }
-        </ul>
+        </Reorder.Group>
         <BottomBun />
       </div>
       {bunElement ?

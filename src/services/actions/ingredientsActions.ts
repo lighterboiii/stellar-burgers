@@ -84,7 +84,7 @@ export type TIngredientsActions =
   | IDeleteIngredient;
 
 export const setDeleteAllIngredients = (): IDeleteAllIngredients => ({ type: DELETE_ALL_INGREDIENTS, payload: [] });
-export const setSortIngredients = (data: Array<IIngredient>): ISortIngredients => ({ type: SORT_INGREDIENTS, payload: data });
+export const setSortIngredients = (ingredients: Array<IIngredient>): ISortIngredients => ({ type: SORT_INGREDIENTS, payload: ingredients });
 
 export const getIngredientsRequest = (): IGetIngredientsRequest => ({ type: GET_INGREDIENTS_REQUEST });
 export const getIngredientsFailed = (): IGetIngredientsFailed => ({ type: GET_INGREDIENTS_FAILED });
@@ -113,16 +113,17 @@ export const deleteAllIngredients = () => {
     dispatch(setDeleteAllIngredients());
   }
 };
-
-export const sortIngredients = (dragIndex: number, hoverIndex: number, selectedIngredients: Array<IIngredient>) => {
-  return function (dispatch: AppDispatch) {
-    const dragItem = selectedIngredients[dragIndex];
-    const sortedIngredients = [...selectedIngredients];
-    const hoverItem = sortedIngredients.splice(hoverIndex, 1, dragItem);
-    sortedIngredients.splice(dragIndex, 1, hoverItem[0]);
-    dispatch(setSortIngredients(sortedIngredients));
-  }
-};
+// export const sortIngredients = (dragIndex: number, hoverIndex: number, selectedIngredients: Array<IIngredient>) => {
+//   return function (dispatch: AppDispatch) {
+//     const dragItem = selectedIngredients[dragIndex];
+//     const sortedIngredients = [...selectedIngredients];
+//     const hoverItem = sortedIngredients.splice(hoverIndex, 1, dragItem);
+//     console.log(hoverIndex)
+//     console.log(dragIndex)
+//     sortedIngredients.splice(dragIndex, 1, hoverItem[0]);
+//     dispatch(setSortIngredients(sortedIngredients));
+//   }
+// };
 
 export const getIngredientsData = () => {
   return function (dispatch: AppDispatch) {
