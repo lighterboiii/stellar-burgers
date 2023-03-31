@@ -8,10 +8,9 @@ interface IFeedList {
 }
 
 export const FeedList: FC<IFeedList> = ({ orders }) => {
-  // const reversed = orders.reverse();
   useEffect(() => {
     orders.reverse()
-  }, [])
+  }, [orders])
 
   return (
     <>
