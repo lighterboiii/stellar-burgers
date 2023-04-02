@@ -204,7 +204,6 @@ export const getUserInfo = () => {
     return checkUserDataRequest(getCookie("accessToken"))
       .then((res) => {
         if (res) {
-          console.log(res)
           dispatch(getUserDataLoadingSuccess(res));
         }
       })

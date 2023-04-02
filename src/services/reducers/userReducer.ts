@@ -22,7 +22,7 @@ export type TUserState = {
   logoutFailed: boolean;
   isPasswordForgot: boolean;
   user: IUser | null;
-  isLogin: boolean;
+  isLoggedIn: boolean | undefined;
   accessToken?: string;
 };
 
@@ -41,7 +41,7 @@ const initialState: TUserState = {
   logoutFailed: false,
   isPasswordForgot: false,
   user: null,
-  isLogin: false,
+  isLoggedIn: undefined,
   accessToken: undefined
 }
 
@@ -58,9 +58,9 @@ const userReducer = (state = initialState, action: TUserActions): TUserState => 
       return {
         ...state,
         loginRequest: false,
-        accessToken: action.payload.accessToken, // починить
+        accessToken: action.payload.accessToken, 
         user: action.payload.user,
-        isLogin: true
+        isLoggedIn: true,
       };
     }
     case LOGIN_FAILED: {
@@ -116,6 +116,7 @@ const userReducer = (state = initialState, action: TUserActions): TUserState => 
       return {
         ...state,
         getUserDataRequest: true,
+        isLoggedIn: true,
         getUserDataRequestFailed: false,
       };
     }
@@ -123,8 +124,8 @@ const userReducer = (state = initialState, action: TUserActions): TUserState => 
       return {
         ...state,
         getUserDataRequest: false,
-        user: action.payload.user,
-        isLogin: true
+        isLoggedIn: true,
+        user: action.payload.user
       };
     }
     case GET_USER_DATA_FAILED: {
@@ -132,6 +133,7 @@ const userReducer = (state = initialState, action: TUserActions): TUserState => 
         ...state,
         getUserDataRequest: false,
         getUserDataRequestFailed: true,
+        isLoggedIn: false,
       };
     }
     case LOGOUT: {
@@ -146,6 +148,7 @@ const userReducer = (state = initialState, action: TUserActions): TUserState => 
         ...state,
         logoutRequest: false,
         user: null,
+        isLoggedIn: false,
         accessToken: undefined,
       }
     }

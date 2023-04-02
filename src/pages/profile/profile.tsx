@@ -1,31 +1,64 @@
 import styles from './profile.module.css';
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink, Outlet, useLocation, useMatch } from "react-router-dom";
-import { FC, useRef, useState, ChangeEvent, FormEvent } from 'react';
+import { NavLink, useNavigate, Outlet, useLocation, useMatch } from "react-router-dom";
+import { FC, useEffect, useRef, useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { setLogout, sendUserInfo } from '../../services/actions/userActions';
+
 import { getCookie } from '../../utils/cookie';
+import { getUserInfo } from '../../services/actions/userActions';
 
 export const ProfilePage: FC = () => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const accessToken = getCookie("accessToken");
-  const { user } = useSelector((store) => store.userReducer);
-  const [userData, setUserData] = useState(user!);
-  const [passwordValue, setPasswordValue] = useState('');
+  const user = useSelector((store) => store.userReducer.user);
 
+  useEffect(() => {
+    if (user) {
+      setNameValue(user.name);
+      setEmailValue(user.email);
+      setPasswordValue(passwordValue);
+    } else {
+      dispatch(getUserInfo());
+      navigate('/profile', { replace: true })
+    }
+  }, [user])
+
+  const [nameValue, setNameValue] = useState('');
+  const [emailValue, setEmailValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+  const [isInfoChanged, setIsInfoChanged] = useState(false);
+
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
   const passRef = useRef<HTMLInputElement>(null);
 
-  const onFormChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value });
+  const matchOrders = useMatch('/profile/orders');
+  const matchProfile = useMatch('/profile');
+
+  const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setTimeout(() => nameRef.current?.focus(), 0);
+    setNameValue(value);
+    value === user!.name ? setIsInfoChanged(false) : setIsInfoChanged(true);
+  }
+
+  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setTimeout(() => emailRef.current?.focus(), 0);
+    setEmailValue(value);
+    value === user!.email ? setIsInfoChanged(false) : setIsInfoChanged(true);
   }
 
   const onPassChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setTimeout(() => passRef.current?.focus(), 0);
     setPasswordValue(value);
+    value === passwordValue ? setIsInfoChanged(false) : setIsInfoChanged(true);
   }
 
   const handleLogout = () => {
@@ -35,16 +68,14 @@ export const ProfilePage: FC = () => {
 
   const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(sendUserInfo(userData!.name, userData!.email, passwordValue, accessToken));
+    dispatch(sendUserInfo(nameValue, emailValue, passwordValue, accessToken));
   }
 
   const handleCancel = () => {
-    setUserData({ name: user!.name, email: user!.email })
-    setPasswordValue(passwordValue);
+    setNameValue(user!.name);
+    setEmailValue(user!.email);
+    setPasswordValue('');
   }
-
-  const matchOrders = useMatch('/profile/orders');
-  const matchProfile = useMatch('/profile');
 
   return (
     <div className={styles.container}>
@@ -71,18 +102,20 @@ export const ProfilePage: FC = () => {
         {location.pathname === '/profile/orders' ? <Outlet /> :
           <form className={styles.form} onSubmit={onFormSubmit} name="profile">
             <Input type='text' name='name' placeholder='Имя' icon={'EditIcon'}
-              value={userData!.name} onChange={onFormChange} />
-            <Input type='email' name='email' placeholder='Логин' icon={'EditIcon'}
-              value={userData!.email} onChange={onFormChange} />
-            <PasswordInput name='password' placeholder='Пароль' value={passwordValue} onChange={onPassChange} />
+              value={nameValue} ref={nameRef} onChange={onNameChange} />
+            <Input type='email' name='login' placeholder='Логин' icon={'EditIcon'}
+              value={emailValue} ref={emailRef} onChange={onEmailChange} />
+            <PasswordInput name='password' value={passwordValue} onChange={onPassChange} />
             {
+              isInfoChanged && (
                 <div className={styles.buttons}>
                   <Button type='secondary' size='medium' htmlType='button' onClick={handleCancel}>Отмена</Button>
                   <Button type='primary' size='medium' htmlType='submit' >Сохранить</Button>
                 </div>
+              )
             }
           </form>
-        }
+ }
       </div>
     </div>
   )

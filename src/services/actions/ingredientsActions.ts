@@ -113,17 +113,6 @@ export const deleteAllIngredients = () => {
     dispatch(setDeleteAllIngredients());
   }
 };
-// export const sortIngredients = (dragIndex: number, hoverIndex: number, selectedIngredients: Array<IIngredient>) => {
-//   return function (dispatch: AppDispatch) {
-//     const dragItem = selectedIngredients[dragIndex];
-//     const sortedIngredients = [...selectedIngredients];
-//     const hoverItem = sortedIngredients.splice(hoverIndex, 1, dragItem);
-//     console.log(hoverIndex)
-//     console.log(dragIndex)
-//     sortedIngredients.splice(dragIndex, 1, hoverItem[0]);
-//     dispatch(setSortIngredients(sortedIngredients));
-//   }
-// };
 
 export const getIngredientsData = () => {
   return function (dispatch: AppDispatch) {

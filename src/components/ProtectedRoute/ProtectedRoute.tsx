@@ -5,28 +5,29 @@ import { FC } from "react";
 
 interface IProtectedRoute {
   element: any;
-  // to: string;
-  anonymous?: boolean;
+  to: string;
+  isLoggedIn: boolean | undefined;
 }
 
-export const ProtectedRoute: FC<IProtectedRoute> = ({ element, anonymous = false }) => {
-  const location = useLocation();
-  const from = location.state?.from || '/';
+export const ProtectedRoute: FC<IProtectedRoute> = ({ element, isLoggedIn, to }) => {
+  // const location = useLocation();
+  // const from = location.state?.from || '/';
 
   // const token = getCookie("accessToken");
-  const userData = useSelector((store) => store.userReducer.user);
+  // const userData = useSelector((store) => store.userReducer.user);
+  // const { isLoggedIn } = useSelector((store) => store.userReducer);
+  // console.log(isLoggedIn)
+  // if (anonymous && isLoggedIn) {
+  //   return <Navigate to={from} />;
+  // }
 
-  if (anonymous && userData) {
-    return <Navigate to={from} />;
-  }
+  // if (!anonymous && !isLoggedIn) {
+  //   return <Navigate to="/login" state={{ from: location }} />;
+  // }
 
-  if (!anonymous && !userData) {
-    return <Navigate to="/login" state={{ from: location }} />;
-  }
+  // return element;
 
-  return element;
-
-  // return (
-  //   <> {(userData && token) ? element : <Navigate to={to} />} </>
-  // )
+  return (
+    <> {isLoggedIn ? element : <Navigate to={to} />} </>
+  )
 };

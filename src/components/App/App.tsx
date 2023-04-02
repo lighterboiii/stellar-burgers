@@ -31,7 +31,7 @@ const App: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  const { user } = useSelector((store) => store.userReducer);
+  const { user, isLoggedIn } = useSelector((store) => store.userReducer);
   const access = getCookie("accessToken");
 
   const closePopup = () => {
@@ -43,7 +43,7 @@ const App: FC = () => {
     if (access) {
       dispatch(getUserInfo());
     }
-  }, [dispatch]);
+  }, []);
 
   const background =
     location.state?.locationFeedList ||
@@ -61,10 +61,10 @@ const App: FC = () => {
           <Route path="/register" element={(!user && !access) ? <RegisterPage /> : <Navigate to={'/'} />} />
           <Route path="/forgot-password" element={(!user && !access) ? <ForgotPage /> : <Navigate to={'/'} />} />
           <Route path="/reset-password" element={<ResetPage />} />
-          <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} />} >
+          <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} isLoggedIn={isLoggedIn} to={'/login'} />} >
             <Route path='orders' element={<ProfileFeedPage />} />
           </Route>
-          <Route path='/profile/orders/:id' element={(!user && !access) ? <LoginPage /> : <OrderPage isLogin={true} />} />
+          <Route path='/profile/orders/:id' element={<OrderPage isLogin={true} />} />
           <Route path='/feed' element={<FeedPage />} />
           <Route path='/feed/:id' element={<OrderPage isLogin={false} />} />
           <Route path="/ingredients/:id" element={<IngredientPage />} />
