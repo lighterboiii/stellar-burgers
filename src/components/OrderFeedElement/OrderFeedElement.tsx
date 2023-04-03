@@ -22,7 +22,7 @@ export const OrderFeedElement: FC<IOrderFeedElement> = ({ order }) => {
     if (matchProfile) {
       setIsProfile(true)
     }
-  }, [matchProfile])
+  }, [])
   
   return (
     <article className={Boolean(matchProfile) ? `${styles.profileOrder}` : `${styles.order}`}>

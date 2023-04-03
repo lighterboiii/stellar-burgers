@@ -4,7 +4,7 @@ import { OrdersCounter } from '../../components/OrdersCounter/OrdersCounter';
 import { FC, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { wsConnectionStart, wsConnectionClosed } from '../../services/actions/wsActions';
-import { wsUrl } from '../../utils/constants';
+import { WS_URL_ALL } from '../../utils/constants';
 
 interface IOrderStatus {
   doneList: Array<number>;
@@ -16,7 +16,7 @@ export const FeedPage: FC = () => {
   const { orders, total, totalToday } = useSelector((store) => store.socketReducer);
 
   useEffect(() => {
-    dispatch(wsConnectionStart(`${wsUrl}/all`))
+    dispatch(wsConnectionStart(WS_URL_ALL))
     return () => {
       dispatch(wsConnectionClosed())
     }
@@ -45,7 +45,7 @@ export const FeedPage: FC = () => {
     <div className={styles.wrapper}>
       <h2 className={'text text_type_main-large mb-5 ' + styles.title}>Лента заказов</h2>
       <div className={styles.content}>
-        <FeedList orders={orders} />
+        <FeedList orders={orders.reverse()} />
         <OrdersCounter doneList={doneList} preparingList={preparingList} total={total} totalToday={totalToday} />
       </div>
     </div>

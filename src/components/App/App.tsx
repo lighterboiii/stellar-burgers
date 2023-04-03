@@ -31,7 +31,7 @@ const App: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  const { user, isLoggedIn } = useSelector((store) => store.userReducer);
+  const { user } = useSelector((store) => store.userReducer);
   const access = getCookie("accessToken");
 
   const closePopup = () => {
@@ -43,14 +43,14 @@ const App: FC = () => {
     if (access) {
       dispatch(getUserInfo());
     }
-  }, []);
+  }, [dispatch, access]);
 
   const background =
     location.state?.locationFeedList ||
-    location.state?.locationProfileFeed ||
     location.state?.locationIngredientPage ||
+    location.state?.locationProfileFeed ||
     location;
-
+    
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.app}>
@@ -61,10 +61,10 @@ const App: FC = () => {
           <Route path="/register" element={(!user && !access) ? <RegisterPage /> : <Navigate to={'/'} />} />
           <Route path="/forgot-password" element={(!user && !access) ? <ForgotPage /> : <Navigate to={'/'} />} />
           <Route path="/reset-password" element={<ResetPage />} />
-          <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} isLoggedIn={isLoggedIn} to={'/login'} />} >
+          <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} to={'/login'} />} >
             <Route path='orders' element={<ProfileFeedPage />} />
           </Route>
-          <Route path='/profile/orders/:id' element={<OrderPage isLogin={true} />} />
+          <Route path='/profile/orders/:id' element={(!user && !access) ? <OrderPage isLogin={true} /> : <Navigate to={'/'} />} />
           <Route path='/feed' element={<FeedPage />} />
           <Route path='/feed/:id' element={<OrderPage isLogin={false} />} />
           <Route path="/ingredients/:id" element={<IngredientPage />} />

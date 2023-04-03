@@ -1,3 +1,5 @@
+import { getCookie } from "./cookie";
+
 export const BURGER_API_URL = 'https://norma.nomoreparties.space/api';
 
 export const ORDERS_KEY = '/orders';
@@ -10,6 +12,8 @@ export const USER_KEY = '/auth/user';
 export const TOKEN_KEY = '/auth/token';
 export const LOGOUT_KEY = '/auth/logout';
 
-export const wsUrl = 'wss://norma.nomoreparties.space/orders';
+export const WS_URL = 'wss://norma.nomoreparties.space/orders';
+export const WS_URL_ALL = 'wss://norma.nomoreparties.space/orders/all';
+export const WS_URL_PROFILE = `wss://norma.nomoreparties.space/orders?token=${getCookie("accessToken")?.split("Bearer ")[1]}`;
 
 

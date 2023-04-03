@@ -3,8 +3,7 @@ import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { useParams } from "react-router-dom";
 import BurgerOrderDetails from "../../components/BurgerOrderDetails/BurgerOrderDetails";
-import { wsUrl } from '../../utils/constants';
-import { getCookie } from '../../utils/cookie';
+import { WS_URL_ALL, WS_URL_PROFILE } from '../../utils/constants';
 import { wsConnectionClosed, wsConnectionStart } from '../../services/actions/wsActions';
 import { IOrderDetails } from '../../services/actions/orderActions';
 
@@ -18,13 +17,13 @@ export const OrderPage: FC<IOrderPage> = ({ isLogin }) => {
 
   useEffect(() => {
     isLogin
-      ? dispatch(wsConnectionStart(`${wsUrl}?token=${getCookie("accessToken")?.split("Bearer ")[1]}`))
-      : dispatch(wsConnectionStart(`${wsUrl}/all`));
+      ? dispatch(wsConnectionStart(WS_URL_PROFILE))
+      : dispatch(wsConnectionStart(WS_URL_ALL));
     return () => {
       dispatch(wsConnectionClosed());
     };
   // eslint-disable-next-line
-  }, []);
+  }, [isLogin]);
 
   const orders = useSelector((store) => store.socketReducer.orders);
   console.log(orders);

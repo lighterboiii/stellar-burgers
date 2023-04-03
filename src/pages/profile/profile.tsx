@@ -58,7 +58,6 @@ export const ProfilePage: FC = () => {
     const value = e.target.value;
     setTimeout(() => passRef.current?.focus(), 0);
     setPasswordValue(value);
-    value === passwordValue ? setIsInfoChanged(false) : setIsInfoChanged(true);
   }
 
   const handleLogout = () => {
@@ -103,7 +102,7 @@ export const ProfilePage: FC = () => {
           <form className={styles.form} onSubmit={onFormSubmit} name="profile">
             <Input type='text' name='name' placeholder='Имя' icon={'EditIcon'}
               value={nameValue} ref={nameRef} onChange={onNameChange} />
-            <Input type='email' name='login' placeholder='Логин' icon={'EditIcon'}
+            <Input type='email' name='email' placeholder='Логин' icon={'EditIcon'}
               value={emailValue} ref={emailRef} onChange={onEmailChange} />
             <PasswordInput name='password' value={passwordValue} onChange={onPassChange} />
             {
