@@ -50,7 +50,9 @@ const App: FC = () => {
     location.state?.locationIngredientPage ||
     location.state?.locationProfileFeed ||
     location;
-    
+
+
+    console.log(background)
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.app}>
@@ -64,7 +66,7 @@ const App: FC = () => {
           <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} to={'/login'} />} >
             <Route path='orders' element={<ProfileFeedPage />} />
           </Route>
-          <Route path='/profile/orders/:id' element={(!user && !access) ? <OrderPage isLogin={true} /> : <Navigate to={'/'} />} />
+          <Route path='/profile/orders/:id' element={<ProtectedRoute element={<OrderPage isLogin={true} />} to={'/login'}  />} />
           <Route path='/feed' element={<FeedPage />} />
           <Route path='/feed/:id' element={<OrderPage isLogin={false} />} />
           <Route path="/ingredients/:id" element={<IngredientPage />} />

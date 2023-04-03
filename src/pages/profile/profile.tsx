@@ -1,10 +1,9 @@
 import styles from './profile.module.css';
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink, useNavigate, Outlet, useLocation, useMatch } from "react-router-dom";
+import { NavLink, useNavigate, Outlet, useMatch } from "react-router-dom";
 import { FC, useEffect, useRef, useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { setLogout, sendUserInfo } from '../../services/actions/userActions';
-
 import { getCookie } from '../../utils/cookie';
 import { getUserInfo } from '../../services/actions/userActions';
 
@@ -12,7 +11,6 @@ export const ProfilePage: FC = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const accessToken = getCookie("accessToken");
   const user = useSelector((store) => store.userReducer.user);
@@ -73,7 +71,8 @@ export const ProfilePage: FC = () => {
   const handleCancel = () => {
     setNameValue(user!.name);
     setEmailValue(user!.email);
-    setPasswordValue('');
+    setPasswordValue(passwordValue);
+    setIsInfoChanged(false);
   }
 
   return (
@@ -98,11 +97,11 @@ export const ProfilePage: FC = () => {
         </p>
       </nav>
       <div className={styles.wrapper}>
-        {location.pathname === '/profile/orders' ? <Outlet /> :
+        {Boolean(matchOrders) ? <Outlet /> :
           <form className={styles.form} onSubmit={onFormSubmit} name="profile">
             <Input type='text' name='name' placeholder='Имя' icon={'EditIcon'}
               value={nameValue} ref={nameRef} onChange={onNameChange} />
-            <Input type='email' name='email' placeholder='Логин' icon={'EditIcon'}
+            <Input type='email' name='login' placeholder='Логин' icon={'EditIcon'}
               value={emailValue} ref={emailRef} onChange={onEmailChange} />
             <PasswordInput name='password' value={passwordValue} onChange={onPassChange} />
             {
