@@ -34,7 +34,6 @@ export const ProfileFeedPage: FC = () => {
     orders &&
     <section className={styles.feed}>
       <FeedList orders={orders.reverse()} />
-      {/* <FeedList orders={orders} /> */}
     </section>
   )
 };
