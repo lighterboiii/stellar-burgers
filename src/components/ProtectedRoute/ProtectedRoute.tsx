@@ -4,7 +4,7 @@ import { useSelector } from "../../services/hooks";
 
 interface IProtectedRoute {
   element: any;
-  to: string;
+  // to: string;
   anonymous?: boolean;
 }
 
