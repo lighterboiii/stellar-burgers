@@ -51,8 +51,6 @@ const App: FC = () => {
     location.state?.locationProfileFeed ||
     location;
 
-
-    console.log(background)
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.app}>

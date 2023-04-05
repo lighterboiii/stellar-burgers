@@ -11,7 +11,7 @@ export async function request(url: string, options?: any) {
   const res = await fetch(url, options);
   return checkRes(res);
 }
-//TODO: избавиться от any?
+
 export const requestWithRefresh = async (url: string, options: any) => {
   try {
     const res = await fetch(url, options);
@@ -99,7 +99,7 @@ export function loginRequest(email: string, password: string) {
     })
   })
 }
-// запрос данных пользователя
+
 export function checkUserDataRequest(accessToken: string | undefined) {
   return requestWithRefresh(`${BURGER_API_URL}${USER_KEY}`, {
     method: 'GET',
@@ -109,7 +109,7 @@ export function checkUserDataRequest(accessToken: string | undefined) {
     }
   })
 }
-// обновление данных пользователя
+
 export function changeUserDataRequest(name: string, email: string, password: string, accessToken: string | undefined) {
   return requestWithRefresh(`${BURGER_API_URL}${USER_KEY}`, {
     method: 'PATCH',
@@ -124,7 +124,7 @@ export function changeUserDataRequest(name: string, email: string, password: str
     })
   })
 }
-// запрос рефреша
+
 export function refreshTokenRequest(refreshToken: string | undefined) {
   return request(`${BURGER_API_URL}${TOKEN_KEY}`, {
     method: 'POST',
@@ -137,7 +137,7 @@ export function refreshTokenRequest(refreshToken: string | undefined) {
   }
   )
 }
-// запрос логаута
+
 export function signOutRequest(refreshToken: string | undefined) {
   return request(`${BURGER_API_URL}${LOGOUT_KEY}`, {
     method: 'POST',

@@ -17,7 +17,6 @@ export const OrderImagesList: FC<IOrderImagesList> = ({ ingredients }) => {
 
   return (
     <ul className={styles.list}>
-      {/* ругается на отсутствие ожидаемого коллбека функции */}
       {/* eslint-disable */}
       {ingredients.map((el, index) => {
         if (index === 5) {

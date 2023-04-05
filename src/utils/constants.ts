@@ -1,5 +1,3 @@
-import { getCookie } from "./cookie";
-
 export const BURGER_API_URL = 'https://norma.nomoreparties.space/api';
 
 export const ORDERS_KEY = '/orders';

@@ -4,7 +4,6 @@ import { useSelector } from "../../services/hooks";
 
 interface IProtectedRoute {
   element: any;
-  // to: string;
   anonymous?: boolean;
 }
 
@@ -23,8 +22,4 @@ export const ProtectedRoute: FC<IProtectedRoute> = ({ element, anonymous = false
   }
 
   return element;
-
-  // return (
-  //   <> {isLoggedIn ? element : <Navigate to={to} />} </>
-  // )
 };
