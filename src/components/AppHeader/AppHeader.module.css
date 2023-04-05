@@ -13,17 +13,22 @@
 .container {
 	margin: 0 auto;
 	composes: layout;
-	width: 1280px;
+	max-width: 1280px;
 }
 
 .logo {
-	margin: 0 288px 0 auto;
+  display: flex;
+  align-items: center;
+  margin: 0 280px 0 112px;
 }
 
 .link {
+	composes: layout;
+	color: #8585ad;
+	cursor: pointer;
+	gap: 8px;
 	border-radius: 40px;
 	text-decoration: none;
-	composes: layout;
 }
 
 .link:hover {
