@@ -7,7 +7,7 @@ _____
 + React 
 + Redux
 + React dnd
-+ JSX
 + Client-side routing
 + Cookies & tokens
 + WebSocket 
++ TypeScript
